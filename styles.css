@@ -1,22 +1,16 @@
 :root {
-  --bg: #f7f3ee;
+  --bg: #f8f5f0;
   --surface: #ffffff;
-  --surface-soft: #fbfaf7;
-
-  --border: rgba(60, 50, 40, 0.08);
-  --border-strong: rgba(60, 50, 40, 0.14);
-
-  --text: #1f1a17;
+  --text: #1c1715;
   --muted: #6f675f;
 
-  --accent: #9a7b4f;
-  --accent-dark: #7a5f3b;
-  --accent-soft: rgba(154, 123, 79, 0.12);
+  --accent: #9d7a43;
+  --accent-dark: #7f6135;
 
-  --radius: 22px;
+  --border: rgba(28, 23, 21, 0.08);
 
-  --shadow: 0 12px 30px rgba(0,0,0,0.06);
-  --shadow-hover: 0 18px 45px rgba(0,0,0,0.10);
+  --radius: 28px;
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.05);
 
   --max-width: 1180px;
 }
@@ -25,224 +19,233 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(154, 123, 79, 0.08), transparent 40%),
-    linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+  background: var(--bg);
   color: var(--text);
+  font-family: "Inter", sans-serif;
   line-height: 1.6;
 }
 
-/* ================= TYPO ================= */
+/* ================= GLOBAL ================= */
 
-h1, h2, h3 {
-  margin: 0 0 12px;
-  letter-spacing: -0.03em;
+a {
+  text-decoration: none;
 }
-
-h1 { font-size: clamp(2rem, 4vw, 3.2rem); }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.2rem; }
-
-p {
-  color: var(--muted);
-  margin: 0 0 14px;
-}
-
-/* ================= HEADER GLOBAL ================= */
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  background: rgba(255,255,255,0.65);
-  backdrop-filter: blur(14px);
-
-  border-bottom: 1px solid var(--border);
-}
-
-/* ================= TOPBAR ================= */
-
-.topbar {
-  width: min(100% - 32px, var(--max-width));
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 18px 0;
-}
-
-/* ================= BRAND ================= */
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-logo {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
-.brand-name {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-/* ================= NAV ================= */
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 26px;
-}
-
-.nav-links a {
-  color: var(--muted);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: var(--text);
-}
-
-/* CTA bouton */
-.nav-cta {
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  color: var(--text);
-  font-weight: 600;
-}
-
-/* ================= LAYOUT ================= */
 
 .section {
-  width: min(100% - 32px, var(--max-width));
-  margin: 24px auto;
+  width: min(100% - 40px, var(--max-width));
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ================= HEADER ================= */
+
+.header-luxury {
+  padding: 28px 0 10px;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.top-nav a {
+  color: var(--muted);
+  transition: 0.3s ease;
+}
+
+.top-nav a:hover {
+  color: var(--text);
 }
 
 /* ================= HERO ================= */
 
 .hero {
   text-align: center;
-  padding: 100px 20px;
+  padding: 70px 20px 110px;
 }
 
-.hero p {
-  max-width: 700px;
-  margin: auto;
+.hero-logo {
+  width: 95px;
+  margin-bottom: 24px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+
+h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+  margin-bottom: 14px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+p {
+  color: var(--muted);
   font-size: 1.05rem;
 }
 
-/* ================= CARD ================= */
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px;
-  box-shadow: var(--shadow);
-  transition: 0.25s ease;
+.hero p {
+  max-width: 650px;
+  margin: auto;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--border-strong);
+/* ================= BUTTONS ================= */
+
+.hero-actions {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
 }
 
-/* ================= GRID ================= */
-
-.card-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* ================= BUTTON ================= */
-
-button, .btn {
+.btn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 18px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
+
+  padding: 16px 34px;
+  border-radius: 999px;
+
+  border: 1px solid var(--accent);
+  background: var(--accent);
   color: white;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  box-shadow: 0 10px 24px rgba(154, 123, 79, 0.25);
-  transition: 0.2s ease;
+
+  font-weight: 600;
+  transition: 0.3s ease;
 }
 
-button:hover, .btn:hover {
+.btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(154, 123, 79, 0.30);
 }
 
-/* ================= INPUT ================= */
-
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--surface-soft);
-  outline: none;
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
 }
 
-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+.btn-secondary:hover {
+  background: var(--accent);
+  color: white;
 }
 
-/* ================= AUTH ================= */
+/* ================= CARDS ================= */
 
-.auth-container {
-  max-width: 380px;
-  margin: 100px auto;
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.card {
+  background: white;
   padding: 30px;
-  background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* ================= PROGRAMMES ================= */
+
+#programmes {
+  padding-bottom: 100px;
+}
+
+/* ================= TARIFS ================= */
+
+.pricing-section {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+.pricing-card {
+  max-width: 460px;
   text-align: center;
 }
 
-/* ================= DASHBOARD ================= */
+.price {
+  font-size: 4rem;
+  font-family: "Cormorant Garamond", serif;
+  color: var(--accent);
+  margin: 20px 0;
+}
 
-.dashboard {
-  width: min(100% - 32px, var(--max-width));
-  margin: 40px auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+/* ================= FOOTER ================= */
+
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--muted);
 }
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .top-nav {
+    gap: 20px;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+
   .card-grid {
     grid-template-columns: 1fr;
   }
 
-  .dashboard {
-    grid-template-columns: 1fr;
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
   }
 }
