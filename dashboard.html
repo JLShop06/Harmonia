@@ -4,15 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Dashboard - Harmonia</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header>
-  <h1>Bienvenue sur Harmonia</h1>
+<!-- ================= LOADING / PROTECTION ================= -->
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+
+  const supabase = createClient(
+    "https://vbdgumnlpgpiaeckqnum.supabase.co",
+    "TON_ANON_KEY_ICI"
+  )
+
+  async function init() {
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      window.location.href = "login.html"
+    }
+
+    document.getElementById("user-email").textContent = user.email
+  }
+
+  init()
+
+  // logout function
+  window.logout = async () => {
+    await supabase.auth.signOut()
+    window.location.href = "login.html"
+  }
+</script>
+
+<!-- ================= DASHBOARD UI ================= -->
+
+<header style="display:flex;justify-content:space-between;align-items:center;padding:20px 40px;">
+  <h1>Harmonia</h1>
+
+  <div>
+    <span id="user-email" style="margin-right:20px;color:#94a3b8;"></span>
+    <button onclick="logout()">Déconnexion</button>
+  </div>
 </header>
 
+<!-- ================= DASHBOARD CONTENT ================= -->
+
 <section class="dashboard">
+
+  <!-- PROGRAMME -->
   <div class="card">
     <h2>Programme du jour</h2>
     <p>10 min respiration</p>
@@ -20,28 +61,20 @@
     <p>5 min méditation sommeil</p>
   </div>
 
+  <!-- PROGRESSION -->
   <div class="card">
     <h2>Progression</h2>
-    <p>7 jours consécutifs 🔥</p>
+    <p>🔥 7 jours consécutifs</p>
+    <p>📈 Niveau: Débutant +</p>
   </div>
+
+  <!-- PREMIUM STATUS -->
+  <div class="card">
+    <h2>Statut abonnement</h2>
+    <p>Chargement...</p>
+  </div>
+
 </section>
-<script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
 
-  const supabase = createClient(
-    "https://vbdgumnlpgpiaeckqnum.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw"
-  )
-
-  async function checkUser() {
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-      window.location.href = "login.html"
-    }
-  }
-
-  checkUser()
-</script>
 </body>
 </html>
