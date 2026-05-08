@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0f172a"/>
+  <meta name="description" content="Harmonia - Méditation, yoga, respiration, tai chi et étirements." />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+
+  <title>Harmonia</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #475569;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      background: #0f172a;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1e293b;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 60px 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    .pricing {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .price-box {
+      background: white;
+      max-width: 400px;
+      margin: auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .price {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Harmonia</div>
+  <nav>
+    <a href="#">Accueil</a>
+    <a href="#">Programmes</a>
+    <a href="#">Tarifs</a>
+    <a href="#">Connexion</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Trouvez votre équilibre</h1>
+  <p>
+    Méditation, yoga, respiration, tai chi et étirements dans une seule application premium.
+    Programmes adaptés à votre niveau et vos objectifs.
+  </p>
+  <a href="#" class="btn">Commencer maintenant</a>
+</section>
+
+<section class="features">
+  <div class="card">
+    <h3>🧘 Méditation</h3>
+    <p>Programmes guidés pour calmer l’esprit et améliorer le sommeil.</p>
+  </div>
+
+  <div class="card">
+    <h3>🌿 Respiration</h3>
+    <p>Exercices anti-stress et techniques de concentration.</p>
+  </div>
+
+  <div class="card">
+    <h3>🤸 Mobilité</h3>
+    <p>Yoga, tai chi et étirements progressifs.</p>
+  </div>
+
+  <div class="card">
+    <h3>📈 Progression</h3>
+    <p>Suivi des habitudes, statistiques et routines quotidiennes.</p>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="price-box">
+    <h2>Abonnement Premium</h2>
+    <div class="price">14,90€ / mois</div>
+    <p>Accès illimité à tous les programmes et mises à jour.</p>
+    <br />
+    <a href="#" class="btn">S’abonner</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Harmonia — Corps • Esprit • Équilibre
+</footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('Service Worker enregistré'));
+  }
+</script>
+
+</body>
+</html>
