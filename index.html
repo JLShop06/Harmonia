@@ -3,118 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f4f1eb" />
-  <meta name="description" content="Harmonia - Méditation, yoga, respiration, tai chi et étirements." />
 
-  " />
-  " />
-  " />
+  <meta name="theme-color" content="#f7f3ee" />
+  <meta name="description" content="Harmonia - Méditation, yoga, respiration, mobilité et équilibre." />
 
   <title>Harmonia</title>
+
+  <!-- ✅ CSS LUXE -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
-  <header>
-    <nav class="topbar">
-      <a href="index.html" class="brand">
-        <img src="logo-harmonia.png" alt="Harmonia" class="brand-logo" />
-        <span class="brand-name">Harmonia</span>
-      </a>
+<!-- ================= HEADER ================= -->
+<header>
+  <nav class="topbar">
 
-      <div class="nav-links">
-        <a href="#accueil">Accueil</a>
-        <a href="#programmes">Programmes</a>
-        <a href="#tarifs">Tarifs</a>
-        <a href="login.html" class="nav-cta">Connexion</a>
-      </div>
-    </nav>
-  </header>
+    <a href="index.html" class="brand">
+      <img src="logo-harmonia.png" alt="Harmonia" class="brand-logo" />
+      <span class="brand-name">Harmonia</span>
+    </a>
 
-  <main>
-    <section id="accueil" class="hero section">
-      <div class="badge">Plateforme bien-être premium</div>
-      <h1>Corps. Esprit. Performance.</h1>
-      <p>
-        Une plateforme premium de bien-être pour méditer, respirer, bouger et construire une discipline durable.
-      </p>
-      <div class="hero-actions">
-        <a href="login.html" class="btn">Commencer maintenant</a>
-        <a href="#programmes" class="btn btn-secondary">Découvrir les programmes</a>
-      </div>
-    </section>
+    <div class="nav-links">
+      <a href="#accueil">Accueil</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="login.html" class="nav-cta">Connexion</a>
+    </div>
 
-    <section class="section stats-grid">
+  </nav>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+  <!-- HERO -->
+  <section id="accueil" class="hero">
+    <div class="badge">Plateforme bien-être premium</div>
+
+    <h1>Corps. Esprit. Élégance.</h1>
+
+    <p>
+      Une expérience de bien-être haut de gamme pour transformer votre équilibre physique et mental.
+    </p>
+
+    <div class="hero-actions">
+      <a href="login.html" class="btn">Commencer</a>
+      <a href="#programmes" class="btn btn-secondary">Découvrir</a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section card-grid">
+
+    <div class="card">
+      <h3>🧘 Méditation</h3>
+      <p>Clarté mentale et apaisement profond guidé.</p>
+    </div>
+
+    <div class="card">
+      <h3>🌿 Respiration</h3>
+      <p>Techniques de respiration pour réduire stress et tension.</p>
+    </div>
+
+    <div class="card">
+      <h3>🤸 Mobilité</h3>
+      <p>Yoga et étirements pour un corps fluide et libre.</p>
+    </div>
+
+    <div class="card">
+      <h3>📈 Suivi</h3>
+      <p>Progression quotidienne simple et motivante.</p>
+    </div>
+
+  </section>
+
+  <!-- PROGRAMMES -->
+  <section id="programmes" class="section">
+
+    <div class="text-center">
+      <div class="badge">Programmes</div>
+      <h2>Un parcours simple et élégant</h2>
+      <p>Une progression naturelle adaptée à chaque niveau.</p>
+    </div>
+
+    <div class="card-grid">
+
       <div class="card">
-        <h3>🧘 Méditation</h3>
-        <p>Sessions guidées pour calmer l’esprit et renforcer la concentration.</p>
+        <h3>Débutant</h3>
+        <p>Découverte douce du bien-être et des bases.</p>
       </div>
+
       <div class="card">
-        <h3>🌿 Respiration</h3>
-        <p>Techniques simples pour réduire le stress et améliorer l’équilibre mental.</p>
+        <h3>Progression</h3>
+        <p>Amélioration de la régularité et de la discipline.</p>
       </div>
+
       <div class="card">
-        <h3>🤸 Mobilité</h3>
-        <p>Yoga, stretching et mobilité articulaire pour un corps plus libre.</p>
-      </div>
-      <div class="card">
-        <h3>📈 Suivi</h3>
-        <p>Suivi des habitudes et progression personnelle au quotidien.</p>
-      </div>
-    </section>
-
-    <section id="programmes" class="section">
-      <div class="text-center">
-        <div class="badge">Programmes</div>
-        <h2>Un parcours simple et premium</h2>
-        <p>Tout est pensé pour guider l’utilisateur avec clarté et élégance.</p>
+        <h3>Performance</h3>
+        <p>Routine avancée pour un équilibre optimal.</p>
       </div>
 
-      <div class="card-grid">
-        <div class="card">
-          <h3>Débuter</h3>
-          <p>Un programme doux pour entrer dans l’univers Harmonia sans pression.</p>
-        </div>
-        <div class="card">
-          <h3>Progression</h3>
-          <p>Des séances pour améliorer la régularité, la respiration et la mobilité.</p>
-        </div>
-        <div class="card">
-          <h3>Performance</h3>
-          <p>Un niveau avancé pour installer une vraie routine de bien-être durable.</p>
-        </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="tarifs" class="section pricing">
-      <div class="card pricing-card">
-        <div class="badge">Abonnement Premium</div>
-        <h2>Accès complet à tout Harmonia</h2>
-        <div class="price">14,90€ / mois</div>
-        <p>Accès à tous les programmes, mises à jour et nouvelles séances.</p>
-        <a href="login.html" class="btn">S’abonner</a>
-      </div>
-    </section>
-  </main>
+  <!-- PRICING -->
+  <section id="tarifs" class="section pricing">
 
-  <footer class="footer">
-    <p>© 2026 Harmonia — Corps • Esprit • Équilibre</p>
-  </footer>
+    <div class="card pricing-card">
+      <div class="badge">Premium</div>
 
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/service-worker.js");
-    }
-  </script>
+      <h2>Accès complet Harmonia</h2>
 
-  <script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+      <div class="price">14,90€</div>
 
-    const supabaseUrl = "https://vbdgumnlpgpiaeckqnum.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+      <p>Accès illimité à tous les programmes et mises à jour.</p>
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
-    console.log("Supabase initialisé", supabase);
-  </script>
+      <a href="login.html" class="btn">S’abonner</a>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>© 2026 Harmonia — Corps • Esprit • Équilibre</p>
+</footer>
+
+<!-- ================= SERVICE WORKER ================= -->
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js");
+  }
+</script>
 
 </body>
 </html>
