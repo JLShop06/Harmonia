@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f8fafc;
+  margin: 0;
+  color: #0f172a;
+}
+
+.auth-container,
+.dashboard {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 30px;
+}
+
+input, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+}
+
+button {
+  background: #0f172a;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
