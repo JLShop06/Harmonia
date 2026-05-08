@@ -199,3 +199,81 @@ h1 {
     justify-content: center;
   }
 }
+/* PAGE AUTH GLOBAL */
+.auth-page {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD CENTRÉE */
+.auth-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 90%;
+  max-width: 380px;
+  padding: 35px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  text-align: center;
+  color: white;
+}
+
+/* TITRES */
+.auth-card h1 {
+  margin-bottom: 5px;
+}
+
+.auth-card p {
+  opacity: 0.7;
+  margin-bottom: 25px;
+}
+
+/* INPUTS */
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+/* BOUTON */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background: #4338ca;
+}
+
+/* LIEN */
+.auth-card a {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #cbd5e1;
+  text-decoration: none;
+}
