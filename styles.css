@@ -1,207 +1,169 @@
 :root {
   --bg: #f8f5f0;
-  --surface: #ffffff;
   --text: #1c1715;
   --muted: #6f675f;
-
   --accent: #9d7a43;
-  --accent-dark: #7f6135;
-
-  --border: rgba(28, 23, 21, 0.08);
-
-  --radius: 28px;
-  --shadow: 0 14px 40px rgba(0, 0, 0, 0.05);
-
-  --max-width: 1180px;
+  --border: rgba(0,0,0,0.08);
 }
 
-/* ================= RESET ================= */
-
+/* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", sans-serif;
-  line-height: 1.6;
 }
 
-/* ================= GLOBAL ================= */
+/* ================= NAV ================= */
 
-a {
-  text-decoration: none;
+.header {
+  padding: 28px 0;
 }
 
-.section {
-  width: min(100% - 40px, var(--max-width));
-  margin: 0 auto;
-}
-
-.text-center {
-  text-align: center;
-}
-
-/* ================= HEADER ================= */
-
-.header-luxury {
-  padding: 28px 0 10px;
-}
-
-.top-nav {
+.nav {
   display: flex;
   justify-content: center;
-  gap: 48px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  gap: 50px;
 }
 
-.top-nav a {
+.nav a {
+  text-decoration: none;
   color: var(--muted);
-  transition: 0.3s ease;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
-.top-nav a:hover {
+.nav a:hover {
   color: var(--text);
 }
 
 /* ================= HERO ================= */
 
 .hero {
-  text-align: center;
-  padding: 70px 20px 110px;
+  padding: 80px 20px;
 }
 
-.hero-logo {
-  width: 95px;
-  margin-bottom: 24px;
+.hero-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* LEFT */
+.hero-text {
+  flex: 1;
 }
 
 .badge {
-  display: inline-block;
-  font-size: 0.78rem;
+  font-size: 12px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
   color: var(--accent);
-  margin-bottom: 18px;
-  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 h1 {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 600;
+  font-size: 72px;
   line-height: 1;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
-h2 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 3rem;
-  margin-bottom: 14px;
-}
-
-h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-p {
+.hero-text p {
+  max-width: 500px;
   color: var(--muted);
-  font-size: 1.05rem;
+  margin-bottom: 30px;
 }
 
-.hero p {
-  max-width: 650px;
-  margin: auto;
-}
-
-/* ================= BUTTONS ================= */
-
-.hero-actions {
-  margin-top: 36px;
+/* BUTTONS */
+.actions {
   display: flex;
-  justify-content: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 16px 34px;
-  border-radius: 999px;
-
-  border: 1px solid var(--accent);
   background: var(--accent);
   color: white;
-
+  padding: 14px 28px;
+  border-radius: 999px;
+  text-decoration: none;
   font-weight: 600;
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 
 .btn:hover {
   transform: translateY(-2px);
 }
 
-.btn-secondary {
-  background: transparent;
+.btn-outline {
+  border: 1px solid var(--accent);
   color: var(--accent);
+  padding: 14px 28px;
+  border-radius: 999px;
+  text-decoration: none;
 }
 
-.btn-secondary:hover {
-  background: var(--accent);
-  color: white;
+/* RIGHT IMAGE (LOGO BIG) */
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
-/* ================= CARDS ================= */
+.hero-image img {
+  width: 420px; /* 🔥 LOGO PLUS GROS */
+  max-width: 100%;
+}
 
-.card-grid {
+/* ================= FEATURES ================= */
+
+.features {
+  max-width: 1200px;
+  margin: 80px auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  gap: 20px;
 }
 
 .card {
   background: white;
   padding: 30px;
-  border-radius: var(--radius);
+  border-radius: 24px;
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
 
-/* ================= PROGRAMMES ================= */
+/* ================= PRICING ================= */
 
-#programmes {
-  padding-bottom: 100px;
-}
-
-/* ================= TARIFS ================= */
-
-.pricing-section {
+.pricing {
   display: flex;
   justify-content: center;
-  padding-bottom: 100px;
+  padding: 80px 20px;
 }
 
 .pricing-card {
-  max-width: 460px;
+  background: white;
+  padding: 50px;
+  border-radius: 30px;
   text-align: center;
+  border: 1px solid var(--border);
+  max-width: 500px;
 }
 
 .price {
-  font-size: 4rem;
+  font-size: 60px;
   font-family: "Cormorant Garamond", serif;
   color: var(--accent);
   margin: 20px 0;
@@ -210,42 +172,30 @@ p {
 /* ================= FOOTER ================= */
 
 .footer {
-  padding: 40px 20px;
   text-align: center;
-  border-top: 1px solid var(--border);
-  font-size: 0.95rem;
+  padding: 40px;
   color: var(--muted);
+  border-top: 1px solid var(--border);
 }
 
 /* ================= RESPONSIVE ================= */
 
-@media (max-width: 1000px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+@media (max-width: 900px) {
 
-@media (max-width: 700px) {
-  .top-nav {
-    gap: 20px;
-    font-size: 0.85rem;
-    flex-wrap: wrap;
-  }
-
-  .card-grid {
-    grid-template-columns: 1fr;
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 48px;
   }
 
-  h2 {
-    font-size: 2.2rem;
+  .features {
+    grid-template-columns: 1fr;
   }
 
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
+  .actions {
+    justify-content: center;
   }
 }
