@@ -4,22 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Connexion - Harmonia</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
+<!-- ================= AUTH CARD ================= -->
 <div class="auth-container">
+
   <h1>Harmonia</h1>
   <p>Connexion à votre espace premium</p>
 
   <form id="login-form">
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Mot de passe" required>
-    <button type="submit">Se connecter</button>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+      required
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Mot de passe"
+      required
+    >
+
+    <button type="submit">
+      Se connecter
+    </button>
+
   </form>
 
-  <p>Pas encore membre ? <a href="#">Créer un compte</a></p>
+  <p>
+    Pas encore membre ?
+    <a href="#">Créer un compte</a>
+  </p>
+
+  <p id="error" style="color:#f87171;margin-top:10px;"></p>
+
 </div>
+
+<!-- ================= SUPABASE AUTH ================= -->
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+
+  const supabase = createClient(
+    "https://vbdgumnlpgpiaeckqnum.supabase.co",
+    "TON_ANON_KEY_ICI"
+  )
+
+  const form = document.getElementById("login-form")
+  const errorBox = document.getElementById("error")
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (error) {
+      errorBox.textContent = "Email ou mot de passe incorrect"
+      return
+    }
+
+    // connexion OK → redirect dashboard
+    window.location.href = "dashboard.html"
+  })
+
+</script>
 
 </body>
 </html>
