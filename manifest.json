@@ -1,0 +1,39 @@
+{
+  "name": "Harmonia",
+  "short_name": "Harmonia",
+  "description": "Application premium de bien-être : méditation, yoga, respiration, tai chi et étirements.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "health",
+    "lifestyle",
+    "wellness"
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
