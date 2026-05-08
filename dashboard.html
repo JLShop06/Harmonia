@@ -25,6 +25,23 @@
     <p>7 jours consécutifs 🔥</p>
   </div>
 </section>
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
 
+  const supabase = createClient(
+    "https://vbdgumnlpgpiaeckqnum.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw"
+  )
+
+  async function checkUser() {
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      window.location.href = "login.html"
+    }
+  }
+
+  checkUser()
+</script>
 </body>
 </html>
