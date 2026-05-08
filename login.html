@@ -1,95 +1,25 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<form id="loginForm">
+  <input type="email" placeholder="Email">
+  <input type="password" placeholder="Mot de passe">
+  <button type="submit">Se connecter</button>
+</form>
 
-  <meta name="theme-color" content="#f7f3ee" />
-  <meta name="description" content="Connexion à Harmonia, espace premium bien-être." />
+<script src="auth.js"></script>
 
-  <title>Connexion - Harmonia</title>
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  const email = e.target[0].value;
+  const password = e.target[1].value;
 
-<body>
-
-<!-- ================= BACKGROUND LUXE ================= -->
-<div class="auth-bg"></div>
-
-<!-- ================= LOGIN CARD ================= -->
-<main class="auth-container">
-
-  <div class="text-center">
-    <div class="badge">Espace privé</div>
-
-    <h1>Harmonia</h1>
-
-    <p>Accédez à votre espace bien-être personnalisé</p>
-  </div>
-
-  <form id="login-form">
-
-    <input
-      type="email"
-      id="email"
-      placeholder="Adresse email"
-      autocomplete="email"
-      required
-    />
-
-    <input
-      type="password"
-      id="password"
-      placeholder="Mot de passe"
-      autocomplete="current-password"
-      required
-    />
-
-    <button type="submit">Se connecter</button>
-
-  </form>
-
-  <p class="text-center" style="margin-top:10px;">
-    <a href="#" class="link-underline">Créer un compte</a>
-  </p>
-
-  <p id="error" class="error-message text-center"></p>
-
-</main>
-
-<!-- ================= SUPABASE ================= -->
-<script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-  const supabase = createClient(
-    "https://vbdgumnlpgpiaeckqnum.supabase.co",
-    "TON_ANON_KEY_ICI"
-  );
-
-  const form = document.getElementById("login-form");
-  const errorBox = document.getElementById("error");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    errorBox.textContent = "";
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) {
-      errorBox.textContent = "Identifiants incorrects.";
-      return;
-    }
-
-    window.location.href = "dashboard.html";
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
   });
-</script>
 
-</body>
-</html>
+  if (error) return alert(error.message);
+
+  window.location.href = "dashboard.html";
+});
+</script>
