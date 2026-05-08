@@ -1,85 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Connexion - Harmonia</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <meta name="description" content="Connexion à Harmonia, votre espace premium." />
 
+  <title>Connexion - Harmonia</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<!-- ================= AUTH CARD ================= -->
-<div class="auth-container">
+  <main class="auth-container">
+    <div class="badge">Espace membre</div>
+    <h1>Harmonia</h1>
+    <p>Connexion à votre espace premium</p>
 
-  <h1>Harmonia</h1>
-  <p>Connexion à votre espace premium</p>
+    <form id="login-form">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        autocomplete="email"
+        required
+      />
 
-  <form id="login-form">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Mot de passe"
+        autocomplete="current-password"
+        required
+      />
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Email"
-      required
-    >
+      <button type="submit">Se connecter</button>
+    </form>
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Mot de passe"
-      required
-    >
+    <p class="muted">
+      Pas encore membre ? <a href="#" class="link-underline">Créer un compte</a>
+    </p>
 
-    <button type="submit">
-      Se connecter
-    </button>
+    <p id="error" class="error-message" aria-live="polite"></p>
+  </main>
 
-  </form>
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  <p>
-    Pas encore membre ?
-    <a href="#">Créer un compte</a>
-  </p>
+    const supabase = createClient(
+      "https://vbdgumnlpgpiaeckqnum.supabase.co",
+      "TON_ANON_KEY_ICI"
+    );
 
-  <p id="error" style="color:#f87171;margin-top:10px;"></p>
+    const form = document.getElementById("login-form");
+    const errorBox = document.getElementById("error");
 
-</div>
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorBox.textContent = "";
 
-<!-- ================= SUPABASE AUTH ================= -->
-<script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-  const supabase = createClient(
-    "https://vbdgumnlpgpiaeckqnum.supabase.co",
-    "TON_ANON_KEY_ICI"
-  )
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
-  const form = document.getElementById("login-form")
-  const errorBox = document.getElementById("error")
+      if (error) {
+        errorBox.textContent = "Email ou mot de passe incorrect.";
+        return;
+      }
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault()
-
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    })
-
-    if (error) {
-      errorBox.textContent = "Email ou mot de passe incorrect"
-      return
-    }
-
-    // connexion OK → redirect dashboard
-    window.location.href = "dashboard.html"
-  })
-
-</script>
+      window.location.href = "dashboard.html";
+    });
+  </script>
 
 </body>
 </html>
