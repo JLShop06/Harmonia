@@ -1,80 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <meta name="description" content="Dashboard Harmonia - votre espace premium." />
+
   <title>Dashboard - Harmonia</title>
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<!-- ================= LOADING / PROTECTION ================= -->
-<script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+  <header>
+    <nav class="topbar">
+      <a href="index.html" class="brand">
+        <img src="logo-harmonia.png" alt="Harmonia" class="brand-logo" />
+        <span class="brand-name">Harmonia</span>
+      </a>
 
-  const supabase = createClient(
-    "https://vbdgumnlpgpiaeckqnum.supabase.co",
-    "TON_ANON_KEY_ICI"
-  )
+      <div class="nav-links">
+        <span id="user-email" class="user-email"></span>
+        <button type="button" class="nav-cta" id="logout-btn">Déconnexion</button>
+      </div>
+    </nav>
+  </header>
 
-  async function init() {
-    const { data: { user } } = await supabase.auth.getUser()
+  <main class="dashboard">
+    <section class="card">
+      <div class="badge">Aujourd’hui</div>
+      <h2>Programme du jour</h2>
+      <p>10 min respiration</p>
+      <p>15 min yoga doux</p>
+      <p>5 min méditation sommeil</p>
+    </section>
 
-    if (!user) {
-      window.location.href = "login.html"
-    }
+    <section class="card">
+      <div class="badge">Progression</div>
+      <h2>Ton évolution</h2>
+      <p>🔥 7 jours consécutifs</p>
+      <p>📈 Niveau : Débutant +</p>
+    </section>
 
-    document.getElementById("user-email").textContent = user.email
-  }
+    <section class="card">
+      <div class="badge">Abonnement</div>
+      <h2>Statut premium</h2>
+      <p>Chargement...</p>
+    </section>
+  </main>
 
-  init()
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  // logout function
-  window.logout = async () => {
-    await supabase.auth.signOut()
-    window.location.href = "login.html"
-  }
-</script>
+    const supabase = createClient(
+      "https://vbdgumnlpgpiaeckqnum.supabase.co",
+      "TON_ANON_KEY_ICI"
+    );
 
-<!-- ================= DASHBOARD UI ================= -->
+    document.addEventListener("DOMContentLoaded", async () => {
+      const { data: { user } } = await supabase.auth.getUser();
 
-<header style="display:flex;justify-content:space-between;align-items:center;padding:20px 40px;">
-  <h1>Harmonia</h1>
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
 
-  <div>
-    <span id="user-email" style="margin-right:20px;color:#94a3b8;"></span>
-    <button onclick="logout()">Déconnexion</button>
-  </div>
-</header>
+      document.getElementById("user-email").textContent = user.email;
 
-<!-- ================= DASHBOARD CONTENT ================= -->
-
-<section class="dashboard">
-
-  <!-- PROGRAMME -->
-  <div class="card">
-    <h2>Programme du jour</h2>
-    <p>10 min respiration</p>
-    <p>15 min yoga doux</p>
-    <p>5 min méditation sommeil</p>
-  </div>
-
-  <!-- PROGRESSION -->
-  <div class="card">
-    <h2>Progression</h2>
-    <p>🔥 7 jours consécutifs</p>
-    <p>📈 Niveau: Débutant +</p>
-  </div>
-
-  <!-- PREMIUM STATUS -->
-  <div class="card">
-    <h2>Statut abonnement</h2>
-    <p>Chargement...</p>
-  </div>
-
-</section>
+      document.getElementById("logout-btn").addEventListener("click", async () => {
+        await supabase.auth.signOut();
+        window.location.href = "login.html";
+      });
+    });
+  </script>
 
 </body>
 </html>
