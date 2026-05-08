@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     mode: "subscription",
     line_items: [
       {
-        price: "PRICE_ID",
+        price: "price_1TUn0AF9c1lWA0HyP8ZwVeBN",
         quantity: 1
       }
     ],
