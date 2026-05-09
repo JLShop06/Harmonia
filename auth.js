@@ -1,31 +1,36 @@
-const supabaseUrl = "https://arewzgemzqmokinlylhu.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+// IMPORTANT : UNE SEULE déclaration
+const supabaseUrl = "TON_URL_SUPABASE";
+const supabaseKey = "TON_ANON_KEY";
 
-const supabase = window.supabase.createClient(
-  supabaseUrl,
-  supabaseKey
-);
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const signupForm = document.getElementById("signupForm");
 
-if (signupForm) {
-  signupForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// FORMULAIRE
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const email = signupForm.querySelector('input[type="email"]').value;
-    const password = signupForm.querySelector('input[type="password"]').value;
+  const firstName = e.target.firstName.value;
+  const lastName = e.target.lastName.value;
+  const email = e.target.email.value;
+  const address = e.target.address.value;
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password
-    });
+  // 1. Enregistrer dans Supabase
+  const { data, error } = await supabase
+    .from("users")
+    .insert([
+      {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        address: address
+      }
+    ]);
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
+  if (error) {
+    alert("Erreur inscription");
+    console.log(error);
+    return;
+  }
 
-    alert("Compte créé !");
-    window.location.href = "login.html";
-  });
-}
+  alert("Compte créé !");
+});
