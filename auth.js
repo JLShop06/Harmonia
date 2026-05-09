@@ -1,12 +1,16 @@
+// Empêche double initialisation
+if (!window.mySupabaseClient) {
+  const supabaseUrl = "https://arewzgemzqmokinlylhu.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
 
-// Supabase
-const supabaseUrl = "https://arewzgemzqmokinlylhu.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+  window.mySupabaseClient = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
+}
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const db = window.mySupabaseClient;
 
-
-// FORMULAIRE
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -15,8 +19,8 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   const email = e.target.email.value;
   const address = e.target.address.value;
 
-  // 1. Enregistrement Supabase
-  const { error } = await supabase
+  // Enregistrement
+  const { error } = await db
     .from("users")
     .insert([
       {
@@ -33,7 +37,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  // 2. Stripe Checkout (BON ENDPOINT)
+  // Stripe
   try {
     const response = await fetch(
       "https://harmonia-woad.vercel.app/api/create-checkout-session",
@@ -54,15 +58,14 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (!data.url) {
-      alert("Stripe error : aucune URL retournée");
+      alert("Erreur Stripe : URL manquante");
       return;
     }
 
-    // 3. Redirection vers Stripe
     window.location.href = data.url;
 
   } catch (err) {
     console.log(err);
-    alert("Erreur connexion Stripe API");
+    alert("Erreur connexion Stripe");
   }
 });
