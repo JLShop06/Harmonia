@@ -34,13 +34,19 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch(
-      "https://harmonia-woad.vercel.app/api/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+     const response = await fetch(
+  "https://harmonia-woad.vercel.app/api/create-checkout-session",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      priceId: "price_1TUn0AF9c1lWA0HyP8ZwVeBN"
+    })
+  }
+);
+        
         body: JSON.stringify({
           email,
           firstName,
