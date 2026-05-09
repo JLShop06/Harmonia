@@ -17,6 +17,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   const lastName = e.target.lastName.value;
   const email = e.target.email.value;
 
+  // 1️⃣ Inscription Supabase
   const { error } = await db
     .from("users")
     .insert([
@@ -33,21 +34,17 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     return;
   }
 
+  // 2️⃣ Stripe checkout
   try {
-     const response = await fetch(
-  "https://harmonia-woad.vercel.app/api/create-checkout-session",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      priceId: "price_1TUn0AF9c1lWA0HyP8ZwVeBN"
-    })
-  }
-);
-        
+    const response = await fetch(
+      "https://harmonia-woad.vercel.app/api/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
+          priceId: "price_1TUn0AF9c1lWA0HyP8ZwVeBN",
           email,
           firstName,
           lastName
@@ -55,9 +52,8 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
       }
     );
 
-    console.log(response);
-const data = await response.json();
-console.log(data);
+    const data = await response.json();
+    console.log(data);
 
     if (!data.url) {
       alert("Erreur Stripe");
