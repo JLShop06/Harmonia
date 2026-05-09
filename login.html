@@ -1,25 +1,61 @@
-<form id="loginForm">
-  <input type="email" placeholder="Email">
-  <input type="password" placeholder="Mot de passe">
-  <button type="submit">Se connecter</button>
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-<script src="auth.js"></script>
+<body class="auth-page">
 
-<script>
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  <div class="auth-card">
 
-  const email = e.target[0].value;
-  const password = e.target[1].value;
+    <h1>Connexion</h1>
+    <p>Accède à ton espace</p>
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+    <form id="loginForm">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Mot de passe" required>
 
-  if (error) return alert(error.message);
+      <button type="submit">Se connecter</button>
+    </form>
 
-  window.location.href = "dashboard.html";
-});
-</script>
+    <div class="auth-links">
+      <p>Pas encore de compte ?</p>
+      <a href="signup.html">Créer un compte</a>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const supabaseUrl = "https://TON_PROJECT.supabase.co";
+    const supabaseKey = "TA_ANON_KEY";
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById("loginForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = form[0].value;
+      const password = form[1].value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      window.location.href = "dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
