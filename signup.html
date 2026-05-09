@@ -1,31 +1,25 @@
-<form id="signupForm">
-  <input type="text" placeholder="Nom">
-  <input type="email" placeholder="Email">
-  <input type="password" placeholder="Mot de passe">
-  <button type="submit">Créer un compte</button>
-</form>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth.js"></script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription</title>
+</head>
+<body>
 
-<script>
-document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  <h2>Créer ton compte</h2>
 
-  const name = e.target[0].value;
-  const email = e.target[1].value;
-  const password = e.target[2].value;
+  <form id="signupForm">
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { full_name: name }
-    }
-  });
+    <input name="firstName" placeholder="Prénom" required><br><br>
+    <input name="lastName" placeholder="Nom" required><br><br>
+    <input name="email" type="email" placeholder="Email" required><br><br>
+    <input name="address" placeholder="Adresse"><br><br>
 
-  if (error) return alert(error.message);
+    <button type="submit">Commencer</button>
 
-  alert("Compte créé !");
-  window.location.href = "login.html";
-});
-</script>
+  </form>
+
+  <script src="auth.js"></script>
+
+</body>
+</html>
