@@ -12,8 +12,8 @@ export default async function handler(req, res) {
         quantity: 1
       }
     ],
-    success_url: "https://tonsite.vercel.app/dashboard.html",
-    cancel_url: "https://tonsite.vercel.app/index.html"
+    success_url: "https://harmonia-woad.vercel.app/dashboard.html",
+    cancel_url: "https://harmonia-woad.vercel.app/index.html"
   });
 
   res.json({ id: session.id });
