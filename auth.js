@@ -36,7 +36,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 
   // 2️⃣ Stripe checkout
   try {
-    const response = await fetch(
+    const response = await 
       "https://harmonia-woad.vercel.app/api/create-checkout-session",
       {
         method: "POST",
