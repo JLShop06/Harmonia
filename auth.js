@@ -1,4 +1,3 @@
-// Empêche double initialisation
 if (!window.mySupabaseClient) {
   const supabaseUrl = "https://arewzgemzqmokinlylhu.supabase.co";
   const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
@@ -17,17 +16,14 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   const firstName = e.target.firstName.value;
   const lastName = e.target.lastName.value;
   const email = e.target.email.value;
-  const address = e.target.address.value;
 
-  // Enregistrement
   const { error } = await db
     .from("users")
     .insert([
       {
         first_name: firstName,
         last_name: lastName,
-        email: email,
-        address: address
+        email: email
       }
     ]);
 
@@ -37,7 +33,6 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  // Stripe
   try {
     const response = await fetch(
       "https://harmonia-woad.vercel.app/api/create-checkout-session",
@@ -49,8 +44,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
         body: JSON.stringify({
           email,
           firstName,
-          lastName,
-          address
+          lastName
         })
       }
     );
@@ -58,7 +52,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (!data.url) {
-      alert("Erreur Stripe : URL manquante");
+      alert("Erreur Stripe");
       return;
     }
 
