@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Inscription</title>
-</head>
-<body>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Inscription — Harmonia</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+<body class="auth-page">
 
-  <h2>Créer ton compte</h2>
+  <div class="auth-card">
+  
+      <h1>Commencer</h1>
+      <p>Crée ton compte et accède à Harmonia</p>
+  
+      <form id="signupForm">
+            <input name="firstName" type="text"  placeholder="Prénom" required autocomplete="given-name">
+            <input name="lastName"  type="text"  placeholder="Nom"    required autocomplete="family-name">
+            <input name="email"     type="email" placeholder="Email"  required autocomplete="email">
+            <button type="submit">Commencer</button>button>
+      </form>form>
+  
+      <div class="auth-links">
+            <p>Déjà un compte ?</p>
+            <a href="login.html">Se connecter</a>a>
+      </div>div>
+  
+  </div>div>
 
-  <form id="signupForm">
-
-    <input name="firstName" placeholder="Prénom" required><br><br>
-    <input name="lastName" placeholder="Nom" required><br><br>
-    <input name="email" type="email" placeholder="Email" required><br><br>
-
-    <button type="submit">Commencer</button>
-
-  </form>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="auth.js"></script>
 
-</body>
-</html>
+</body>body>
+</html>html></p></p></h1></title>
+  </head>
