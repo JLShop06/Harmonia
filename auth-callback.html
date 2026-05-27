@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+  <html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion en cours — Harmonia</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .callback-wrapper {
+        min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      padding: 20px;
+}
+    .spinner {
+            width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: #9d7a43;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 24px;
+}
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .callback-wrapper p { opacity: 0.7; margin-top: 8px; font-size: 0.95em; }
+  </style>
+    </head>
+    <body>
+
+      <div class="callback-wrapper">
+        <div class="spinner"></div>
+        <h2 id="statusTitle">Connexion en cours…</h2>
+    <p id="statusMsg">Merci de patienter</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+        // ================================================================
+        // auth-callback.html
+        // Gère le retour du magic link Supabase.
+        // Après session établie :
+        //   - Insère l'user dans la table "users" si c'est une inscription
+        //   - Redirige vers Stripe si signup_pending_stripe = true
+        //   - Sinon redirige vers le dashboard
+        // ================================================================
+
+        const SUPABASE_URL     = "https://arewzgemzqmokinlylhu.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const titleEl = document.getElementById("statusTitle");
+    const msgEl   = document.getElementById("statusMsg");
+
+    async function handleCallback() {
+      // Supabase lit automatiquement le token dans l'URL (#access_token=...)
+      const { data: { session }, error } = await db.auth.getSession();
+
+      if (error || !session) {
+        titleEl.textContent = "Lien invalide ou expiré";
+        msgEl.textContent   = "Demande un nouveau lien sur la page de connexion.";
+        setTimeout(() => window.location.href = "login.html", 3000);
+        return;
+      }
+
+      const user = session.user;
+
+      // --- Vérifier si c'est une inscription (magic link signup) ---
+      const pendingStripe = localStorage.getItem("signup_pending_stripe") === "true";
+      const firstName     = localStorage.getItem("signup_first_name") || "";
+      const lastName      = localStorage.getItem("signup_last_name")  || "";
+      const email         = user.email;
+
+      if (pendingStripe) {
+        titleEl.textContent = "Compte créé !";
+        msgEl.textContent   = "Redirection vers le paiement…";
+
+        // Insérer dans la table users (upsert pour éviter les doublons)
+        await db.from("users").upsert([
+{
+            id:         user.id,
+                          email:      email,
+                          first_name: firstName,
+                          last_name:  lastName
+              }
+                  ], { onConflict: "id" });
+
+        // Nettoyer localStorage
+        localStorage.removeItem("signup_pending_stripe");
+        localStorage.removeItem("signup_first_name");
+        localStorage.removeItem("signup_last_name");
+        localStorage.removeItem("signup_email");
+
+        // Rediriger vers Stripe
+        try {
+          const response = await fetch(
+            "https://harmonia-woad.vercel.app/api/create-checkout-session",
+{
+                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                                  priceId:   "price_1TUn0AF9c1lWA0HyP8ZwVeBN",
+                                                  email:     email,
+                                                  firstName: firstName,
+                                                  lastName:  lastName
+                                  })
+                                  }
+          );
+
+          const data = await response.json();
+
+          if (data.url) {
+            window.location.href = data.url;
+} else {
+            throw new Error("URL Stripe manquante");
+}
+} catch (err) {
+          titleEl.textContent = "Erreur Stripe";
+          msgEl.textContent   = err.message + " — Redirection vers le dashboard…";
+          setTimeout(() => window.location.href = "dashboard.html", 3000);
+}
+
+} else {
+        // Connexion normale → dashboard
+        titleEl.textContent = "Connecté !";
+        msgEl.textContent   = "Redirection vers ton espace…";
+        setTimeout(() => window.location.href = "dashboard.html", 1000);
+}
+}
+
+    handleCallback();
+  </script>
+
+</body>
+</html>
