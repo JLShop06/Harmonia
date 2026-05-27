@@ -1,22 +1,250 @@
-<h1>Dashboard</h1>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Mon espace — Harmonia</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+          .dash-page {
+                  min-height: 100vh;
+                  background: var(--bg);
+                  font-family: "Inter", sans-serif;
+          }
 
-<button id="logout">Déconnexion</button>
+          /* Header dashboard */
+          .dash-header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 24px 40px;
+                  border-bottom: 1px solid var(--border);
+          }
+          .dash-logo {
+                  font-family: "Cormorant Garamond", serif;
+                  font-size: 1.6rem;
+                  color: var(--text);
+                  text-decoration: none;
+          }
+          .dash-user {
+                  display: flex;
+                  align-items: center;
+                  gap: 16px;
+          }
+          .dash-user span {
+                  color: var(--muted);
+                  font-size: 0.9em;
+          }
+          .btn-logout {
+                  background: transparent;
+                  border: 1px solid var(--border);
+                  color: var(--muted);
+                  padding: 8px 18px;
+                  border-radius: 999px;
+                  cursor: pointer;
+                  font-size: 0.85em;
+                  transition: 0.2s;
+          }
+          .btn-logout:hover {
+                  border-color: var(--accent);
+                  color: var(--accent);
+          }
 
-<script src="auth.js"></script>
+          /* Contenu principal */
+          .dash-main {
+                  max-width: 1100px;
+                  margin: 48px auto;
+                  padding: 0 24px;
+          }
+          .dash-welcome {
+                  margin-bottom: 40px;
+          }
+          .dash-welcome h1 {
+                  font-family: "Cormorant Garamond", serif;
+                  font-size: 2.4rem;
+                  margin-bottom: 8px;
+          }
+          .dash-welcome p {
+                  color: var(--muted);
+          }
 
-<script>
-async function checkUser() {
-  const { data } = await supabase.auth.getUser();
+          /* Grille programmes */
+          .dash-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                  gap: 20px;
+          }
+          .dash-card {
+                  background: white;
+                  border-radius: 24px;
+                  border: 1px solid var(--border);
+                  padding: 28px 24px;
+                  transition: 0.3s;
+                  cursor: pointer;
+          }
+          .dash-card:hover {
+                  transform: translateY(-4px);
+                  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+          }
+          .dash-card-icon {
+                  font-size: 2rem;
+                  margin-bottom: 14px;
+          }
+          .dash-card h3 {
+                  font-family: "Cormorant Garamond", serif;
+                  font-size: 1.3rem;
+                  margin-bottom: 6px;
+          }
+          .dash-card p {
+                  color: var(--muted);
+                  font-size: 0.88em;
+                  line-height: 1.5;
+          }
+          .dash-card .tag {
+                  display: inline-block;
+                  margin-top: 14px;
+                  font-size: 0.75em;
+                  background: #f3ede4;
+                  color: var(--accent);
+                  padding: 4px 12px;
+                  border-radius: 999px;
+          }
 
-  if (!data.user) {
-    window.location.href = "login.html";
-  }
-}
+          /* Section streak */
+          .dash-streak {
+                  margin-top: 40px;
+                  background: white;
+                  border-radius: 24px;
+                  border: 1px solid var(--border);
+                  padding: 28px 32px;
+                  display: flex;
+                  align-items: center;
+                  gap: 24px;
+          }
+          .streak-number {
+                  font-family: "Cormorant Garamond", serif;
+                  font-size: 3.5rem;
+                  color: var(--accent);
+                  line-height: 1;
+          }
+          .streak-info h3 { margin-bottom: 4px; }
+          .streak-info p  { color: var(--muted); font-size: 0.9em; }
 
-checkUser();
+          @media (max-width: 600px) {
+                  .dash-header { padding: 16px 20px; }
+                  .dash-main   { padding: 0 16px; }
+          }
+        </style>
+  </head>
+  <body class="dash-page">
 
-document.getElementById("logout").addEventListener("click", async () => {
-  await supabase.auth.signOut();
-  window.location.href = "login.html";
-});
-</script>
+      <!-- Header -->
+      <header class="dash-header">
+            <a href="index.html" class="dash-logo">Harmonia</a>a>
+            <div class="dash-user">
+                    <span id="userEmail"></span>span>
+                    <button class="btn-logout" id="logoutBtn">Déconnexion</button>button>
+            </div>div>
+      </header>header>
+
+      <!-- Contenu principal -->
+      <main class="dash-main">
+
+            <div class="dash-welcome">
+                    <h1 id="welcomeTitle">Bonjour 👋</h1>h1>
+                    <p>Voici tes programmes du jour. Prends soin de toi.</p>
+            </div>div>
+      
+          <div class="dash-grid">
+          
+                <div class="dash-card">
+                        <div class="dash-card-icon">🧘</div>div>
+                        <h3>Méditation</h3>
+                        <p>Séances guidées pour calmer le mental et retrouver le centre.</p>
+                        <span class="tag">10–20 min</span>span>
+                </div>div>
+          
+                <div class="dash-card">
+                        <div class="dash-card-icon">🌬️</div>div>
+                        <h3>Respiration</h3>
+                        <p>Techniques de cohérence cardiaque et respiration 4-7-8 pour le stress.</p>
+                        <span class="tag">5–10 min</span>span>
+                </div>div>
+          
+                <div class="dash-card">
+                        <div class="dash-card-icon">🤸</div>div>
+                        <h3>Mobilité</h3>
+                        <p>Étirements dynamiques et yoga doux pour libérer le corps.</p>
+                        <span class="tag">15–30 min</span>span>
+                </div>div>
+          
+                <div class="dash-card">
+                        <div class="dash-card-icon">📈</div>div>
+                        <h3>Suivi</h3>
+                        <p>Ta progression quotidienne, tes habitudes et tes objectifs.</p>
+                        <span class="tag">À venir</span>span>
+                </div>div>
+          
+          </div>div>
+      
+          <div class="dash-streak">
+                <div class="streak-number" id="streakCount">0</div>div>
+                <div class="streak-info">
+                        <h3>Jours consécutifs</h3>
+                        <p>Continue ta série — la régularité est la clé du bien-être.</p>
+                </div>div>
+          </div>div>
+      
+      </main>main>
+  
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+          // ============================================================
+          // dashboard.html — Vérification session + personnalisation UI
+          // ============================================================
+
+          const SUPABASE_URL      = "https://arewzgemzqmokinlylhu.supabase.co";
+          const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+
+          const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+          async function initDashboard() {
+                  const { data: { session } } = await db.auth.getSession();
+
+                  if (!session) {
+                            window.location.href = "login.html";
+                            return;
+                  }
+
+                  const user = session.user;
+
+                  // Afficher email
+                  document.getElementById("userEmail").textContent = user.email;
+
+                  // Récupérer les infos depuis la table users
+                  const { data: profile } = await db
+                    .from("users")
+                    .select("first_name")
+                    .eq("id", user.id)
+                    .single();
+
+                  if (profile && profile.first_name) {
+                            document.getElementById("welcomeTitle").textContent =
+                                        "Bonjour, " + profile.first_name + " 👋";
+                  }
+          }
+
+          initDashboard();
+
+          // Déconnexion
+          document.getElementById("logoutBtn").addEventListener("click", async () => {
+                  await db.auth.signOut();
+                  window.location.href = "login.html";
+          });
+    </script>
+
+  </body>body>
+</html>html>
+    </script></p></p></h3></h3></p>
+    </style></title>
+  </head>
