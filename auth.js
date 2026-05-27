@@ -1,69 +1,66 @@
-if (!window.mySupabaseClient) {
-  const supabaseUrl = "https://arewzgemzqmokinlylhu.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+// ============================================================
+// auth.js — Configuration Supabase centralisée + logique signup
+// ============================================================
 
-  window.mySupabaseClient = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-  );
+// Init Supabase (une seule fois, partagé entre toutes les pages)
+if (!window._supabase) {
+    const SUPABASE_URL = "https://arewzgemzqmokinlylhu.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
+    window._supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
-const db = window.mySupabaseClient;
+const db = window._supabase;
 
-document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+// ============================================================
+// SIGNUP — Gestion du formulaire d'inscription
+// S'exécute uniquement si le formulaire existe sur la page
+// ============================================================
+const signupForm = document.getElementById("signupForm");
 
-  const firstName = e.target.firstName.value;
-  const lastName = e.target.lastName.value;
-  const email = e.target.email.value;
+if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-  // 1️⃣ Inscription Supabase
-  const { error } = await db
-    .from("users")
-    .insert([
-      {
-        first_name: firstName,
-        last_name: lastName,
-        email: email
-      }
-    ]);
+                                    const firstName = e.target.firstName.value.trim();
+          const lastName  = e.target.lastName.value.trim();
+          const email     = e.target.email.value.trim();
 
-  if (error) {
-    console.log(error);
-    alert("Erreur inscription Supabase");
-    return;
-  }
+                                    const submitBtn = signupForm.querySelector("button[type=submit]");
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Envoi en cours...";
 
-  // 2️⃣ Stripe checkout
-  try {
-    const response = await fetch(
-      "https://harmonia-woad.vercel.app/api/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          priceId: "price_1TUn0AF9c1lWA0HyP8ZwVeBN",
-          email,
-          firstName,
-          lastName
-        })
-      }
-    );
+                                    // 1. Envoyer le magic link Supabase
+                                    //    On stocke prénom/nom dans metadata pour les récupérer au callback
+                                    const { error: otpError } = await db.auth.signInWithOtp({
+                                            email,
+                                            options: {
+                                                      emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html",
+                                                      data: {
+                                                                  first_name: firstName,
+                                                                  last_name:  lastName
+                                                      }
+                                            }
+                                    });
 
-    const data = await response.json();
-    console.log(data);
+                                    if (otpError) {
+                                            alert("Erreur : " + otpError.message);
+                                            submitBtn.disabled = false;
+                                            submitBtn.textContent = "Commencer";
+                                            return;
+                                    }
 
-    if (!data.url) {
-      alert("Erreur Stripe");
-      return;
-    }
+                                    // 2. Stocker les infos localement pour les utiliser au callback
+                                    localStorage.setItem("signup_first_name", firstName);
+          localStorage.setItem("signup_last_name",  lastName);
+          localStorage.setItem("signup_email",       email);
+          localStorage.setItem("signup_pending_stripe", "true");
 
-    window.location.href = data.url;
-
-  } catch (err) {
-    console.log(err);
-    alert("Erreur connexion Stripe");
-  }
-});
+                                    // 3. Afficher confirmation
+                                    signupForm.innerHTML = `
+                                          <div style="text-align:center;padding:20px;">
+                                                  <p style="font-size:1.1em;margin-bottom:10px;">✉️ Un lien magique t'a été envoyé à <strong>${email}</strong></p>
+                                                          <p style="opacity:0.7;font-size:0.9em;">Clique sur le lien dans l'email pour accéder à Harmonia et finaliser ton abonnement.</p>
+                                                                </div>
+                                                                    `;
+    });
+}
