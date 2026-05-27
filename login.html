@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Connexion — Harmonia</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
 <body class="auth-page">
 
   <div class="auth-card">
-
-    <h1>Connexion</h1>
-    <p>Accède à ton espace</p>
-
-    <form id="loginForm">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Mot de passe" required>
-
-      <button type="submit">Se connecter</button>
-    </form>
-
-    <div class="auth-links">
-      <p>Pas encore de compte ?</p>
-      <a href="signup.html">Créer un compte</a>
-    </div>
-
-  </div>
+  
+      <h1>Connexion</h1>
+      <p>Entre ton email pour recevoir un lien magique</p>
+  
+      <form id="loginForm">
+            <input name="email" type="email" placeholder="Email" required autocomplete="email">
+            <button type="submit">Envoyer le lien</button>button>
+      </form>form>
+  
+      <div id="loginMsg" style="display:none;text-align:center;padding:16px;"></div>div>
+  
+      <div class="auth-links">
+            <p>Pas encore de compte ?</p>
+            <a href="signup.html">Créer un compte</a>a>
+      </div>div>
+  
+  </div>div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
   <script>
-    
-    const form = document.getElementById("loginForm");
+        // Init Supabase déjà fait par auth.js, on utilise window._supabase
+        const loginForm = document.getElementById("loginForm");
+        const loginMsg  = document.getElementById("loginMsg");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+        loginForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
 
-      const email = form[0].value;
-      const password = form[1].value;
+                const email = loginForm.email.value.trim();
+                const submitBtn = loginForm.querySelector("button[type=submit]");
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Envoi en cours...";
 
-      if (error) {
-        alert(error.message);
-        return;
-      }
+                const { error } = await window._supabase.auth.signInWithOtp({
+                          email,
+                          options: {
+                                      emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html"
+                          }
+                });
 
-      window.location.href = "dashboard.html";
-    });
+                if (error) {
+                          loginMsg.style.display = "block";
+                          loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur : " + error.message + "</p>";
+                          submitBtn.disabled = false;
+                          submitBtn.textContent = "Envoyer le lien";
+                          return;
+                }
+
+                loginForm.style.display = "none";
+                loginMsg.style.display = "block";
+                loginMsg.innerHTML = `
+                        <p style="font-size:1.1em;margin-bottom:8px;">✉️ Lien envoyé à <strong>${email}</strong></p>
+                                <p style="opacity:0.7;font-size:0.9em;">Clique sur le lien dans l'email pour te connecter.</p>
+                                      `;
+        });
   </script>
 
-</body>
-</html>
+</body>body>
+</html>html>
+  </script></p></p></h1></title>
+  </head>
