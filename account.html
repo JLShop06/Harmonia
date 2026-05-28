@@ -130,6 +130,7 @@
       <h2 style="color:#e74c3c;">⚠️ Zone danger</h2>
       <p style="color:#666;font-size:.9rem;margin-bottom:16px;">Attention, ces actions sont irréversibles.</p>
       <button class="btn-danger" id="signOutAllBtn">🔓 Se déconnecter de tous les appareils</button>
+      <button class="btn-danger" id="deleteAccountBtn" style="margin-top:12px;background:transparent;color:#c0392b;border-color:#c0392b;">⚠️ Supprimer mon compte (RGPD)</button>
     </div>
   </main>
 
@@ -167,6 +168,7 @@
       document.getElementById('logoutBtn').addEventListener('click', async () => {
         await sb.auth.signOut(); window.location.href = 'login.html';
       });
+      document.getElementById('deleteAccountBtn')?.addEventListener('click', deleteAccount);
       document.getElementById('signOutAllBtn').addEventListener('click', async () => {
         if (!confirm('Se déconnecter de tous les appareils ?')) return;
         await sb.auth.signOut({ scope: 'global' });
