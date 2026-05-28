@@ -199,6 +199,24 @@ async function initDashboard(){
     if(pr.data.subscribed===false){document.getElementById("subWarning").style.display="block";}
   }
   loadJournalPreview(sb,session.user.id);
+  loadApiStats(session.access_token);
+}
+async function loadApiStats(jwt){
+  try{
+    var res=await fetch("https://harmonia-woad.vercel.app/api/user-stats",{headers:{"Authorization":"Bearer "+jwt}});
+    if(!res.ok)return;
+    var data=await res.json();
+    if(data.sessions&&data.sessions.thisWeek){
+      var s=data.sessions.thisWeek;
+      var max=Math.max(s.med||0,s.resp||0,s.mob||0,60);
+      ["med","resp","mob"].forEach(function(k){
+        var v=s[k]||0;
+        var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
+        if(bar)bar.style.width=(v/max*100)+"%";
+        if(val)val.textContent=v+" min";
+      });
+    }
+  }catch(e){console.warn("user-stats API error:",e);}
 }
 async function loadJournalPreview(sb,userId){
   var today=new Date().toISOString().split("T")[0];
