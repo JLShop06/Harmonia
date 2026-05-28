@@ -278,4 +278,18 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 - ✅ **Success.html** — Vérification de l'abonnement via check-subscription API avec 5 tentatives
 - ✅ **Texte guidé** — Instructions de méditation et de mobilité rotatives pendant les timers
 
-*Document mis à jour automatiquement — Harmonia v3.1*
+
+- ✅ **Welcome modal** — Popup d'accueil pour les nouveaux utilisateurs avec 4 conseils de démarrage
+- ✅ **Trend comparison** — Section "Tendance vs période précédente" sur progress.html avec flèches ↑↓→
+- ✅ **Weekly progress bars** — Barres de progression hebdo (vs objectifs) sur account.html
+
+### État final vérifié (28/05/2026 22:52)
+- ✅ Site live: https://harmonia-woad.vercel.app/ → landing page complète
+- ✅ APIs: user-stats, goals, check-subscription, save-session, billing-portal → 401 sans auth, 200 avec token
+- ✅ 404 custom: https://harmonia-woad.vercel.app/nonexistent → "Page introuvable — Harmonia"
+- ✅ robots.txt: https://harmonia-woad.vercel.app/robots.txt → correctement configuré
+- ✅ sitemap.xml: https://harmonia-woad.vercel.app/sitemap.xml → valide
+- ✅ progress.html: https://harmonia-woad.vercel.app/progress.html → "Mes Progrès – Harmonia"
+- ✅ journal.html: redirige vers login (auth required) ✅
+
+*Document mis à jour automatiquement — Harmonia v3.2 — 28/05/2026*
