@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement réussi — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .success-icon { font-size: 4rem; margin-bottom: 20px; animation: popIn .5s ease; }
+    @keyframes popIn { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    .success-page h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #f3d08a, #9d7a43);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .success-page p { opacity: .75; font-size: .95em; max-width: 420px; line-height: 1.6; margin-bottom: 28px; }
+    .success-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 28px 36px;
+      margin-bottom: 28px;
+      max-width: 440px;
+      width: 100%;
+      text-align: left;
+    }
+    .success-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: .9em; }
+    .success-item:last-child { margin-bottom: 0; }
+    .success-item .check { color: #52b788; font-size: 1.2rem; }
+    .btn-dashboard {
+      background: linear-gradient(135deg, #52b788, #2d6a4f);
+      color: white;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all .2s;
+    }
+    .btn-dashboard:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(82,183,136,.4); }
+    .countdown { margin-top: 16px; font-size: .8em; opacity: .5; }
+  </style>
+</head>
+<body>
+
+<div class="success-page">
+  <div class="success-icon">🎉</div>
+  <h1>Bienvenue dans Harmonia !</h1>
+  <p>Votre abonnement est activé. Vous avez maintenant accès à tous les programmes premium.</p>
+
+  <div class="success-card">
+    <div class="success-item">
+      <span class="check">✅</span>
+      <span>Paiement sécurisé confirmé</span>
+    </div>
+    <div class="success-item">
+      <span class="check">✅</span>
+      <span>Accès illimité à méditation, respiration et mobilité</span>
+    </div>
+    <div class="success-item">
+      <span class="check">✅</span>
+      <span>Journal de bien-être personnel activé</span>
+    </div>
+    <div class="success-item">
+      <span class="check">✅</span>
+      <span>Suivi de progression et statistiques</span>
+    </div>
+  </div>
+
+  <a href="dashboard.html" class="btn-dashboard">Accéder à mon espace →</a>
+  <p class="countdown" id="countdown">Redirection automatique dans <span id="sec">5</span>s</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script>
+  // Marquer l'abonnement comme actif si pas encore fait (webhook peut avoir un délai)
+  window.addEventListener("load", async () => {
+    const check = setInterval(async () => {
+      if (!window._supabase) return;
+      clearInterval(check);
+      const sb = window._supabase;
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        // Mise à jour optimiste (le webhook devrait déjà l'avoir fait)
+        await sb.from("users").update({ subscribed: true }).eq("id", session.user.id);
+      }
+    }, 100);
+    setTimeout(() => clearInterval(check), 5000);
+  });
+
+  // Countdown et redirection automatique
+  let seconds = 5;
+  const secEl = document.getElementById("sec");
+  const timer = setInterval(() => {
+    seconds--;
+    if (secEl) secEl.textContent = seconds;
+    if (seconds <= 0) {
+      clearInterval(timer);
+      window.location.href = "dashboard.html";
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
