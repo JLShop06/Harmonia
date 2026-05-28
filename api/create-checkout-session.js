@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         last_name:  lastName  || "",
         email:      email
       },
-      success_url: "https://harmonia-woad.vercel.app/auth-callback.html?payment=success",
+      success_url: "https://harmonia-woad.vercel.app/success.html",
       cancel_url:  "https://harmonia-woad.vercel.app/signup.html?payment=cancelled"
     });
 
