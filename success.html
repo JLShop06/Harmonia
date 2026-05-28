@@ -92,32 +92,44 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 <script>
-  // Marquer l'abonnement comme actif si pas encore fait (webhook peut avoir un délai)
-  window.addEventListener("load", async () => {
-    const check = setInterval(async () => {
-      if (!window._supabase) return;
-      clearInterval(check);
-      const sb = window._supabase;
-      const { data: { session } } = await sb.auth.getSession();
-      if (session) {
-        // Mise à jour optimiste (le webhook devrait déjà l'avoir fait)
-        await sb.from("users").update({ subscribed: true }).eq("id", session.user.id);
-      }
-    }, 100);
-    setTimeout(() => clearInterval(check), 5000);
-  });
+// Marquer l'abonnement comme actif (optimiste + vérification API)
+window.addEventListener("load", async () => {
+  const check = setInterval(async () => {
+    if (!window._supabase) return;
+    clearInterval(check);
+    const sb = window._supabase;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    // Optimistic update
+    await sb.from("users").update({ subscribed: true }).eq("id", session.user.id);
+    // Verify via API with retries (webhook may be delayed)
+    let attempts = 0;
+    const verifyFn = setInterval(async () => {
+      attempts++;
+      try {
+        const res = await fetch('/api/check-subscription', {
+          headers: { 'Authorization': 'Bearer ' + session.access_token }
+        });
+        const data = await res.json();
+        if (data.subscribed) clearInterval(verifyFn);
+      } catch(e) { console.warn('sub check:', e); }
+      if (attempts >= 5) clearInterval(verifyFn);
+    }, 2000);
+  }, 100);
+  setTimeout(() => clearInterval(check), 5000);
+});
 
-  // Countdown et redirection automatique
-  let seconds = 5;
-  const secEl = document.getElementById("sec");
-  const timer = setInterval(() => {
-    seconds--;
-    if (secEl) secEl.textContent = seconds;
-    if (seconds <= 0) {
-      clearInterval(timer);
-      window.location.href = "dashboard.html";
-    }
-  }, 1000);
+// Countdown et redirection automatique
+let seconds = 5;
+const secEl = document.getElementById("sec");
+const timer = setInterval(() => {
+  seconds--;
+  if (secEl) secEl.textContent = seconds;
+  if (seconds <= 0) {
+    clearInterval(timer);
+    window.location.href = "dashboard.html";
+  }
+}, 1000);
 </script>
 
 </body>
