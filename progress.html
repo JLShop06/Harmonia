@@ -40,6 +40,9 @@
 .entries-table td{padding:10px 12px;border-bottom:1px solid #f0faf2;vertical-align:top}
 .entries-table tr:hover td{background:#f8fdf9}
 .mood-emoji{font-size:1.2rem}
+
+.export-btn{background:transparent;border:1px solid #52b788;color:#2d6a4f;padding:8px 18px;border-radius:999px;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s}
+.export-btn:hover{background:#d8f3dc}
 .empty-state{text-align:center;padding:40px;color:#aaa}
 .empty-state .icon{font-size:3rem;display:block;margin-bottom:12px}
 .loading{text-align:center;padding:20px;color:#aaa;font-style:italic}
@@ -100,12 +103,45 @@
 <div class="mood-chart" id="moodChart"><div class="loading">Chargement...</div></div>
 </div>
 <div class="chart-card">
-<h2>📓 Historique des entrées journal</h2>
+
+<div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+<button class="export-btn" id="exportCsvBtn">📊 Exporter en CSV</button>
+</div><h2>📓 Historique des entrées journal</h2>
 <div id="journalHistory"><div class="loading">Chargement...</div></div>
 </div>
 </main>
 <script src="auth.js"></script>
 <script>
+
+function exportCSV(journals, sessions) {
+  var rows = ['Date,Humeur,Journal,Méditation (min),Respiration (min),Mobilité (min)'];
+  var since = new Date();
+  since.setDate(since.getDate() - _currentPeriod);
+  var dates = getDates(since.toISOString().split('T')[0], _currentPeriod);
+  var moodByDate = {};
+  var contentByDate = {};
+  journals.forEach(j => { moodByDate[j.entry_date] = j.mood; contentByDate[j.entry_date] = j.content; });
+  var sessByDate = {};
+  dates.forEach(d => { sessByDate[d] = { med: 0, resp: 0, mob: 0 }; });
+  sessions.forEach(s => {
+    var d = s.session_date || s.created_at.split('T')[0];
+    if (sessByDate[d] && sessByDate[d][s.session_type] !== undefined) sessByDate[d][s.session_type] += s.duration_minutes || 0;
+  });
+  dates.forEach(d => {
+    var mood = moodByDate[d] ? ['','Difficile','Moyen','Correct','Bien','Excellent'][moodByDate[d]] : '';
+    var journal = (contentByDate[d] || '').replace(/"/g,'""').slice(0,100);
+    rows.push(`${d},${mood},"${journal}",${sessByDate[d].med},${sessByDate[d].resp},${sessByDate[d].mob}`);
+  });
+  var csv = rows.join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'harmonia-export-' + new Date().toISOString().split('T')[0] + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+var _lastSessions = [], _lastJournals = [];
 var _jwt = null;
 var _currentPeriod = 7;
 const MOOD_EMOJIS = ['','😔','😐','🙂','😊','😄'];
@@ -119,6 +155,10 @@ async function initAuth() {
   _jwt = session.access_token;
   document.getElementById('logoutBtn').addEventListener('click', async () => {
     await sb.auth.signOut(); window.location.href = 'login.html';
+  });
+  // Export CSV
+  document.getElementById('exportCsvBtn')?.addEventListener('click', function() {
+    exportCSV(_lastJournals, _lastSessions);
   });
   // Period tabs
   document.querySelectorAll('.period-tab').forEach(tab => {
@@ -157,6 +197,7 @@ async function loadAllData(userId) {
   document.getElementById('statSessions').textContent = sessions.length;
   document.getElementById('statJournal').textContent = journals.length;
 
+  _lastSessions = sessions; _lastJournals = journals;
   renderSessionChart(sessions, sinceStr);
   renderMoodChart(journals, sinceStr);
   renderJournalHistory(journals);
