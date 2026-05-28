@@ -50,8 +50,21 @@
 <a href="progress.html">Progrès</a>
 <a href="account.html" class="active">Mon compte</a>
 </div>
+<div style="display:flex;align-items:center;gap:8px;">
 <button class="nav-logout" id="logoutBtn">Se déconnecter</button>
+<button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+</div>
 </nav>
+<div class="nav-mobile-menu" id="mobileMenu">
+<div class="nav-mobile-panel">
+<button class="nav-mobile-close" id="closeMenuBtn">✕</button>
+<a href="dashboard.html">Tableau de bord</a>
+<a href="journal.html">Journal</a>
+<a href="progress.html">Progrès</a>
+<a href="account.html" class="active">Mon compte</a>
+<button class="nav-logout" id="logoutBtnMobile" style="margin-top:16px;width:100%;border-radius:10px;">Se déconnecter</button>
+</div>
+</div>
 <main class="account-page">
 <div class="account-header">
 <div class="avatar-circle" id="avatarCircle">?</div>
