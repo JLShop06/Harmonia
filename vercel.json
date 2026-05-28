@@ -10,7 +10,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "*.{css,js,png,jpg,json,ico,svg}",
+      "src": "*.{css,js,png,jpg,json,ico,svg,txt,xml}",
       "use": "@vercel/static"
     }
   ],
@@ -20,7 +20,7 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*\\.(?:html|css|js|png|jpg|json|ico|svg|woff|woff2|ttf))",
+      "src": "/(.*\\.(?:html|css|js|png|jpg|json|ico|svg|woff|woff2|ttf|txt|xml))",
       "dest": "/$1"
     },
     {
@@ -40,6 +40,21 @@
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, DELETE, OPTIONS" },
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
         { "key": "Access-Control-Max-Age", "value": "86400" }
+      ]
+    },
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
   ]
