@@ -231,6 +231,26 @@
       } catch(e) { console.warn('Stats API error:', e); }
     }
 
+    async function openBillingPortal() {
+      const btn = document.getElementById('manageBillingBtn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Redirection...'; }
+      try {
+        const { data: { session } } = await window._supabase.auth.getSession();
+        if (!session) return;
+        const res = await fetch('https://harmonia-woad.vercel.app/api/billing-portal', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' }
+        });
+        const data = await res.json();
+        if (data.url) window.location.href = data.url;
+        else throw new Error(data.error || 'Erreur portail');
+      } catch(e) {
+        showToast('Erreur: ' + e.message, false);
+        if (btn) { btn.disabled = false; btn.textContent = 'Gérer mon abonnement'; }
+      }
+    }
+    window.openBillingPortal = openBillingPortal;
+
     document.addEventListener('DOMContentLoaded', () => {
       const check = setInterval(() => {
         if (window._supabase) { clearInterval(check); initAuth(); }
