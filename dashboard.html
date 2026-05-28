@@ -85,7 +85,7 @@
 .journal-cta-text p{color:#666;font-size:.88em;margin:0}
 .journal-cta-btn{background:linear-gradient(135deg,#52b788,#2d6a4f);color:white;border:none;padding:10px 24px;border-radius:999px;font-size:.88em;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:.2s}
 .journal-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(82,183,136,.4)}
-@media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}.dash-nav{display:none}}
+@media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}.dash-nav{display:none}#hamburgerBtn{display:block!important}}
 </style>
 </head>
 <body class="dash-page">
@@ -103,8 +103,19 @@
 <div class="dash-user">
 <span id="userEmail"></span>
 <button class="btn-logout" id="logoutBtn">Déconnexion</button>
+<button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu" style="display:none">☰</button>
 </div>
 </header>
+<div class="nav-mobile-menu" id="mobileMenu">
+<div class="nav-mobile-panel">
+<button class="nav-mobile-close" id="closeMenuBtn">✕</button>
+<a href="dashboard.html" class="active">Tableau de bord</a>
+<a href="journal.html">Journal</a>
+<a href="progress.html">Progrès</a>
+<a href="account.html">Mon compte</a>
+<button class="nav-logout" id="logoutBtnMobile" style="margin-top:16px;width:100%;border-radius:10px;">Se déconnecter</button>
+</div>
+</div>
 <main class="dash-main">
 <div class="dash-welcome">
 <div class="dash-date" id="currentDate"></div>
@@ -254,6 +265,11 @@ document.addEventListener('DOMContentLoaded',function(){
   var check=setInterval(function(){if(window._supabase){clearInterval(check);initDashboard();}},100);
   setTimeout(function(){clearInterval(check);},5000);
 
+  // Mobile hamburger
+  document.getElementById('hamburgerBtn')?.addEventListener('click',function(){document.getElementById('mobileMenu').classList.add('open');});
+  document.getElementById('closeMenuBtn')?.addEventListener('click',function(){document.getElementById('mobileMenu').classList.remove('open');});
+  document.getElementById('mobileMenu')?.addEventListener('click',function(e){if(e.target===document.getElementById('mobileMenu'))document.getElementById('mobileMenu').classList.remove('open');});
+  document.getElementById('logoutBtnMobile')?.addEventListener('click',async function(){var sb=window._supabase;if(sb)await sb.auth.signOut();window.location.href='login.html';});
   var lb=document.getElementById('logoutBtn');
   if(lb)lb.addEventListener('click',async function(){
     var sb=window._supabase;if(sb)await sb.auth.signOut();
