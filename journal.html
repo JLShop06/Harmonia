@@ -148,6 +148,8 @@
       loadEntries();
     }
 
+    let autoSaveTimer = null;
+
     function setupForm() {
       const dateInput = document.getElementById('entryDate');
       dateInput.value = today();
@@ -157,10 +159,26 @@
       const charCount = document.getElementById('charCount');
       const saveBtn = document.getElementById('saveBtn');
 
+      // Charger le brouillon local
+      const draft = localStorage.getItem('harmonia_journal_draft');
+      if (draft) { textarea.value = draft; charCount.textContent = draft.length + ' / 2000'; if (draft.length >= 3) saveBtn.disabled = false; }
+
       textarea.addEventListener('input', () => {
         const len = textarea.value.length;
         charCount.textContent = len + ' / 2000';
         saveBtn.disabled = len < 3;
+        // Autosave brouillon
+        localStorage.setItem('harmonia_journal_draft', textarea.value);
+        clearTimeout(autoSaveTimer);
+        if (len >= 10) {
+          autoSaveTimer = setTimeout(() => {
+            document.getElementById('saveStatus').textContent = '💾 Sauvegarde auto...';
+            saveEntry(true).then(() => {
+              document.getElementById('saveStatus').textContent = '✅ Sauvegardé';
+              setTimeout(() => { document.getElementById('saveStatus').textContent = ''; }, 2000);
+            });
+          }, 3000);
+        }
       });
 
       document.getElementById('moodSelector').addEventListener('click', (e) => {
@@ -171,10 +189,10 @@
         selectedMood = parseInt(btn.dataset.mood);
       });
 
-      saveBtn.addEventListener('click', saveEntry);
+      saveBtn.addEventListener('click', () => saveEntry(false));
     }
 
-    async function saveEntry() {
+    async function saveEntry(silent = false) {
       const sb = window._supabase;
       const content = document.getElementById('journalText').value.trim();
       const entryDate = document.getElementById('entryDate').value;
@@ -182,8 +200,7 @@
       const saveStatus = document.getElementById('saveStatus');
 
       if (content.length < 3) return;
-      saveBtn.disabled = true;
-      saveStatus.textContent = 'Enregistrement...';
+      if (!silent) { saveBtn.disabled = true; saveStatus.textContent = 'Enregistrement...'; }
 
       const { data: existing } = await sb
         .from('journal_entries')
@@ -214,6 +231,7 @@
       saveStatus.textContent = existing ? '✅ Mis à jour !' : '✅ Enregistré !';
       showToast(existing ? 'Entrée mise à jour !' : 'Entrée enregistrée !');
       setTimeout(() => { saveStatus.textContent = ''; }, 3000);
+      localStorage.removeItem('harmonia_journal_draft');
       document.getElementById('journalText').value = '';
       document.getElementById('charCount').textContent = '0 / 2000';
       document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
