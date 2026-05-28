@@ -12,8 +12,21 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*\\.(html|css|js|png|jpg|json|ico|svg|woff|woff2|ttf))",
       "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1.html",
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
   "headers": [
