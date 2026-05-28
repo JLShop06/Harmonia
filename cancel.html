@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement annulé — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cancel-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .cancel-icon { font-size: 3.5rem; margin-bottom: 20px; }
+    .cancel-page h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: rgba(255,255,255,.9);
+    }
+    .cancel-page p { opacity: .7; font-size: .95em; max-width: 380px; line-height: 1.6; margin-bottom: 24px; }
+    .btn-retry {
+      background: linear-gradient(135deg, #9d7a43, #7a5d2e);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 6px;
+      transition: all .2s;
+    }
+    .btn-retry:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(157,122,67,.4); }
+    .btn-home {
+      background: transparent;
+      color: rgba(255,255,255,.6);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 11px 28px;
+      border-radius: 999px;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 6px;
+      transition: all .2s;
+    }
+    .btn-home:hover { border-color: rgba(255,255,255,.5); color: white; }
+    .reassure { background: rgba(255,255,255,.06); border-radius: 14px; padding: 18px 24px; max-width: 380px; margin-bottom: 24px; font-size: .85em; opacity: .65; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<div class="cancel-page">
+  <div class="cancel-icon">💛</div>
+  <h1>Paiement non complété</h1>
+  <p>Aucun montant n'a été prélevé. Vous pouvez réessayer à tout moment.</p>
+
+  <div class="reassure">
+    Harmonia vous attend. Si vous avez des questions sur l'abonnement, vous pouvez nous contacter à <strong>support@harmonia.app</strong>
+  </div>
+
+  <div>
+    <a href="signup.html" class="btn-retry">Réessayer l'abonnement</a>
+    <a href="index.html" class="btn-home">Retour à l'accueil</a>
+  </div>
+</div>
+
+</body>
+</html>
