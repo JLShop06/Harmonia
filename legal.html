@@ -1,62 +1,104 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentions légales — Harmonia</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .legal-page { max-width: 720px; margin: 0 auto; padding: 60px 24px 100px; }
-    .legal-page h1 { font-family: "Cormorant Garamond", serif; font-size: 2.5rem; margin-bottom: 8px; }
-    .legal-page .subtitle { color: var(--muted); font-size: .9em; margin-bottom: 48px; }
-    .legal-page h2 { font-family: "Cormorant Garamond", serif; font-size: 1.4rem; margin: 32px 0 12px; color: var(--text); }
-    .legal-page p, .legal-page li { color: var(--muted); line-height: 1.8; font-size: .93em; margin-bottom: 10px; }
-    .legal-page ul { padding-left: 20px; }
-    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); text-decoration: none; font-size: .9em; font-weight: 600; margin-bottom: 40px; }
-    .back-link:hover { opacity: .8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions Légales &amp; RGPD – Harmonia</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.legal-page{max-width:800px;margin:0 auto;padding:40px 24px 80px;font-family:"Inter",sans-serif;color:#1c1715}
+.legal-page h1{font-size:2rem;color:#9d7a43;margin-bottom:8px}
+.legal-page h2{font-size:1.2rem;color:#2d1f0e;margin:32px 0 10px;padding-bottom:6px;border-bottom:2px solid #f3ede4}
+.legal-page h3{font-size:1rem;color:#5c3a1e;margin:18px 0 6px}
+.legal-page p,.legal-page li{font-size:.92rem;line-height:1.7;color:#444;margin-bottom:8px}
+.legal-page ul{padding-left:20px;margin-bottom:16px}
+.legal-page a{color:#9d7a43;text-decoration:underline}
+.legal-date{font-size:.85rem;color:#888;margin-bottom:32px}
+.back-link{display:inline-block;margin-bottom:24px;color:#9d7a43;text-decoration:none;font-size:.9rem;font-weight:600}
+.back-link:hover{text-decoration:underline}
+.data-table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:.88rem}
+.data-table th{background:#f8f5f0;padding:10px 12px;text-align:left;color:#5c3a1e;font-weight:600;border:1px solid #e0d5c8}
+.data-table td{padding:10px 12px;border:1px solid #e0d5c8;color:#444;vertical-align:top}
+</style>
 </head>
-<body style="background:var(--bg);">
+<body>
+<main class="legal-page">
+<a href="index.html" class="back-link">← Retour à l'accueil</a>
+<h1>Mentions Légales &amp; Politique de confidentialité</h1>
+<p class="legal-date">Dernière mise à jour : 28 mai 2026</p>
 
-<div class="legal-page">
-  <a href="index.html" class="back-link">← Retour à l'accueil</a>
-  <h1>Mentions légales</h1>
-  <p class="subtitle">Dernière mise à jour : mai 2026</p>
+<h2>1. Informations légales</h2>
+<p><strong>Nom du service :</strong> Harmonia</p>
+<p><strong>Responsable de publication :</strong> JLShop06</p>
+<p><strong>Adresse email :</strong> <a href="mailto:support@harmonia.app">support@harmonia.app</a></p>
+<p><strong>Hébergeur :</strong> Vercel Inc., 340 Pine Street, Suite 701, San Francisco, CA 94104, USA<br>Site : <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></p>
 
-  <h2>Éditeur</h2>
-  <p>Harmonia est un service édité par Les Jardins Enchantés (JLShop06). Contact : support@harmonia.app</p>
+<h2>2. Description du service</h2>
+<p>Harmonia est une plateforme de bien-être digital proposant des séances guidées de méditation, cohérence cardiaque, mobilité, un journal de bien-être quotidien et un suivi de progression. L'accès est soumis à un abonnement mensuel de 14,90€.</p>
 
-  <h2>Hébergement</h2>
-  <p>Ce site est hébergé par Vercel Inc., 340 Pine Street Suite 701, San Francisco, CA 94104, États-Unis.</p>
+<h2>3. Données personnelles collectées</h2>
+<table class="data-table">
+<tr><th>Donnée</th><th>Finalité</th><th>Durée de conservation</th></tr>
+<tr><td>Adresse email</td><td>Authentification, envoi du lien magique</td><td>Jusqu'à suppression du compte</td></tr>
+<tr><td>Prénom, nom (optionnel)</td><td>Personnalisation de l'interface</td><td>Jusqu'à suppression du compte</td></tr>
+<tr><td>Identifiant Stripe</td><td>Gestion des paiements et abonnements</td><td>10 ans (obligations comptables)</td></tr>
+<tr><td>Entrées journal</td><td>Stockage des notes personnelles</td><td>Jusqu'à suppression du compte</td></tr>
+<tr><td>Séances réalisées</td><td>Calcul des statistiques</td><td>Jusqu'à suppression du compte</td></tr>
+<tr><td>Objectifs personnalisés</td><td>Suivi de progression</td><td>Jusqu'à suppression du compte</td></tr>
+</table>
 
-  <h2>Abonnement et paiement</h2>
-  <p>L'abonnement Harmonia est proposé à 14,90€/mois, sans engagement. Le paiement est sécurisé par Stripe. Vous pouvez résilier à tout moment depuis votre espace compte.</p>
-  <p>Conformément à l'article L.221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contenus numériques dont l'exécution a commencé avec l'accord du consommateur.</p>
+<h2>4. Base légale du traitement</h2>
+<p>Le traitement de vos données est fondé sur :</p>
+<ul>
+<li><strong>Exécution du contrat</strong> : pour fournir le service souscrit (authentification, séances, journal)</li>
+<li><strong>Obligation légale</strong> : conservation des données de facturation</li>
+<li><strong>Intérêt légitime</strong> : amélioration du service et sécurité</li>
+</ul>
 
-  <h2>Données personnelles (RGPD)</h2>
-  <p>Harmonia collecte et traite les données suivantes :</p>
-  <ul>
-    <li>Adresse email (pour l'authentification)</li>
-    <li>Prénom et nom (optionnel, saisi par l'utilisateur)</li>
-    <li>Données de séances et journal (stockées dans Supabase, accessibles uniquement par l'utilisateur)</li>
-    <li>Identifiant Stripe (pour la gestion de l'abonnement)</li>
-  </ul>
-  <p>Ces données sont stockées en Europe (Supabase - EU) et ne sont jamais revendues. Vous pouvez demander la suppression de vos données en contactant support@harmonia.app.</p>
+<h2>5. Sous-traitants et transferts</h2>
+<h3>Supabase Inc. (USA)</h3>
+<p>Base de données et authentification. Données stockées en Europe (West EU). Détail : <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></p>
+<h3>Stripe Inc. (USA)</h3>
+<p>Traitement des paiements. Certifié PCI DSS. Détail : <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener">stripe.com/fr/privacy</a></p>
+<h3>Vercel Inc. (USA)</h3>
+<p>Hébergement de l'application. Détail : <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a></p>
 
-  <h2>Cookies</h2>
-  <p>Harmonia utilise uniquement des cookies techniques nécessaires au fonctionnement de l'authentification (session Supabase). Aucun cookie publicitaire ou de tracking n'est utilisé.</p>
+<h2>6. Vos droits RGPD</h2>
+<p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :</p>
+<ul>
+<li><strong>Droit d'accès</strong> : obtenir une copie de vos données</li>
+<li><strong>Droit de rectification</strong> : corriger vos informations dans "Mon Compte"</li>
+<li><strong>Droit à l'effacement</strong> : supprimer votre compte via "Mon Compte → Zone danger → Supprimer mon compte"</li>
+<li><strong>Droit à la portabilité</strong> : exporter vos données en CSV via "Mes Progrès → Exporter en CSV"</li>
+<li><strong>Droit d'opposition</strong> : nous contacter à <a href="mailto:support@harmonia.app">support@harmonia.app</a></li>
+<li><strong>Droit de réclamation</strong> : auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>)</li>
+</ul>
 
-  <h2>Propriété intellectuelle</h2>
-  <p>L'ensemble des contenus (textes, images, code) est la propriété de Harmonia. Toute reproduction est interdite sans autorisation.</p>
+<h2>7. Cookies et stockage local</h2>
+<p>Harmonia utilise :</p>
+<ul>
+<li><strong>localStorage</strong> : préférences locales (streak, done, paramètres UI) — aucune donnée sensible</li>
+<li><strong>Cookies de session Supabase</strong> : maintien de la session authentifiée</li>
+</ul>
+<p>Aucun cookie publicitaire ou de tracking tiers n'est utilisé.</p>
 
-  <h2>Contact</h2>
-  <p>Pour toute question : <a href="mailto:support@harmonia.app" style="color:var(--accent);">support@harmonia.app</a></p>
-</div>
+<h2>8. Sécurité</h2>
+<p>Harmonia met en œuvre les mesures suivantes :</p>
+<ul>
+<li>Authentification sans mot de passe (magic link uniquement)</li>
+<li>Chiffrement HTTPS (TLS) sur toutes les communications</li>
+<li>Row Level Security (RLS) sur toutes les tables Supabase</li>
+<li>Clés API serveur jamais exposées côté client</li>
+<li>Validation des webhooks Stripe par signature</li>
+</ul>
 
-<footer class="footer">
-  <a href="index.html" style="color:var(--muted);text-decoration:none;">© 2026 Harmonia</a> — 
-  <a href="legal.html" style="color:var(--muted);text-decoration:none;">Mentions légales</a>
-</footer>
+<h2>9. Abonnement et résiliation</h2>
+<p>L'abonnement Harmonia est d'un montant de <strong>14,90€ par mois</strong>, sans engagement. Vous pouvez résilier à tout moment depuis "Mon Compte → Gérer mon abonnement" (portail Stripe). Aucun remboursement n'est proposé pour les périodes entamées.</p>
 
+<h2>10. Contact</h2>
+<p>Pour toute question relative à la protection de vos données :<br>
+Email : <a href="mailto:support@harmonia.app">support@harmonia.app</a></p>
+
+</main>
 </body>
 </html>
