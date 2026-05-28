@@ -461,3 +461,79 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ================= NAVBAR (journal, account, app pages) ================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: .83em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: .2s;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.nav-links a.active {
+  background: #f3ede4;
+  color: var(--accent);
+  border-color: #e0d5c8;
+  font-weight: 600;
+}
+
+.nav-logout {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: .82em;
+  transition: .2s;
+  white-space: nowrap;
+}
+
+.nav-logout:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+  .navbar { padding: 12px 16px; }
+  .nav-links { display: none; }
+}
