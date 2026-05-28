@@ -2,9 +2,11 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const BASE_URL = "https://harmonia-woad.vercel.app";
+
 export default async function handler(req, res) {
   // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "https://harmonia-woad.vercel.app");
+  res.setHeader("Access-Control-Allow-Origin", BASE_URL);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -27,19 +29,16 @@ export default async function handler(req, res) {
       payment_method_types: ["card"],
       mode: "subscription",
       customer_email: email,
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1
-        }
-      ],
+      line_items: [{ price: priceId, quantity: 1 }],
       metadata: {
         first_name: firstName || "",
-        last_name:  lastName  || "",
-        email:      email
+        last_name: lastName || "",
+        email: email
       },
-      success_url: "https://harmonia-woad.vercel.app/success.html",
-      cancel_url:  "https://harmonia-woad.vercel.app/signup.html?payment=cancelled"
+      success_url: BASE_URL + "/success.html",
+      cancel_url: BASE_URL + "/cancel.html",
+      locale: "fr",
+      allow_promotion_codes: true
     });
 
     return res.status(200).json({ url: session.url });
