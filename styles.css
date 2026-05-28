@@ -325,3 +325,139 @@ h1 {
   color: var(--text);
   font-weight: 600;
 }
+
+
+/* ================= SECTION HEADING ================= */
+.section-heading {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 48px;
+  color: var(--text);
+}
+
+/* ================= TESTIMONIALS ================= */
+.testimonials {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testimonial-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  transition: 0.3s;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+}
+
+.testimonial-stars {
+  color: var(--accent);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.testimonial-card p {
+  color: var(--muted);
+  font-size: 0.92em;
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.testimonial-author strong {
+  font-size: 0.9em;
+  color: var(--text);
+}
+
+.testimonial-author span {
+  font-size: 0.78em;
+  color: var(--muted);
+}
+
+/* ================= FAQ ================= */
+.faq {
+  max-width: 720px;
+  margin: 0 auto 100px;
+  padding: 0 20px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.faq-item summary {
+  padding: 20px 24px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95em;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+  transition: 0.2s;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.3rem;
+  color: var(--accent);
+  font-weight: 300;
+  transition: transform 0.3s;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item[open] summary {
+  color: var(--accent);
+}
+
+.faq-item p {
+  padding: 0 24px 20px;
+  color: var(--muted);
+  font-size: 0.9em;
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  margin-top: 0;
+  padding-top: 16px;
+}
+
+/* ================= RESPONSIVE TESTIMONIALS ================= */
+@media (max-width: 900px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
