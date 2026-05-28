@@ -41,6 +41,14 @@
 .entries-table tr:hover td{background:#f8fdf9}
 .mood-emoji{font-size:1.2rem}
 
+
+.trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.trend-item{text-align:center;padding:16px;background:#f8fdf9;border-radius:12px;border:1px solid #d8f3dc}
+.trend-icon{font-size:1.6rem;margin-bottom:6px}
+.trend-val{font-size:1.4rem;font-weight:800;color:#2d6a4f}
+.trend-prev{font-size:.75rem;color:#888;margin-top:2px}
+.trend-arrow{font-size:.85rem;margin-left:4px}
+.arrow-up{color:#52b788}.arrow-down{color:#e74c3c}.arrow-same{color:#888}
 .export-btn{background:transparent;border:1px solid #52b788;color:#2d6a4f;padding:8px 18px;border-radius:999px;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s}
 .export-btn:hover{background:#d8f3dc}
 .empty-state{text-align:center;padding:40px;color:#aaa}
@@ -88,6 +96,11 @@
 <div class="stat-mini"><div class="num" id="statStreak">-</div><div class="label">Jours consécutifs</div></div>
 <div class="stat-mini"><div class="num" id="statSessions">-</div><div class="label">Séances</div></div>
 <div class="stat-mini"><div class="num" id="statJournal">-</div><div class="label">Entrées journal</div></div>
+</div>
+
+<div class="chart-card">
+<h2>📉 Tendance vs période précédente</h2>
+<div id="trendChart" class="loading">Chargement...</div>
 </div>
 <div class="chart-card">
 <h2>📊 Séances par jour</h2>
@@ -199,10 +212,47 @@ async function loadAllData(userId) {
 
   _lastSessions = sessions; _lastJournals = journals;
   renderSessionChart(sessions, sinceStr);
+  renderTrendChart(sessions, sinceStr);
   renderMoodChart(journals, sinceStr);
   renderJournalHistory(journals);
 }
 
+
+function renderTrendChart(sessions, sinceStr) {
+  const chart = document.getElementById('trendChart');
+  const since = new Date(sinceStr + 'T00:00:00');
+  const prevSince = new Date(sinceStr + 'T00:00:00');
+  prevSince.setDate(prevSince.getDate() - _currentPeriod);
+  
+  const cur = { med: 0, resp: 0, mob: 0 };
+  const prev = { med: 0, resp: 0, mob: 0 };
+  
+  sessions.forEach(s => {
+    const d = new Date(s.session_date + 'T12:00:00');
+    const type = s.session_type;
+    if (!['med','resp','mob'].includes(type)) return;
+    if (d >= since) {
+      cur[type] += s.duration_minutes || 0;
+    } else if (d >= prevSince) {
+      prev[type] += s.duration_minutes || 0;
+    }
+  });
+  
+  function arrow(c, p) {
+    if (c > p * 1.1) return '<span class="trend-arrow arrow-up">↑</span>';
+    if (c < p * 0.9) return '<span class="trend-arrow arrow-down">↓</span>';
+    return '<span class="trend-arrow arrow-same">→</span>';
+  }
+  
+  const labels = { med: ['🧘','Méditation'], resp: ['🌬️','Respiration'], mob: ['🤸','Mobilité'] };
+  chart.innerHTML = `<div class="trend-grid">${Object.entries(labels).map(([k,[icon,label]]) => `
+<div class="trend-item">
+<div class="trend-icon">${icon}</div>
+<div><strong>${label}</strong></div>
+<div class="trend-val">${cur[k]} min${arrow(cur[k],prev[k])}</div>
+<div class="trend-prev">Période précédente: ${prev[k]} min</div>
+</div>`).join('')}</div>`;
+}
 function getDates(sinceStr, days) {
   const dates = [];
   for (let i = days - 1; i >= 0; i--) {
