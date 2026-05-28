@@ -1,235 +1,298 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon espace - Harmonia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .dash-page{min-height:100vh;background:var(--bg);font-family:"Inter",sans-serif}
-    .dash-header{display:flex;justify-content:space-between;align-items:center;padding:22px 40px;border-bottom:1px solid var(--border);background:white;position:sticky;top:0;z-index:10}
-    .dash-logo{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--text);text-decoration:none}
-    .dash-user{display:flex;align-items:center;gap:14px}
-    .dash-user span{color:var(--muted);font-size:.85em}
-    .btn-logout{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;font-size:.82em;transition:.2s}
-    .btn-logout:hover{border-color:var(--accent);color:var(--accent)}
-    .dash-main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
-    .dash-welcome{margin-bottom:32px}
-    .dash-welcome h1{font-family:"Cormorant Garamond",serif;font-size:2.2rem;margin-bottom:4px}
-    .dash-welcome p{color:var(--muted);font-size:.95em}
-    .dash-date{font-size:.82em;color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
-    .week-bar{display:flex;gap:10px;margin-bottom:44px;flex-wrap:wrap}
-    .week-day{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .week-day span{font-size:.72em;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .week-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:.75em;color:var(--muted);transition:.3s}
-    .week-dot.done{background:var(--accent);border-color:var(--accent);color:white}
-    .week-dot.today{border-color:var(--accent);color:var(--accent);font-weight:700}
-    .section-title{font-family:"Cormorant Garamond",serif;font-size:1.5rem;margin-bottom:20px}
-    .seance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
-    .seance-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 26px;transition:.3s}
-    .seance-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
-    .seance-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-    .seance-icon{font-size:2rem}
-    .seance-badge{font-size:.72em;background:#f3ede4;color:var(--accent);padding:4px 12px;border-radius:999px;font-weight:500}
-    .seance-card h3{font-family:"Cormorant Garamond",serif;font-size:1.25rem;margin-bottom:6px}
-    .seance-card p{color:var(--muted);font-size:.86em;line-height:1.6;margin-bottom:18px}
-    .seance-meta{display:flex;gap:16px;margin-bottom:20px}
-    .seance-meta span{font-size:.78em;color:var(--muted)}
-    .timer-wrap{background:var(--bg);border-radius:16px;padding:16px 20px;text-align:center}
-    .timer-progress{width:100%;height:4px;background:var(--border);border-radius:4px;margin-bottom:12px;overflow:hidden}
-    .timer-bar{height:100%;background:var(--accent);border-radius:4px;width:0%;transition:width .5s linear}
-    .timer-display{font-family:"Cormorant Garamond",serif;font-size:2.4rem;color:var(--text);letter-spacing:.05em;margin-bottom:12px}
-    .timer-btns{display:flex;gap:10px;justify-content:center}
-    .timer-btn{padding:8px 20px;border-radius:999px;border:none;cursor:pointer;font-size:.82em;font-weight:600;transition:.2s}
-    .timer-btn.start{background:var(--accent);color:white}
-    .timer-btn.reset{background:transparent;border:1px solid var(--border);color:var(--muted)}
-    .timer-btn.reset:hover{border-color:var(--accent);color:var(--accent)}
-    .prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:48px}
-    .prog-card{background:white;border-radius:20px;border:1px solid var(--border);padding:24px 20px;transition:.3s;cursor:pointer}
-    .prog-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
-    .prog-icon{font-size:1.8rem;margin-bottom:12px}
-    .prog-card h3{font-family:"Cormorant Garamond",serif;font-size:1.15rem;margin-bottom:5px}
-    .prog-card p{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:14px}
-    .prog-footer{display:flex;justify-content:space-between;align-items:center}
-    .prog-tag{font-size:.7em;background:#f3ede4;color:var(--accent);padding:3px 10px;border-radius:999px}
-    .prog-level{font-size:.72em;color:var(--muted)}
-    .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .streak-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 32px;display:flex;align-items:center;gap:24px}
-    .streak-number{font-family:"Cormorant Garamond",serif;font-size:3.8rem;color:var(--accent);line-height:1}
-    .streak-info h3{margin-bottom:4px;font-size:1rem}
-    .streak-info p{color:var(--muted);font-size:.85em}
-    .stats-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 32px}
-    .stats-card h3{font-size:1rem;margin-bottom:18px}
-    .stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-    .stat-label{font-size:.85em;color:var(--muted)}
-    .stat-bar-wrap{flex:1;height:6px;background:var(--bg);border-radius:4px;margin:0 14px;overflow:hidden}
-    .stat-bar{height:100%;background:var(--accent);border-radius:4px}
-    .stat-val{font-size:.82em;font-weight:600;color:var(--text);min-width:36px;text-align:right}
-    .quote-card{background:linear-gradient(135deg,#2d1f0e,#5c3a1e);color:white;border-radius:24px;padding:32px 40px;margin-bottom:48px;text-align:center}
-    .quote-card blockquote{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-style:italic;line-height:1.5;margin-bottom:10px;opacity:.95}
-    .quote-card cite{font-size:.82em;opacity:.6;letter-spacing:.05em}
-    @media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon espace - Harmonia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.dash-page{min-height:100vh;background:var(--bg);font-family:"Inter",sans-serif}
+.dash-header{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;border-bottom:1px solid var(--border);background:white;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px}
+.dash-logo{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--text);text-decoration:none}
+.dash-nav{display:flex;gap:6px;flex-wrap:wrap}
+.dash-nav a{font-size:.82em;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:999px;transition:.2s;border:1px solid transparent}
+.dash-nav a:hover{background:var(--bg);border-color:var(--border)}
+.dash-nav a.active{background:#f3ede4;color:var(--accent);border-color:#e0d5c8;font-weight:500}
+.dash-user{display:flex;align-items:center;gap:10px}
+.dash-user span{color:var(--muted);font-size:.82em}
+.btn-logout{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;font-size:.8em;transition:.2s}
+.btn-logout:hover{border-color:var(--accent);color:var(--accent)}
+.sub-warning{background:#fff3cd;border:1px solid #ffc107;color:#856404;padding:12px 24px;text-align:center;font-size:.88em;display:none}
+.sub-warning a{color:#856404;font-weight:600;text-decoration:underline;cursor:pointer}
+.dash-main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.dash-welcome{margin-bottom:32px}
+.dash-welcome h1{font-family:"Cormorant Garamond",serif;font-size:2.2rem;margin-bottom:4px}
+.dash-welcome p{color:var(--muted);font-size:.95em}
+.dash-date{font-size:.82em;color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.week-bar{display:flex;gap:10px;margin-bottom:44px;flex-wrap:wrap}
+.week-day{display:flex;flex-direction:column;align-items:center;gap:6px}
+.week-day span{font-size:.72em;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.week-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:.75em;color:var(--muted);transition:.3s}
+.week-dot.done{background:var(--accent);border-color:var(--accent);color:white}
+.week-dot.today{border-color:var(--accent);color:var(--accent);font-weight:700}
+.section-title{font-family:"Cormorant Garamond",serif;font-size:1.5rem;margin-bottom:20px}
+.seance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:48px}
+.seance-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 26px;transition:.3s}
+.seance-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
+.seance-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.seance-icon{font-size:2rem}
+.seance-badge{font-size:.72em;background:#f3ede4;color:var(--accent);padding:4px 12px;border-radius:999px;font-weight:500}
+.seance-card h3{font-family:"Cormorant Garamond",serif;font-size:1.25rem;margin-bottom:6px}
+.seance-card p{color:var(--muted);font-size:.86em;line-height:1.6;margin-bottom:18px}
+.seance-meta{display:flex;gap:16px;margin-bottom:20px}
+.seance-meta span{font-size:.78em;color:var(--muted)}
+.timer-wrap{background:var(--bg);border-radius:16px;padding:16px 20px;text-align:center}
+.timer-progress{width:100%;height:4px;background:var(--border);border-radius:4px;margin-bottom:12px;overflow:hidden}
+.timer-bar{height:100%;background:var(--accent);border-radius:4px;width:0%;transition:width .5s linear}
+.timer-display{font-family:"Cormorant Garamond",serif;font-size:2.4rem;color:var(--text);letter-spacing:.05em;margin-bottom:12px}
+.timer-btns{display:flex;gap:10px;justify-content:center}
+.timer-btn{padding:8px 20px;border-radius:999px;border:none;cursor:pointer;font-size:.82em;font-weight:600;transition:.2s}
+.timer-btn.start{background:var(--accent);color:white}
+.timer-btn.reset{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.timer-btn.reset:hover{border-color:var(--accent);color:var(--accent)}
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:48px}
+.prog-card{background:white;border-radius:20px;border:1px solid var(--border);padding:24px 20px;transition:.3s;cursor:pointer;text-decoration:none;display:block;color:inherit}
+.prog-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.prog-card.highlight{border-color:var(--accent);background:#fffdf9}
+.prog-icon{font-size:1.8rem;margin-bottom:12px}
+.prog-card h3{font-family:"Cormorant Garamond",serif;font-size:1.15rem;margin-bottom:5px}
+.prog-card p{color:var(--muted);font-size:.82em;line-height:1.5;margin-bottom:14px}
+.prog-footer{display:flex;justify-content:space-between;align-items:center}
+.prog-tag{font-size:.7em;background:#f3ede4;color:var(--accent);padding:3px 10px;border-radius:999px}
+.prog-level{font-size:.72em;color:var(--muted)}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.streak-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 32px;display:flex;align-items:center;gap:24px}
+.streak-number{font-family:"Cormorant Garamond",serif;font-size:3.8rem;color:var(--accent);line-height:1}
+.streak-info h3{margin-bottom:4px;font-size:1rem}
+.streak-info p{color:var(--muted);font-size:.85em}
+.stats-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 32px}
+.stats-card h3{font-size:1rem;margin-bottom:18px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.stat-label{font-size:.85em;color:var(--muted)}
+.stat-bar-wrap{flex:1;height:6px;background:var(--bg);border-radius:4px;margin:0 14px;overflow:hidden}
+.stat-bar{height:100%;background:var(--accent);border-radius:4px}
+.stat-val{font-size:.82em;font-weight:600;color:var(--text);min-width:36px;text-align:right}
+.quote-card{background:linear-gradient(135deg,#2d1f0e,#5c3a1e);color:white;border-radius:24px;padding:32px 40px;margin-bottom:48px;text-align:center}
+.quote-card blockquote{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-style:italic;line-height:1.5;margin-bottom:10px;opacity:.95}
+.quote-card cite{font-size:.82em;opacity:.6;letter-spacing:.05em}
+.journal-cta{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7;border-radius:20px;padding:24px 28px;margin-bottom:48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.journal-cta-text h3{font-size:1.1rem;color:#2d6a4f;margin-bottom:4px}
+.journal-cta-text p{color:#666;font-size:.88em;margin:0}
+.journal-cta-btn{background:linear-gradient(135deg,#52b788,#2d6a4f);color:white;border:none;padding:10px 24px;border-radius:999px;font-size:.88em;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:.2s}
+.journal-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(82,183,136,.4)}
+@media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}.dash-nav{display:none}}
+</style>
 </head>
 <body class="dash-page">
+<div class="sub-warning" id="subWarning">
+  ⚠️ Votre abonnement n'est pas actif. <a onclick="window.location.href='signup.html'">Souscrire maintenant →</a>
+</div>
 <header class="dash-header">
-  <a href="index.html" class="dash-logo">Harmonia</a>
-  <div class="dash-user">
-    <span id="userEmail"></span>
-    <button class="btn-logout" id="logoutBtn">Déconnexion</button>
-  </div>
+<a href="index.html" class="dash-logo">Harmonia</a>
+<nav class="dash-nav">
+  <a href="dashboard.html" class="active">🏠 Tableau de bord</a>
+  <a href="journal.html">📓 Journal</a>
+  <a href="account.html">👤 Mon compte</a>
+</nav>
+<div class="dash-user">
+<span id="userEmail"></span>
+<button class="btn-logout" id="logoutBtn">Déconnexion</button>
+</div>
 </header>
 <main class="dash-main">
-  <div class="dash-welcome">
-    <div class="dash-date" id="currentDate"></div>
-    <h1 id="welcomeTitle">Bonjour 👋</h1>
-    <p>Voici ton espace bien-être du jour. Prends soin de toi.</p>
+<div class="dash-welcome">
+<div class="dash-date" id="currentDate"></div>
+<h1 id="welcomeTitle">Bonjour 👋</h1>
+<p>Voici ton espace bien-être du jour. Prends soin de toi.</p>
+</div>
+<div class="week-bar" id="weekBar"></div>
+<div class="quote-card">
+<blockquote id="quoteText"></blockquote>
+<cite id="quoteAuthor"></cite>
+</div>
+<h2 class="section-title">Séances du jour</h2>
+<div class="seance-grid">
+<div class="seance-card">
+<div class="seance-top"><div class="seance-icon">🧘</div><span class="seance-badge">Matin</span></div>
+<h3>Méditation guidée</h3>
+<p>Commence ta journée par 10 minutes de pleine conscience. Ferme les yeux, concentre-toi sur ta respiration et laisse les pensées passer sans t'y accrocher.</p>
+<div class="seance-meta"><span>⏱ 10 min</span><span>🟢 Débutant</span></div>
+<div class="timer-wrap">
+<div class="timer-progress"><div class="timer-bar" id="bar-med"></div></div>
+<div class="timer-display" id="timer-med">10:00</div>
+<div class="timer-btns">
+<button class="timer-btn start" id="btn-med" onclick="toggleTimer('med',600)">Démarrer</button>
+<button class="timer-btn reset" onclick="resetTimer('med',600)">Reset</button>
+</div>
+</div>
+</div>
+<div class="seance-card">
+<div class="seance-top"><div class="seance-icon">🌬️</div><span class="seance-badge">Midi</span></div>
+<h3>Cohérence cardiaque</h3>
+<p>5 minutes de respiration rythmée : inspire 5 secondes, expire 5 secondes. Répète 6 cycles par minute pour rééquilibrer ton système nerveux.</p>
+<div class="seance-meta"><span>⏱ 5 min</span><span>🟢 Tous niveaux</span></div>
+<div class="timer-wrap">
+<div class="timer-progress"><div class="timer-bar" id="bar-resp"></div></div>
+<div class="timer-display" id="timer-resp">05:00</div>
+<div class="timer-btns">
+<button class="timer-btn start" id="btn-resp" onclick="toggleTimer('resp',300)">Démarrer</button>
+<button class="timer-btn reset" onclick="resetTimer('resp',300)">Reset</button>
+</div>
+</div>
+</div>
+<div class="seance-card">
+<div class="seance-top"><div class="seance-icon">🤸</div><span class="seance-badge">Soir</span></div>
+<h3>Mobilité &amp; étirements</h3>
+<p>20 minutes de yoga doux pour libérer les tensions du dos, des hanches et des épaules. Idéal en fin de journée avant de dormir.</p>
+<div class="seance-meta"><span>⏱ 20 min</span><span>🟡 Intermédiaire</span></div>
+<div class="timer-wrap">
+<div class="timer-progress"><div class="timer-bar" id="bar-mob"></div></div>
+<div class="timer-display" id="timer-mob">20:00</div>
+<div class="timer-btns">
+<button class="timer-btn start" id="btn-mob" onclick="toggleTimer('mob',1200)">Démarrer</button>
+<button class="timer-btn reset" onclick="resetTimer('mob',1200)">Reset</button>
+</div>
+</div>
+</div>
+</div>
+<div class="journal-cta">
+  <div class="journal-cta-text">
+    <h3>📓 Votre journal du jour</h3>
+    <p id="journalPreview">Comment vous sentez-vous aujourd'hui ? Notez vos ressentis et progressions.</p>
   </div>
-  <div class="week-bar" id="weekBar"></div>
-  <div class="quote-card">
-    <blockquote id="quoteText"></blockquote>
-    <cite id="quoteAuthor"></cite>
-  </div>
-  <h2 class="section-title">Séances du jour</h2>
-  <div class="seance-grid">
-    <div class="seance-card">
-      <div class="seance-top"><div class="seance-icon">🧘</div><span class="seance-badge">Matin</span></div>
-      <h3>Méditation guidée</h3>
-      <p>Commence ta journée par 10 minutes de pleine conscience. Ferme les yeux, concentre-toi sur ta respiration et laisse les pensées passer sans t'y accrocher.</p>
-      <div class="seance-meta"><span>⏱ 10 min</span><span>🟢 Débutant</span></div>
-      <div class="timer-wrap">
-        <div class="timer-progress"><div class="timer-bar" id="bar-med"></div></div>
-        <div class="timer-display" id="timer-med">10:00</div>
-        <div class="timer-btns">
-          <button class="timer-btn start" id="btn-med" onclick="toggleTimer('med',600)">Démarrer</button>
-          <button class="timer-btn reset" onclick="resetTimer('med',600)">Reset</button>
-        </div>
-      </div>
-    </div>
-    <div class="seance-card">
-      <div class="seance-top"><div class="seance-icon">🌬️</div><span class="seance-badge">Midi</span></div>
-      <h3>Cohérence cardiaque</h3>
-      <p>5 minutes de respiration rythmée : inspire 5 secondes, expire 5 secondes. Répète 6 cycles par minute pour rééquilibrer ton système nerveux.</p>
-      <div class="seance-meta"><span>⏱ 5 min</span><span>🟢 Tous niveaux</span></div>
-      <div class="timer-wrap">
-        <div class="timer-progress"><div class="timer-bar" id="bar-resp"></div></div>
-        <div class="timer-display" id="timer-resp">05:00</div>
-        <div class="timer-btns">
-          <button class="timer-btn start" id="btn-resp" onclick="toggleTimer('resp',300)">Démarrer</button>
-          <button class="timer-btn reset" onclick="resetTimer('resp',300)">Reset</button>
-        </div>
-      </div>
-    </div>
-    <div class="seance-card">
-      <div class="seance-top"><div class="seance-icon">🤸</div><span class="seance-badge">Soir</span></div>
-      <h3>Mobilité &amp; étirements</h3>
-      <p>20 minutes de yoga doux pour libérer les tensions du dos, des hanches et des épaules. Idéal en fin de journée avant de dormir.</p>
-      <div class="seance-meta"><span>⏱ 20 min</span><span>🟡 Intermédiaire</span></div>
-      <div class="timer-wrap">
-        <div class="timer-progress"><div class="timer-bar" id="bar-mob"></div></div>
-        <div class="timer-display" id="timer-mob">20:00</div>
-        <div class="timer-btns">
-          <button class="timer-btn start" id="btn-mob" onclick="toggleTimer('mob',1200)">Démarrer</button>
-          <button class="timer-btn reset" onclick="resetTimer('mob',1200)">Reset</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2 class="section-title">Mes programmes</h2>
-  <div class="prog-grid">
-    <div class="prog-card"><div class="prog-icon">🧘</div><h3>Méditation</h3><p>Pleine conscience, scan corporel, visualisation positive et méditation de gratitude.</p><div class="prog-footer"><span class="prog-tag">12 séances</span><span class="prog-level">Débutant → Expert</span></div></div>
-    <div class="prog-card"><div class="prog-icon">🌬️</div><h3>Respiration</h3><p>Cohérence cardiaque, méthode Wim Hof, respiration 4-7-8 et pranayama.</p><div class="prog-footer"><span class="prog-tag">8 séances</span><span class="prog-level">Tous niveaux</span></div></div>
-    <div class="prog-card"><div class="prog-icon">🤸</div><h3>Mobilité</h3><p>Yoga doux, étirements dynamiques, tai chi et renforcement postural.</p><div class="prog-footer"><span class="prog-tag">16 séances</span><span class="prog-level">Débutant → Avancé</span></div></div>
-    <div class="prog-card"><div class="prog-icon">📈</div><h3>Suivi</h3><p>Journal de bien-être, graphiques de progression et rappels quotidiens.</p><div class="prog-footer"><span class="prog-tag">À venir</span><span class="prog-level">Tous niveaux</span></div></div>
-  </div>
-  <div class="bottom-grid">
-    <div class="streak-card">
-      <div class="streak-number" id="streakCount">0</div>
-      <div class="streak-info"><h3>Jours consécutifs 🔥</h3><p>Continue ta série - la régularité est la clé du bien-être durable.</p></div>
-    </div>
-    <div class="stats-card">
-      <h3>Cette semaine</h3>
-      <div class="stat-row"><span class="stat-label">Méditation</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-med" style="width:0%"></div></div><span class="stat-val" id="sval-med">0 min</span></div>
-      <div class="stat-row"><span class="stat-label">Respiration</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-resp" style="width:0%"></div></div><span class="stat-val" id="sval-resp">0 min</span></div>
-      <div class="stat-row"><span class="stat-label">Mobilité</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-mob" style="width:0%"></div></div><span class="stat-val" id="sval-mob">0 min</span></div>
-    </div>
-  </div>
+  <a href="journal.html" class="journal-cta-btn">Écrire dans mon journal →</a>
+</div>
+<h2 class="section-title">Mes programmes</h2>
+<div class="prog-grid">
+<div class="prog-card"><div class="prog-icon">🧘</div><h3>Méditation</h3><p>Pleine conscience, scan corporel, visualisation positive et méditation de gratitude.</p><div class="prog-footer"><span class="prog-tag">12 séances</span><span class="prog-level">Débutant → Expert</span></div></div>
+<div class="prog-card"><div class="prog-icon">🌬️</div><h3>Respiration</h3><p>Cohérence cardiaque, méthode Wim Hof, respiration 4-7-8 et pranayama.</p><div class="prog-footer"><span class="prog-tag">8 séances</span><span class="prog-level">Tous niveaux</span></div></div>
+<div class="prog-card"><div class="prog-icon">🤸</div><h3>Mobilité</h3><p>Yoga doux, étirements dynamiques, tai chi et renforcement postural.</p><div class="prog-footer"><span class="prog-tag">16 séances</span><span class="prog-level">Débutant → Avancé</span></div></div>
+<a href="journal.html" class="prog-card highlight"><div class="prog-icon">📓</div><h3>Journal</h3><p>Journal de bien-être, suivi de l'humeur, historique et rappels quotidiens.</p><div class="prog-footer"><span class="prog-tag">Actif</span><span class="prog-level">Tous niveaux</span></div></a>
+</div>
+<div class="bottom-grid">
+<div class="streak-card">
+<div class="streak-number" id="streakCount">0</div>
+<div class="streak-info"><h3>Jours consécutifs 🔥</h3><p>Continue ta série - la régularité est la clé du bien-être durable.</p></div>
+</div>
+<div class="stats-card">
+<h3>Cette semaine</h3>
+<div class="stat-row"><span class="stat-label">Méditation</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-med" style="width:0%"></div></div><span class="stat-val" id="sval-med">0 min</span></div>
+<div class="stat-row"><span class="stat-label">Respiration</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-resp" style="width:0%"></div></div><span class="stat-val" id="sval-resp">0 min</span></div>
+<div class="stat-row"><span class="stat-label">Mobilité</span><div class="stat-bar-wrap"><div class="stat-bar" id="stat-mob" style="width:0%"></div></div><span class="stat-val" id="sval-mob">0 min</span></div>
+</div>
+</div>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
 <script>
-var SURL="https://arewzgemzqmokinlylhu.supabase.co";
-var SKEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw";
-var db=window.supabase.createClient(SURL,SKEY);
 async function initDashboard(){
-  var res=await db.auth.getSession();
+  var sb=window._supabase;
+  if(!sb){window.location.href="login.html";return;}
+  var res=await sb.auth.getSession();
   var session=res.data.session;
   if(!session){window.location.href="login.html";return;}
   document.getElementById("userEmail").textContent=session.user.email;
-  var pr=await db.from("users").select("first_name").eq("id",session.user.id).single();
-  if(pr.data&&pr.data.first_name)document.getElementById("welcomeTitle").textContent="Bonjour, "+pr.data.first_name+" 👋";
+  var pr=await sb.from("users").select("first_name,subscribed").eq("id",session.user.id).maybeSingle();
+  if(pr.data){
+    if(pr.data.first_name)document.getElementById("welcomeTitle").textContent="Bonjour, "+pr.data.first_name+" 👋";
+    if(pr.data.subscribed===false){document.getElementById("subWarning").style.display="block";}
+  }
+  loadJournalPreview(sb,session.user.id);
 }
-initDashboard();
-document.getElementById("logoutBtn").addEventListener("click",async function(){await db.auth.signOut();window.location.href="login.html";});
+async function loadJournalPreview(sb,userId){
+  var today=new Date().toISOString().split("T")[0];
+  var res=await sb.from("journal_entries").select("content,mood").eq("user_id",userId).eq("entry_date",today).maybeSingle();
+  if(res.data&&res.data.content){
+    var moods=["","😔","😐","🙂","😊","😄"];
+    var preview=res.data.content.slice(0,80)+(res.data.content.length>80?"…":"");
+    document.getElementById("journalPreview").textContent=(res.data.mood?moods[res.data.mood]+" ":"")+preview;
+  }
+}
+document.addEventListener("DOMContentLoaded",function(){
+  var check=setInterval(function(){if(window._supabase){clearInterval(check);initDashboard();}},100);
+  setTimeout(function(){clearInterval(check);},5000);
+});
+document.getElementById&&document.addEventListener("DOMContentLoaded",function(){
+  var lb=document.getElementById("logoutBtn");
+  if(lb)lb.addEventListener("click",async function(){
+    var sb=window._supabase;if(sb)await sb.auth.signOut();window.location.href="login.html";
+  });
+});
 (function setDate(){
   var d=new Date();
-  document.getElementById("currentDate").textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).replace(/^./,function(c){return c.toUpperCase();});
-})();
-(function buildWeek(){
-  var jours=["L","M","M","J","V","S","D"];
-  var today=(new Date().getDay()+6)%7;
-  var done=JSON.parse(localStorage.getItem("harmonia_done")||"[]");
-  var bar=document.getElementById("weekBar");
-  jours.forEach(function(j,i){
-    var div=document.createElement("div");div.className="week-day";
-    var dot=document.createElement("div");
-    dot.className="week-dot"+(done.includes(i)?" done":"")+(i===today?" today":"");
-    dot.textContent=done.includes(i)?"✓":j;
-    var lbl=document.createElement("span");lbl.textContent=j;
-    div.appendChild(dot);div.appendChild(lbl);bar.appendChild(div);
+  document.addEventListener("DOMContentLoaded",function(){
+    var el=document.getElementById("currentDate");
+    if(el)el.textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).replace(/^./,function(c){return c.toUpperCase();});
   });
 })();
-(function setStreak(){document.getElementById("streakCount").textContent=localStorage.getItem("harmonia_streak")||"0";})();
+(function buildWeek(){
+  document.addEventListener("DOMContentLoaded",function(){
+    var jours=["L","M","M","J","V","S","D"];
+    var today=(new Date().getDay()+6)%7;
+    var done=JSON.parse(localStorage.getItem("harmonia_done")||"[]");
+    var bar=document.getElementById("weekBar");
+    if(!bar)return;
+    jours.forEach(function(j,i){
+      var div=document.createElement("div");div.className="week-day";
+      var dot=document.createElement("div");
+      dot.className="week-dot"+(done.includes(i)?" done":"")+(i===today?" today":"");
+      dot.textContent=done.includes(i)?"✓":j;
+      var lbl=document.createElement("span");lbl.textContent=j;
+      div.appendChild(dot);div.appendChild(lbl);bar.appendChild(div);
+    });
+  });
+})();
+(function setStreak(){
+  document.addEventListener("DOMContentLoaded",function(){
+    var el=document.getElementById("streakCount");if(el)el.textContent=localStorage.getItem("harmonia_streak")||"0";
+  });
+})();
 var quotes=[
-  {text:"Le calme est la conquête de la tempête intérieure.",author:"Marc Aurèle"},
-  {text:"Prendre soin de son corps est une nécessité, pas un luxe.",author:"Hippocrate"},
-  {text:"Respirer profondément, c'est revenir à soi.",author:"Thich Nhat Hanh"},
-  {text:"Le mouvement, c'est la vie.",author:"Hippocrate"},
-  {text:"Ce que l'on pratique régulièrement, on le devient.",author:"Aristote"},
-  {text:"La paix intérieure commence dès que tu choisis de ne pas laisser un événement contrôler tes émotions.",author:"Pema Chödrön"},
-  {text:"La santé n'est pas tout, mais sans elle, tout n'est rien.",author:"Arthur Schopenhauer"}
+{text:"Le calme est la conquête de la tempête intérieure.",author:"Marc Aurèle"},
+{text:"Prendre soin de son corps est une nécessité, pas un luxe.",author:"Hippocrate"},
+{text:"Respirer profondément, c'est revenir à soi.",author:"Thich Nhat Hanh"},
+{text:"Le mouvement, c'est la vie.",author:"Hippocrate"},
+{text:"Ce que l'on pratique régulièrement, on le devient.",author:"Aristote"},
+{text:"La paix intérieure commence dès que tu choisis de ne pas laisser un événement contrôler tes émotions.",author:"Pema Chödrön"},
+{text:"La santé n'est pas tout, mais sans elle, tout n'est rien.",author:"Arthur Schopenhauer"}
 ];
 (function setQuote(){
-  var q=quotes[new Date().getDay()%quotes.length];
-  document.getElementById("quoteText").textContent="“"+q.text+"”";
-  document.getElementById("quoteAuthor").textContent="— "+q.author;
+  document.addEventListener("DOMContentLoaded",function(){
+    var q=quotes[new Date().getDay()%quotes.length];
+    var qt=document.getElementById("quoteText"),qa=document.getElementById("quoteAuthor");
+    if(qt)qt.textContent="“"+q.text+"”";
+    if(qa)qa.textContent="— "+q.author;
+  });
 })();
 (function loadStats(){
-  var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
-  var med=s.med||0,resp=s.resp||0,mob=s.mob||0,max=Math.max(med,resp,mob,60);
-  document.getElementById("stat-med").style.width=(med/max*100)+"%";
-  document.getElementById("stat-resp").style.width=(resp/max*100)+"%";
-  document.getElementById("stat-mob").style.width=(mob/max*100)+"%";
-  document.getElementById("sval-med").textContent=med+" min";
-  document.getElementById("sval-resp").textContent=resp+" min";
-  document.getElementById("sval-mob").textContent=mob+" min";
+  document.addEventListener("DOMContentLoaded",function(){
+    var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
+    var med=s.med||0,resp=s.resp||0,mob=s.mob||0,max=Math.max(med,resp,mob,60);
+    ["med","resp","mob"].forEach(function(k){
+      var v=s[k]||0;
+      var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
+      if(bar)bar.style.width=(v/max*100)+"%";
+      if(val)val.textContent=v+" min";
+    });
+  });
 })();
 var timers={};
 function pad(n){return String(Math.floor(n)).padStart(2,"0");}
 function updateDisplay(id,rem,total){
-  document.getElementById("timer-"+id).textContent=pad(rem/60)+":"+pad(rem%60);
-  document.getElementById("bar-"+id).style.width=((total-rem)/total*100)+"%";
+  var td=document.getElementById("timer-"+id),bar=document.getElementById("bar-"+id);
+  if(td)td.textContent=pad(rem/60)+":"+pad(rem%60);
+  if(bar)bar.style.width=((total-rem)/total*100)+"%";
 }
 function toggleTimer(id,total){
   var btn=document.getElementById("btn-"+id);
-  if(timers[id]&&timers[id].running){clearInterval(timers[id].interval);timers[id].running=false;btn.textContent="Reprendre";}
+  if(timers[id]&&timers[id].running){clearInterval(timers[id].interval);timers[id].running=false;if(btn)btn.textContent="Reprendre";}
   else{
     if(!timers[id])timers[id]={remaining:total,running:false};
     if(timers[id].remaining<=0){resetTimer(id,total);return;}
-    timers[id].running=true;btn.textContent="Pause";
+    timers[id].running=true;if(btn)btn.textContent="Pause";
     timers[id].interval=setInterval(function(){
       timers[id].remaining--;updateDisplay(id,timers[id].remaining,total);
-      if(timers[id].remaining<=0){clearInterval(timers[id].interval);timers[id].running=false;btn.textContent="Terminé ✓";saveSession(id,Math.round(total/60));}
+      if(timers[id].remaining<=0){clearInterval(timers[id].interval);timers[id].running=false;if(btn)btn.textContent="Terminé ✓";saveSession(id,Math.round(total/60));}
     },1000);
   }
 }
@@ -242,13 +305,15 @@ function resetTimer(id,total){
 function saveSession(id,minutes){
   var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
   s[id]=(s[id]||0)+minutes;localStorage.setItem("harmonia_stats",JSON.stringify(s));
+  var totalS=(parseInt(localStorage.getItem("harmonia_total_sessions")||"0")+1);
+  localStorage.setItem("harmonia_total_sessions",totalS);
   var last=localStorage.getItem("harmonia_last_day"),todayStr=new Date().toDateString();
   if(last!==todayStr){
     var streak=parseInt(localStorage.getItem("harmonia_streak")||"0");
     var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
     var ns=last===yesterday.toDateString()?streak+1:1;
     localStorage.setItem("harmonia_streak",ns);localStorage.setItem("harmonia_last_day",todayStr);
-    document.getElementById("streakCount").textContent=ns;
+    var sc=document.getElementById("streakCount");if(sc)sc.textContent=ns;
     var today=(new Date().getDay()+6)%7;
     var done=JSON.parse(localStorage.getItem("harmonia_done")||"[]");
     if(!done.includes(today)){done.push(today);localStorage.setItem("harmonia_done",JSON.stringify(done));}
@@ -256,8 +321,9 @@ function saveSession(id,minutes){
   var max=Math.max(s.med||0,s.resp||0,s.mob||0,60);
   ["med","resp","mob"].forEach(function(k){
     var v=s[k]||0;
-    document.getElementById("stat-"+k).style.width=(v/max*100)+"%";
-    document.getElementById("sval-"+k).textContent=v+" min";
+    var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
+    if(bar)bar.style.width=(v/max*100)+"%";
+    if(val)val.textContent=v+" min";
   });
 }
 </script>
