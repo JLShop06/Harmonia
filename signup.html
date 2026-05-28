@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Inscription — Harmonia</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .auth-container { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .auth-logo { font-family:"Cormorant Garamond",serif; font-size:1.6rem; color:white; opacity:.8; margin-bottom:24px; text-align:center; }
+    .auth-card { width:90%; max-width:400px; }
+    .auth-card h1 { font-size:1.8rem; margin-bottom:8px; }
+    .price-badge { display:inline-block; background:rgba(157,122,67,.25); border:1px solid rgba(157,122,67,.5); color:#f3d08a; padding:6px 16px; border-radius:999px; font-size:.82em; margin-bottom:20px; }
+    .features-list { list-style:none; padding:0; margin-bottom:20px; }
+    .features-list li { font-size:.85em; opacity:.7; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+    .features-list li::before { content:"✓"; color:#52b788; font-weight:700; }
+  </style>
+</head>
 <body class="auth-page">
 
-  <div class="auth-card">
-  
+<div class="auth-container">
+  <div>
+    <div class="auth-logo">🌿 Harmonia</div>
+    <div class="auth-card">
       <h1>Commencer</h1>
-      <p>Crée ton compte et accède à Harmonia</p>
-  
+      <p>Crée ton compte et accède à Harmonia Premium</p>
+
+      <div class="price-badge">14,90€ / mois · Sans engagement</div>
+
+      <ul class="features-list">
+        <li>Méditation, respiration, mobilité illimités</li>
+        <li>Journal de bien-être personnel</li>
+        <li>Suivi de progression et statistiques</li>
+        <li>Connexion sécurisée sans mot de passe</li>
+      </ul>
+
       <form id="signupForm">
-            <input name="firstName" type="text"  placeholder="Prénom" required autocomplete="given-name">
-            <input name="lastName"  type="text"  placeholder="Nom"    required autocomplete="family-name">
-            <input name="email"     type="email" placeholder="Email"  required autocomplete="email">
-            <button type="submit">Commencer</button>button>
-      </form>form>
-  
+        <input name="firstName" type="text" placeholder="Prénom" required autocomplete="given-name">
+        <input name="lastName" type="text" placeholder="Nom" required autocomplete="family-name">
+        <input name="email" type="email" placeholder="Email" required autocomplete="email">
+        <button type="submit">Créer mon compte →</button>
+      </form>
+
       <div class="auth-links">
-            <p>Déjà un compte ?</p>
-            <a href="login.html">Se connecter</a>a>
-      </div>div>
-  
-  </div>div>
+        <p>Déjà un compte ?</p>
+        <a href="login.html">Se connecter</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
 
-</body>body>
-</html>html></p></p></h1></title>
-  </head>
+</body>
+</html>
