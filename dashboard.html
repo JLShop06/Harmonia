@@ -191,6 +191,7 @@ async function initDashboard(){
   var res=await sb.auth.getSession();
   var session=res.data.session;
   if(!session){window.location.href="login.html";return;}
+  _currentJWT=session.access_token;
   document.getElementById("userEmail").textContent=session.user.email;
   var pr=await sb.from("users").select("first_name,subscribed").eq("id",session.user.id).maybeSingle();
   if(pr.data){
@@ -302,11 +303,13 @@ function resetTimer(id,total){
   updateDisplay(id,total,total);
   var btn=document.getElementById("btn-"+id);if(btn)btn.textContent="Démarrer";
 }
+var _currentJWT = null;
 function saveSession(id,minutes){
   var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
   s[id]=(s[id]||0)+minutes;localStorage.setItem("harmonia_stats",JSON.stringify(s));
   var totalS=(parseInt(localStorage.getItem("harmonia_total_sessions")||"0")+1);
   localStorage.setItem("harmonia_total_sessions",totalS);
+  if(_currentJWT){fetch("https://harmonia-woad.vercel.app/api/save-session",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+_currentJWT},body:JSON.stringify({sessionType:id,durationMinutes:minutes})}).catch(function(e){console.warn("save-session API error:",e);});}
   var last=localStorage.getItem("harmonia_last_day"),todayStr=new Date().toDateString();
   if(last!==todayStr){
     var streak=parseInt(localStorage.getItem("harmonia_streak")||"0");
