@@ -398,6 +398,26 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 
 
+
+function checkStreakMilestone(streak) {
+  var milestones = [3,7,14,21,30,60,90];
+  var lastCelebrated = parseInt(localStorage.getItem('harmonia_last_milestone') || '0');
+  var nextMilestone = milestones.find(m => m > lastCelebrated && streak >= m);
+  if (!nextMilestone) return;
+  localStorage.setItem('harmonia_last_milestone', nextMilestone);
+  var messages = {
+    3: {icon: '🌱', msg: '3 jours consécutifs ! Vous êtes sur la bonne voie !'},
+    7: {icon: '🌟', msg: '1 semaine complète ! Incroyable régularité !'},
+    14: {icon: '🚀', msg: '2 semaines de suite ! Vous êtes inarrêtable !'},
+    21: {icon: '🏆', msg: '21 jours ! L'habitude est bien installée !'},
+    30: {icon: '🔥', msg: '1 mois de séries ! Vous êtes exceptionnel(le) !'},
+    60: {icon: '🥇', msg: '60 jours ! Une discipline remarquable !'},
+    90: {icon: '👑', msg: '3 mois de suite ! Champion(ne) absolu(e) du bien-être !'}
+  };
+  var m = messages[nextMilestone];
+  if (!m) return;
+  showDashToast(m.icon + ' ' + m.msg);
+}
 function showDashToast(msg){
   var t=document.getElementById('dashToast');
   if(!t)return;
@@ -497,6 +517,7 @@ function saveSession(id,minutes){
     var dn=JSON.parse(localStorage.getItem('harmonia_done')||'[]');
     if(!dn.includes(ti)){dn.push(ti);localStorage.setItem('harmonia_done',JSON.stringify(dn));}
     var sc=document.getElementById('streakCount');if(sc)sc.textContent=ns;
+    checkStreakMilestone(ns);
   }
   if(_currentJWT){
     fetch('/api/save-session',{
