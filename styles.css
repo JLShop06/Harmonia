@@ -653,3 +653,73 @@ a, button { transition: all .2s ease; }
   .nav-hamburger { display: block; }
   .nav-mobile-menu.open { display: flex; }
 }
+
+
+/* ================= DARK MODE ================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1612;
+    --text: #f0ebe5;
+    --muted: #9e9088;
+    --accent: #c49a52;
+    --border: rgba(255,255,255,0.1);
+  }
+  
+  body { background: var(--bg); color: var(--text); }
+  
+  /* Cards and white backgrounds */
+  .card, .seance-card, .prog-card, .streak-card, .stats-card,
+  .chart-card, .stat-mini, .trend-item, .goal-bar-wrap,
+  .faq-item, .testimonial-card, .pricing-card {
+    background: #2a2420 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  
+  /* Navbar */
+  .navbar, .dash-header {
+    background: #1a1612 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  
+  /* Inputs */
+  .form-group input, .journal-textarea, .date-input, .search-input {
+    background: #2a2420 !important;
+    border-color: rgba(255,255,255,0.2) !important;
+    color: var(--text) !important;
+  }
+  
+  /* Auth card */
+  .auth-card {
+    background: rgba(255,255,255,0.05) !important;
+  }
+  
+  /* Auth inputs */
+  .auth-card input {
+    background: rgba(255,255,255,0.08) !important;
+  }
+  
+  /* Timer wrap */
+  .timer-wrap, .breath-wrap {
+    background: #2a2420 !important;
+  }
+  
+  /* Progress bars */
+  .goal-bar-wrap, .stat-bar-wrap {
+    background: #3a3028 !important;
+  }
+  
+  /* Mobile panel */
+  .nav-mobile-panel {
+    background: #1a1612 !important;
+  }
+  
+  /* Welcome panel */
+  .welcome-panel {
+    background: #2a2420 !important;
+    color: var(--text);
+  }
+  
+  .welcome-step {
+    background: #3a3028 !important;
+  }
+}
