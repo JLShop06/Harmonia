@@ -36,8 +36,7 @@
 .seance-card{background:white;border-radius:24px;border:1px solid var(--border);padding:28px 26px;transition:.3s}
 .seance-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
 .seance-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.seance-icon{font-size:2rem}
-.seance-badge{font-size:.72em;background:#f3ede4;color:var(--accent);padding:4px 12px;border-radius:999px;font-weight:500}
+.seance-icon{font-size:2rem}.seance-badge{font-size:.72em;background:#f3ede4;color:var(--accent);padding:4px 12px;border-radius:999px;font-weight:500}
 .seance-card h3{font-family:"Cormorant Garamond",serif;font-size:1.25rem;margin-bottom:6px}
 .seance-card p{color:var(--muted);font-size:.86em;line-height:1.6;margin-bottom:18px}
 .seance-meta{display:flex;gap:16px;margin-bottom:20px}
@@ -51,6 +50,11 @@
 .timer-btn.start{background:var(--accent);color:white}
 .timer-btn.reset{background:transparent;border:1px solid var(--border);color:var(--muted)}
 .timer-btn.reset:hover{border-color:var(--accent);color:var(--accent)}
+.breath-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 12px}
+.breath-circle{width:70px;height:70px;border-radius:50%;background:rgba(180,140,90,.15);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:10px;transition:transform 5s ease-in-out,background 5s ease-in-out}
+.breath-circle.inhale{transform:scale(1.45);background:rgba(180,140,90,.32)}
+.breath-circle.exhale{transform:scale(1);background:rgba(180,140,90,.08)}
+.breath-label{font-size:.78em;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;min-height:1.4em;margin-bottom:8px}
 .prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:48px}
 .prog-card{background:white;border-radius:20px;border:1px solid var(--border);padding:24px 20px;transition:.3s;cursor:pointer;text-decoration:none;display:block;color:inherit}
 .prog-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
@@ -71,8 +75,8 @@
 .stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .stat-label{font-size:.85em;color:var(--muted)}
 .stat-bar-wrap{flex:1;height:6px;background:var(--bg);border-radius:4px;margin:0 14px;overflow:hidden}
-.stat-bar{height:100%;background:var(--accent);border-radius:4px}
-.stat-val{font-size:.82em;font-weight:600;color:var(--text);min-width:36px;text-align:right}
+.stat-bar{height:100%;background:var(--accent);border-radius:4px;transition:width .6s ease}
+.stat-val{font-size:.82em;font-weight:600;color:var(--text);min-width:60px;text-align:right}
 .quote-card{background:linear-gradient(135deg,#2d1f0e,#5c3a1e);color:white;border-radius:24px;padding:32px 40px;margin-bottom:48px;text-align:center}
 .quote-card blockquote{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-style:italic;line-height:1.5;margin-bottom:10px;opacity:.95}
 .quote-card cite{font-size:.82em;opacity:.6;letter-spacing:.05em}
@@ -86,14 +90,14 @@
 </head>
 <body class="dash-page">
 <div class="sub-warning" id="subWarning">
-  ⚠️ Votre abonnement n'est pas actif. <a onclick="window.location.href='signup.html'">Souscrire maintenant →</a>
+⚠️ Votre abonnement n'est pas actif. <a onclick="window.location.href='signup.html'">Souscrire maintenant →</a>
 </div>
 <header class="dash-header">
 <a href="index.html" class="dash-logo">Harmonia</a>
 <nav class="dash-nav">
-  <a href="dashboard.html" class="active">🏠 Tableau de bord</a>
-  <a href="journal.html">📓 Journal</a>
-  <a href="account.html">👤 Mon compte</a>
+<a href="dashboard.html" class="active">🏠 Tableau de bord</a>
+<a href="journal.html">📓 Journal</a>
+<a href="account.html">👤 Mon compte</a>
 </nav>
 <div class="dash-user">
 <span id="userEmail"></span>
@@ -116,7 +120,7 @@
 <div class="seance-card">
 <div class="seance-top"><div class="seance-icon">🧘</div><span class="seance-badge">Matin</span></div>
 <h3>Méditation guidée</h3>
-<p>Commence ta journée par 10 minutes de pleine conscience. Ferme les yeux, concentre-toi sur ta respiration et laisse les pensées passer sans t'y accrocher.</p>
+<p>Commence ta journée par 10 minutes de pleine conscience. Ferme les yeux et laisse les pensées passer sans t'y accrocher.</p>
 <div class="seance-meta"><span>⏱ 10 min</span><span>🟢 Débutant</span></div>
 <div class="timer-wrap">
 <div class="timer-progress"><div class="timer-bar" id="bar-med"></div></div>
@@ -130,9 +134,13 @@
 <div class="seance-card">
 <div class="seance-top"><div class="seance-icon">🌬️</div><span class="seance-badge">Midi</span></div>
 <h3>Cohérence cardiaque</h3>
-<p>5 minutes de respiration rythmée : inspire 5 secondes, expire 5 secondes. Répète 6 cycles par minute pour rééquilibrer ton système nerveux.</p>
+<p>5 minutes de respiration rythée : inspire 5s, expire 5s. Rééquilibre ton système nerveux avec 6 cycles par minute.</p>
 <div class="seance-meta"><span>⏱ 5 min</span><span>🟢 Tous niveaux</span></div>
 <div class="timer-wrap">
+<div class="breath-wrap">
+<div class="breath-circle" id="breathCircle">🌬️</div>
+<div class="breath-label" id="breathLabel">Prêt à commencer</div>
+</div>
 <div class="timer-progress"><div class="timer-bar" id="bar-resp"></div></div>
 <div class="timer-display" id="timer-resp">05:00</div>
 <div class="timer-btns">
@@ -144,7 +152,7 @@
 <div class="seance-card">
 <div class="seance-top"><div class="seance-icon">🤸</div><span class="seance-badge">Soir</span></div>
 <h3>Mobilité &amp; étirements</h3>
-<p>20 minutes de yoga doux pour libérer les tensions du dos, des hanches et des épaules. Idéal en fin de journée avant de dormir.</p>
+<p>20 minutes de yoga doux pour libérer les tensions du dos, des hanches et des épaules. Idéal avant de dormir.</p>
 <div class="seance-meta"><span>⏱ 20 min</span><span>🟡 Intermédiaire</span></div>
 <div class="timer-wrap">
 <div class="timer-progress"><div class="timer-bar" id="bar-mob"></div></div>
@@ -157,11 +165,11 @@
 </div>
 </div>
 <div class="journal-cta">
-  <div class="journal-cta-text">
-    <h3>📓 Votre journal du jour</h3>
-    <p id="journalPreview">Comment vous sentez-vous aujourd'hui ? Notez vos ressentis et progressions.</p>
-  </div>
-  <a href="journal.html" class="journal-cta-btn">Écrire dans mon journal →</a>
+<div class="journal-cta-text">
+<h3>📓 Votre journal du jour</h3>
+<p id="journalPreview">Comment vous sentez-vous aujourd'hui ? Notez vos ressentis et progressions.</p>
+</div>
+<a href="journal.html" class="journal-cta-btn">Écrire dans mon journal →</a>
 </div>
 <h2 class="section-title">Mes programmes</h2>
 <div class="prog-grid">
@@ -185,141 +193,134 @@
 </main>
 <script src="auth.js"></script>
 <script>
+var _currentJWT=null,_goalMed=60,_goalResp=30,_goalMob=60;
+
 async function initDashboard(){
   var sb=window._supabase;
-  if(!sb){window.location.href="login.html";return;}
+  if(!sb){window.location.href='login.html';return;}
   var res=await sb.auth.getSession();
   var session=res.data.session;
-  if(!session){window.location.href="login.html";return;}
+  if(!session){window.location.href='login.html';return;}
   _currentJWT=session.access_token;
-  document.getElementById("userEmail").textContent=session.user.email;
-  var pr=await sb.from("users").select("first_name,subscribed").eq("id",session.user.id).maybeSingle();
+  document.getElementById('userEmail').textContent=session.user.email;
+  var pr=await sb.from('users').select('first_name,subscribed').eq('id',session.user.id).maybeSingle();
   if(pr.data){
-    if(pr.data.first_name)document.getElementById("welcomeTitle").textContent="Bonjour, "+pr.data.first_name+" 👋";
-    if(pr.data.subscribed===false){document.getElementById("subWarning").style.display="block";}
+    if(pr.data.first_name)document.getElementById('welcomeTitle').textContent='Bonjour, '+pr.data.first_name+' 👋';
+    if(pr.data.subscribed===false)document.getElementById('subWarning').style.display='block';
   }
   loadJournalPreview(sb,session.user.id);
   loadApiStats(session.access_token);
 }
+
 async function loadApiStats(jwt){
   try{
     var [statsRes,goalsRes]=await Promise.all([
-      fetch("https://harmonia-woad.vercel.app/api/user-stats",{headers:{"Authorization":"Bearer "+jwt}}),
-      fetch("https://harmonia-woad.vercel.app/api/goals",{headers:{"Authorization":"Bearer "+jwt}})
+      fetch('/api/user-stats',{headers:{Authorization:'Bearer '+jwt}}),
+      fetch('/api/goals',{headers:{Authorization:'Bearer '+jwt}})
     ]);
-    var data=statsRes.ok?await statsRes.json():{};
-    var goals=goalsRes.ok?await goalsRes.json():{goal_med:60,goal_resp:30,goal_mob:60};
-    if(data.sessions&&data.sessions.thisWeek){
-      var s=data.sessions.thisWeek;
-      var items=[
-        {k:"med",goal:goals.goal_med||60},
-        {k:"resp",goal:goals.goal_resp||30},
-        {k:"mob",goal:goals.goal_mob||60}
-      ];
-      items.forEach(function(item){
-        var v=s[item.k]||0;
-        var pct=item.goal>0?Math.min(100,Math.round(v/item.goal*100)):0;
-        var bar=document.getElementById("stat-"+item.k),val=document.getElementById("sval-"+item.k);
-        if(bar)bar.style.width=pct+"%";
-        if(val)val.textContent=v+" / "+item.goal+"min";
-      });
+    if(goalsRes.ok){
+      var goals=await goalsRes.json();
+      _goalMed=goals.goal_med||60;_goalResp=goals.goal_resp||30;_goalMob=goals.goal_mob||60;
     }
-  }catch(e){console.warn("stats/goals API error:",e);}
+    if(statsRes.ok){
+      var data=await statsRes.json();
+      if(data.sessions&&data.sessions.thisWeek){
+        var s=data.sessions.thisWeek;
+        [['med',_goalMed],['resp',_goalResp],['mob',_goalMob]].forEach(function(item){
+          var v=s[item[0]]||0;
+          var pct=item[1]>0?Math.min(100,Math.round(v/item[1]*100)):0;
+          var bar=document.getElementById('stat-'+item[0]),val=document.getElementById('sval-'+item[0]);
+          if(bar)bar.style.width=pct+'%';
+          if(val)val.textContent=v+' / '+item[1]+' min';
+        });
+      }
+      if(data.streak>0){var sc=document.getElementById('streakCount');if(sc)sc.textContent=data.streak;}
+    }
+  }catch(e){console.warn('stats API:',e);}
 }
+
 async function loadJournalPreview(sb,userId){
-  var today=new Date().toISOString().split("T")[0];
-  var res=await sb.from("journal_entries").select("content,mood").eq("user_id",userId).eq("entry_date",today).maybeSingle();
+  var today=new Date().toISOString().split('T')[0];
+  var res=await sb.from('journal_entries').select('content,mood').eq('user_id',userId).eq('entry_date',today).maybeSingle();
   if(res.data&&res.data.content){
-    var moods=["","😔","😐","🙂","😊","😄"];
-    var preview=res.data.content.slice(0,80)+(res.data.content.length>80?"…":"");
-    document.getElementById("journalPreview").textContent=(res.data.mood?moods[res.data.mood]+" ":"")+preview;
+    var moods=['','😔','😐','🙂','😊','😄'];
+    var preview=res.data.content.slice(0,80)+(res.data.content.length>80?'…':'');
+    document.getElementById('journalPreview').textContent=(res.data.mood?moods[res.data.mood]+' ':'')+preview;
   }
 }
-document.addEventListener("DOMContentLoaded",function(){
+
+document.addEventListener('DOMContentLoaded',function(){
   var check=setInterval(function(){if(window._supabase){clearInterval(check);initDashboard();}},100);
   setTimeout(function(){clearInterval(check);},5000);
-});
-document.getElementById&&document.addEventListener("DOMContentLoaded",function(){
-  var lb=document.getElementById("logoutBtn");
-  if(lb)lb.addEventListener("click",async function(){
-    var sb=window._supabase;if(sb)await sb.auth.signOut();window.location.href="login.html";
+
+  var lb=document.getElementById('logoutBtn');
+  if(lb)lb.addEventListener('click',async function(){
+    var sb=window._supabase;if(sb)await sb.auth.signOut();
+    window.location.href='login.html';
   });
-});
-(function setDate(){
+
   var d=new Date();
-  document.addEventListener("DOMContentLoaded",function(){
-    var el=document.getElementById("currentDate");
-    if(el)el.textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).replace(/^./,function(c){return c.toUpperCase();});
-  });
-})();
-(function buildWeek(){
-  document.addEventListener("DOMContentLoaded",function(){
-    var jours=["L","M","M","J","V","S","D"];
-    var today=(new Date().getDay()+6)%7;
-    var done=JSON.parse(localStorage.getItem("harmonia_done")||"[]");
-    var bar=document.getElementById("weekBar");
-    if(!bar)return;
+  var el=document.getElementById('currentDate');
+  if(el)el.textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).replace(/^./,function(c){return c.toUpperCase();});
+
+  var jours=['L','M','M','J','V','S','D'];
+  var todayIdx=(new Date().getDay()+6)%7;
+  var done=JSON.parse(localStorage.getItem('harmonia_done')||'[]');
+  var bar2=document.getElementById('weekBar');
+  if(bar2){
     jours.forEach(function(j,i){
-      var div=document.createElement("div");div.className="week-day";
-      var dot=document.createElement("div");
-      dot.className="week-dot"+(done.includes(i)?" done":"")+(i===today?" today":"");
-      dot.textContent=done.includes(i)?"✓":j;
-      var lbl=document.createElement("span");lbl.textContent=j;
-      div.appendChild(dot);div.appendChild(lbl);bar.appendChild(div);
+      var div=document.createElement('div');div.className='week-day';
+      var dot=document.createElement('div');
+      dot.className='week-dot'+(done.includes(i)?' done':'')+(i===todayIdx?' today':'');
+      dot.textContent=done.includes(i)?'✓':j;
+      var lbl=document.createElement('span');lbl.textContent=j;
+      div.appendChild(dot);div.appendChild(lbl);bar2.appendChild(div);
     });
-  });
-})();
-(function setStreak(){
-  document.addEventListener("DOMContentLoaded",function(){
-    var el=document.getElementById("streakCount");if(el)el.textContent=localStorage.getItem("harmonia_streak")||"0";
-  });
-})();
-var quotes=[
-{text:"Le calme est la conquête de la tempête intérieure.",author:"Marc Aurèle"},
-{text:"Prendre soin de son corps est une nécessité, pas un luxe.",author:"Hippocrate"},
-{text:"Respirer profondément, c'est revenir à soi.",author:"Thich Nhat Hanh"},
-{text:"Le mouvement, c'est la vie.",author:"Hippocrate"},
-{text:"Ce que l'on pratique régulièrement, on le devient.",author:"Aristote"},
-{text:"La paix intérieure commence dès que tu choisis de ne pas laisser un événement contrôler tes émotions.",author:"Pema Chödrön"},
-{text:"La santé n'est pas tout, mais sans elle, tout n'est rien.",author:"Arthur Schopenhauer"}
-];
-(function setQuote(){
-  document.addEventListener("DOMContentLoaded",function(){
-    var q=quotes[new Date().getDay()%quotes.length];
-    var qt=document.getElementById("quoteText"),qa=document.getElementById("quoteAuthor");
-    if(qt)qt.textContent="“"+q.text+"”";
-    if(qa)qa.textContent="— "+q.author;
-  });
-})();
-(function loadStats(){
-  document.addEventListener("DOMContentLoaded",function(){
-    var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
-    var med=s.med||0,resp=s.resp||0,mob=s.mob||0,max=Math.max(med,resp,mob,60);
-    ["med","resp","mob"].forEach(function(k){
-      var v=s[k]||0;
-      var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
-      if(bar)bar.style.width=(v/max*100)+"%";
-      if(val)val.textContent=v+" min";
-    });
-  });
-})();
+  }
+
+  var quotes=[
+    {text:'Le calme est la conquête de la tempête intérieure.',author:'Marc Aurèle'},
+    {text:'Prendre soin de son corps est une nécessité, pas un luxe.',author:'Hippocrate'},
+    {text:'Respirer profondément, c’est revenir à soi.',author:'Thich Nhat Hanh'},
+    {text:'Le mouvement, c’est la vie.',author:'Hippocrate'},
+    {text:'Ce que l’on pratique régulièrement, on le devient.',author:'Aristote'},
+    {text:'La paix intérieure commence dès que tu choisis de ne pas laisser un événement contrôler tes émotions.',author:'Pema Chödrön'},
+    {text:'La santé n’est pas tout, mais sans elle, tout n’est rien.',author:'Arthur Schopenhauer'}
+  ];
+  var q=quotes[new Date().getDay()%quotes.length];
+  var qt=document.getElementById('quoteText'),qa=document.getElementById('quoteAuthor');
+  if(qt)qt.textContent='“'+q.text+'”';
+  if(qa)qa.textContent='— '+q.author;
+
+  var sc=document.getElementById('streakCount');
+  if(sc)sc.textContent=localStorage.getItem('harmonia_streak')||'0';
+});
+
 var timers={};
-function pad(n){return String(Math.floor(n)).padStart(2,"0");}
+function pad(n){return String(Math.floor(n)).padStart(2,'0');}
 function updateDisplay(id,rem,total){
-  var td=document.getElementById("timer-"+id),bar=document.getElementById("bar-"+id);
-  if(td)td.textContent=pad(rem/60)+":"+pad(rem%60);
-  if(bar)bar.style.width=((total-rem)/total*100)+"%";
+  var td=document.getElementById('timer-'+id),bar=document.getElementById('bar-'+id);
+  if(td)td.textContent=pad(rem/60)+':'+pad(rem%60);
+  if(bar)bar.style.width=((total-rem)/total*100)+'%';
 }
 function toggleTimer(id,total){
-  var btn=document.getElementById("btn-"+id);
-  if(timers[id]&&timers[id].running){clearInterval(timers[id].interval);timers[id].running=false;if(btn)btn.textContent="Reprendre";}
-  else{
+  var btn=document.getElementById('btn-'+id);
+  if(timers[id]&&timers[id].running){
+    clearInterval(timers[id].interval);timers[id].running=false;
+    if(btn)btn.textContent='Reprendre';if(id==='resp')stopBreath();
+  }else{
     if(!timers[id])timers[id]={remaining:total,running:false};
     if(timers[id].remaining<=0){resetTimer(id,total);return;}
-    timers[id].running=true;if(btn)btn.textContent="Pause";
+    timers[id].running=true;if(btn)btn.textContent='Pause';
+    if(id==='resp')startBreath();
     timers[id].interval=setInterval(function(){
       timers[id].remaining--;updateDisplay(id,timers[id].remaining,total);
-      if(timers[id].remaining<=0){clearInterval(timers[id].interval);timers[id].running=false;if(btn)btn.textContent="Terminé ✓";saveSession(id,Math.round(total/60));}
+      if(timers[id].remaining<=0){
+        clearInterval(timers[id].interval);timers[id].running=false;
+        if(btn)btn.textContent='Terminé ✓';
+        if(id==='resp')stopBreath();
+        saveSession(id,Math.round(total/60));
+      }
     },1000);
   }
 }
@@ -327,33 +328,48 @@ function resetTimer(id,total){
   if(timers[id])clearInterval(timers[id].interval);
   timers[id]={remaining:total,running:false};
   updateDisplay(id,total,total);
-  var btn=document.getElementById("btn-"+id);if(btn)btn.textContent="Démarrer";
+  var btn=document.getElementById('btn-'+id);if(btn)btn.textContent='Démarrer';
+  if(id==='resp')stopBreath();
 }
-var _currentJWT = null;
+
+var _breathInterval=null,_breathPhase='exhale';
+function startBreath(){
+  var circle=document.getElementById('breathCircle'),label=document.getElementById('breathLabel');
+  if(!circle)return;
+  _breathPhase='inhale';circle.className='breath-circle inhale';
+  if(label)label.textContent='Inspire…';
+  _breathInterval=setInterval(function(){
+    _breathPhase=_breathPhase==='inhale'?'exhale':'inhale';
+    circle.className='breath-circle '+_breathPhase;
+    if(label)label.textContent=_breathPhase==='inhale'?'Inspire…':'Expire…';
+  },5000);
+}
+function stopBreath(){
+  clearInterval(_breathInterval);
+  var circle=document.getElementById('breathCircle'),label=document.getElementById('breathLabel');
+  if(circle)circle.className='breath-circle';
+  if(label)label.textContent='Prêt à commencer';
+}
+
 function saveSession(id,minutes){
-  var s=JSON.parse(localStorage.getItem("harmonia_stats")||"{}");
-  s[id]=(s[id]||0)+minutes;localStorage.setItem("harmonia_stats",JSON.stringify(s));
-  var totalS=(parseInt(localStorage.getItem("harmonia_total_sessions")||"0")+1);
-  localStorage.setItem("harmonia_total_sessions",totalS);
-  if(_currentJWT){fetch("https://harmonia-woad.vercel.app/api/save-session",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+_currentJWT},body:JSON.stringify({sessionType:id,durationMinutes:minutes})}).catch(function(e){console.warn("save-session API error:",e);});}
-  var last=localStorage.getItem("harmonia_last_day"),todayStr=new Date().toDateString();
+  var last=localStorage.getItem('harmonia_last_day'),todayStr=new Date().toDateString();
   if(last!==todayStr){
-    var streak=parseInt(localStorage.getItem("harmonia_streak")||"0");
+    var streak=parseInt(localStorage.getItem('harmonia_streak')||'0');
     var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
-    var ns=last===yesterday.toDateString()?streak+1:1;
-    localStorage.setItem("harmonia_streak",ns);localStorage.setItem("harmonia_last_day",todayStr);
-    var sc=document.getElementById("streakCount");if(sc)sc.textContent=ns;
-    var today=(new Date().getDay()+6)%7;
-    var done=JSON.parse(localStorage.getItem("harmonia_done")||"[]");
-    if(!done.includes(today)){done.push(today);localStorage.setItem("harmonia_done",JSON.stringify(done));}
+    var ns=(last===yesterday.toDateString())?streak+1:1;
+    localStorage.setItem('harmonia_streak',ns);localStorage.setItem('harmonia_last_day',todayStr);
+    var ti=(new Date().getDay()+6)%7;
+    var dn=JSON.parse(localStorage.getItem('harmonia_done')||'[]');
+    if(!dn.includes(ti)){dn.push(ti);localStorage.setItem('harmonia_done',JSON.stringify(dn));}
+    var sc=document.getElementById('streakCount');if(sc)sc.textContent=ns;
   }
-  var max=Math.max(s.med||0,s.resp||0,s.mob||0,60);
-  ["med","resp","mob"].forEach(function(k){
-    var v=s[k]||0;
-    var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
-    if(bar)bar.style.width=(v/max*100)+"%";
-    if(val)val.textContent=v+" min";
-  });
+  if(_currentJWT){
+    fetch('/api/save-session',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_currentJWT},
+      body:JSON.stringify({sessionType:id,durationMinutes:minutes})
+    }).then(function(){loadApiStats(_currentJWT);}).catch(function(e){console.warn('save-session:',e);});
+  }
 }
 </script>
 </body>
