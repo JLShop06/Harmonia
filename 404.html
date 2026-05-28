@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page introuvable — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .err-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .err-number {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 8rem;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(157,122,67,.6);
+      margin-bottom: 16px;
+    }
+    .err-page h1 { font-family: "Cormorant Garamond", serif; font-size: 2rem; margin-bottom: 12px; color: rgba(255,255,255,.9); }
+    .err-page p { opacity: .65; font-size: .95em; max-width: 340px; line-height: 1.6; margin-bottom: 28px; }
+    .btn-home { background: linear-gradient(135deg,#9d7a43,#7a5d2e); color: white; border: none; padding: 12px 32px; border-radius: 999px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; margin: 6px; transition: all .2s; }
+    .btn-home:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(157,122,67,.4); }
+    .btn-dash { background: transparent; color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.2); padding: 11px 28px; border-radius: 999px; font-size: .95rem; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; margin: 6px; transition: all .2s; }
+    .btn-dash:hover { border-color: rgba(255,255,255,.5); color: white; }
+  </style>
+</head>
+<body>
+<div class="err-page">
+  <div class="err-number">404</div>
+  <h1>Page introuvable</h1>
+  <p>Cette page n'existe pas ou a été déplacée. Retournez à l'accueil ou à votre espace.</p>
+  <div>
+    <a href="index.html" class="btn-home">🏠 Retour à l'accueil</a>
+    <a href="dashboard.html" class="btn-dash">Mon espace</a>
+  </div>
+</div>
+</body>
+</html>
