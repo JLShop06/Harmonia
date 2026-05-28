@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /login.html
+Allow: /signup.html
+Allow: /legal.html
+
+Disallow: /dashboard.html
+Disallow: /journal.html
+Disallow: /progress.html
+Disallow: /account.html
+Disallow: /auth-callback.html
+Disallow: /success.html
+Disallow: /cancel.html
+Disallow: /api/
+
+Sitemap: https://harmonia-woad.vercel.app/sitemap.xml
