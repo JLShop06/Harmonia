@@ -54,6 +54,8 @@
 .breath-circle{width:70px;height:70px;border-radius:50%;background:rgba(180,140,90,.15);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:10px;transition:transform 5s ease-in-out,background 5s ease-in-out}
 .breath-circle.inhale{transform:scale(1.45);background:rgba(180,140,90,.32)}
 .breath-circle.exhale{transform:scale(1);background:rgba(180,140,90,.08)}
+
+.guide-text{margin-top:10px;font-size:.82em;color:var(--muted);font-style:italic;min-height:1.4em;text-align:center;transition:opacity .5s;line-height:1.5;padding:0 8px}
 .breath-label{font-size:.78em;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;min-height:1.4em;margin-bottom:8px}
 .prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:48px}
 .prog-card{background:white;border-radius:20px;border:1px solid var(--border);padding:24px 20px;transition:.3s;cursor:pointer;text-decoration:none;display:block;color:inherit}
@@ -151,6 +153,7 @@
 <p>Commence ta journée par 10 minutes de pleine conscience. Ferme les yeux et laisse les pensées passer sans t'y accrocher.</p>
 <div class="seance-meta"><span>⏱ 10 min</span><span>🟢 Débutant</span></div>
 <div class="timer-wrap">
+<div class="guide-text" id="guide-med"></div>
 <div class="timer-progress"><div class="timer-bar" id="bar-med"></div></div>
 <div class="timer-display" id="timer-med">10:00</div>
 <div class="timer-btns">
@@ -371,12 +374,13 @@ function toggleTimer(id,total){
   var btn=document.getElementById('btn-'+id);
   if(timers[id]&&timers[id].running){
     clearInterval(timers[id].interval);timers[id].running=false;
-    if(btn)btn.textContent='Reprendre';if(id==='resp')stopBreath();
+    if(btn)btn.textContent='Reprendre';if(id==='resp')stopBreath();if(id==='med'||id==='mob')stopGuide(id);
   }else{
     if(!timers[id])timers[id]={remaining:total,running:false};
     if(timers[id].remaining<=0){resetTimer(id,total);return;}
     timers[id].running=true;if(btn)btn.textContent='Pause';
     if(id==='resp')startBreath();
+    if(id==='med'||id==='mob')startGuide(id);
     timers[id].interval=setInterval(function(){
       timers[id].remaining--;updateDisplay(id,timers[id].remaining,total);
       if(timers[id].remaining<=0){
@@ -385,6 +389,7 @@ function toggleTimer(id,total){
         var names={med:'Méditation 🧘',resp:'Cohérence cardiaque 🌬️',mob:'Mobilité 🤸'};
         showDashToast('✅ Séance '+(names[id]||id)+' terminée ! Bravo !');
         if(id==='resp')stopBreath();
+        if(id==='med'||id==='mob')stopGuide(id);
         saveSession(id,Math.round(total/60));
       }
     },1000);
@@ -398,6 +403,29 @@ function resetTimer(id,total){
   if(id==='resp')stopBreath();
 }
 
+
+var MED_GUIDE=['Installez-vous confortablement, dos droit.','Fermez les yeux. Respirez profondément.','Portez attention à chaque inspiration.','Observez vos pensées sans y vous attacher.','Revenez à votre souffle chaque fois que l'esprit s'égare.','Ressentez la tranquillité de ce moment présent.','Imaginez une lumière douce qui vous enveloppe.','Vous êtes en sécurité, en paix.','Continuez à respirer lentement et profondément.','Laissez chaque expiration libérer les tensions.'];
+var MOB_GUIDE=['Allongez-vous sur le dos ou asseyez-vous sur un tapis.','Commencez par des rotations lentes des épaules.','Penchez la tête vers l’épaule gauche, maintenez 30s.','Changez de côté : penchez vers l’épaule droite.','Pliez les genoux vers la poitrine, maintenez.','Torsion dorsale : genoux à gauche, bras en croix.','Changez de côté pour la torsion.','Étirez les ischio-jambiers : jambe tendue vers vous.','Chien tête en bas : hanches vers le haut, talons au sol.','Respiration finale : savasana 30 secondes.'];
+var _guideTimers={};
+
+function startGuide(id){
+  var guides=id==='med'?MED_GUIDE:id==='mob'?MOB_GUIDE:null;
+  var el=document.getElementById('guide-'+id);
+  if(!guides||!el)return;
+  var idx=0;
+  el.textContent=guides[0];el.style.opacity='1';
+  _guideTimers[id]=setInterval(function(){
+    idx++;
+    if(idx>=guides.length){clearInterval(_guideTimers[id]);return;}
+    el.style.opacity='0';
+    setTimeout(function(){el.textContent=guides[idx];el.style.opacity='1';},500);
+  },60000/guides.length);
+}
+function stopGuide(id){
+  clearInterval(_guideTimers[id]);
+  var el=document.getElementById('guide-'+id);
+  if(el){el.textContent='';el.style.opacity='0';}
+}
 var _breathInterval=null,_breathPhase='exhale';
 function startBreath(){
   var circle=document.getElementById('breathCircle'),label=document.getElementById('breathLabel');
