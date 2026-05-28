@@ -1,8 +1,8 @@
-// service-worker.js — Harmonia PWA
+// service-worker.js — Harmonia PWA v4
 // Stratégie : Network First pour HTML, Cache First pour assets statiques
 
-const CACHE_NAME = "harmonia-v3";
-const STATIC_CACHE = "harmonia-static-v3";
+const CACHE_NAME = "harmonia-v4";
+const STATIC_CACHE = "harmonia-static-v4";
 
 // Assets statiques à précacher
 const STATIC_ASSETS = [
@@ -14,6 +14,10 @@ const STATIC_ASSETS = [
   "/journal.html",
   "/account.html",
   "/auth-callback.html",
+  "/success.html",
+  "/cancel.html",
+  "/legal.html",
+  "/404.html",
   "/styles.css",
   "/auth.js",
   "/manifest.json",
@@ -50,13 +54,14 @@ self.addEventListener("fetch", event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Ne pas intercepter les requêtes API, Supabase, Stripe
+  // Ne pas intercepter les requêtes API, Supabase, Stripe, CDN
   if (
     url.pathname.startsWith("/api/") ||
     url.hostname.includes("supabase.co") ||
     url.hostname.includes("stripe.com") ||
     url.hostname.includes("googleapis.com") ||
     url.hostname.includes("jsdelivr.net") ||
+    url.hostname.includes("vercel.live") ||
     request.method !== "GET"
   ) {
     return;
@@ -68,11 +73,15 @@ self.addEventListener("fetch", event => {
     event.respondWith(
       fetch(request)
         .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+          }
           return response;
         })
-        .catch(() => caches.match(request).then(r => r || caches.match("/index.html")))
+        .catch(() => caches.match(request)
+          .then(r => r || caches.match("/index.html"))
+        )
     );
     return;
   }
@@ -88,6 +97,6 @@ self.addEventListener("fetch", event => {
         }
         return response;
       });
-    }).catch(() => caches.match("/index.html"))
+    }).catch(() => caches.match("/404.html"))
   );
 });
