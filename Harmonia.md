@@ -271,4 +271,11 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 - ✅ **Journal** — Bouton "Modifier" pour charger une ancienne entrée dans l'éditeur
 - ✅ **Journal** — Brouillon localStorage par date (plus global)
 
-*Document mis à jour automatiquement — Harmonia v3.0*
+
+- ✅ **CSV Export** — Bouton "Exporter en CSV" sur progress.html (RGPD droit à la portabilité)
+- ✅ **API validation confirmée** — Toutes les APIs retournent 401 (JSON) sans token, 200 avec token valide
+- ✅ **vercel.json minimal** — Suppression des builds manuels, auto-détection Vercel (résout le 404 API)
+- ✅ **Success.html** — Vérification de l'abonnement via check-subscription API avec 5 tentatives
+- ✅ **Texte guidé** — Instructions de méditation et de mobilité rotatives pendant les timers
+
+*Document mis à jour automatiquement — Harmonia v3.1*
