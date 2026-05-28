@@ -38,32 +38,43 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Webhook error: " + err.message });
   }
 
-  // Gestion des events Stripe
+  console.log("Stripe event:", event.type);
+
   switch (event.type) {
 
     case "checkout.session.completed": {
       const session = event.data.object;
-      const email      = session.customer_email || session.metadata?.email;
-      const firstName  = session.metadata?.first_name || "";
-      const lastName   = session.metadata?.last_name  || "";
+      const email = session.customer_email || session.metadata?.email;
+      const customerId = session.customer;
 
       if (email) {
-        // Marquer l'utilisateur comme abonné dans Supabase
         const { error } = await supabase
           .from("users")
           .update({
-            subscribed:    true,
+            subscribed: true,
             subscribed_at: new Date().toISOString(),
-            stripe_customer_id: session.customer
+            stripe_customer_id: customerId
           })
           .eq("email", email);
 
-        if (error) {
-          console.error("Supabase update error:", error);
-        } else {
-          console.log("User subscribed:", email);
-        }
+        if (error) console.error("Supabase update error (checkout):", error);
+        else console.log("User subscribed:", email);
       }
+      break;
+    }
+
+    case "customer.subscription.updated": {
+      const sub = event.data.object;
+      const customerId = sub.customer;
+      const isActive = ["active", "trialing"].includes(sub.status);
+
+      const { error } = await supabase
+        .from("users")
+        .update({ subscribed: isActive })
+        .eq("stripe_customer_id", customerId);
+
+      if (error) console.error("Supabase update error (sub update):", error);
+      else console.log("Subscription updated:", customerId, "active:", isActive);
       break;
     }
 
@@ -77,6 +88,27 @@ export default async function handler(req, res) {
         .eq("stripe_customer_id", customerId);
 
       if (error) console.error("Supabase unsubscribe error:", error);
+      else console.log("User unsubscribed:", customerId);
+      break;
+    }
+
+    case "invoice.payment_failed": {
+      const invoice = event.data.object;
+      const customerId = invoice.customer;
+      const attemptCount = invoice.attempt_count;
+
+      // Après 3 échecs, désactiver l'abonnement
+      if (attemptCount >= 3) {
+        const { error } = await supabase
+          .from("users")
+          .update({ subscribed: false })
+          .eq("stripe_customer_id", customerId);
+
+        if (error) console.error("Supabase payment failed error:", error);
+        else console.log("Subscription deactivated after payment failure:", customerId);
+      } else {
+        console.log("Payment failed (attempt", attemptCount, "):", customerId);
+      }
       break;
     }
 
