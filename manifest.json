@@ -1,46 +1,52 @@
 {
-  "name": "Harmonia – Bien-être & Développement Personnel",
+  "name": "Harmonia — Bien-être Premium",
   "short_name": "Harmonia",
-  "description": "Application premium de bien-être : méditation, cohérence cardiaque, yoga, journal et suivi de progression.",
+  "description": "Méditation, respiration, mobilité, journal de bien-être et suivi de progression.",
   "start_url": "/dashboard.html",
   "display": "standalone",
   "background_color": "#f8f5f0",
   "theme_color": "#9d7a43",
   "orientation": "portrait-primary",
   "lang": "fr",
-  "scope": "/",
   "icons": [
     {
-      "src": "logo-harmonia.png",
+      "src": "/logo-harmonia.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "logo-harmonia.png",
+      "src": "/logo-harmonia.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
     {
       "name": "Tableau de bord",
       "short_name": "Dashboard",
+      "description": "Accéder aux séances du jour",
       "url": "/dashboard.html",
-      "icons": [{ "src": "logo-harmonia.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
     },
     {
-      "name": "Journal de bien-être",
+      "name": "Mon Journal",
       "short_name": "Journal",
+      "description": "Écrire dans mon journal de bien-être",
       "url": "/journal.html",
-      "icons": [{ "src": "logo-harmonia.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mes Progrès",
+      "short_name": "Progrès",
+      "description": "Voir mes statistiques et graphiques",
+      "url": "/progress.html",
+      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
     }
   ],
-  "categories": [
-    "health",
-    "lifestyle",
-    "wellness",
-    "productivity"
-  ]
+  "screenshots": [],
+  "categories": ["health", "fitness", "lifestyle"],
+  "related_applications": [],
+  "prefer_related_applications": false
 }
