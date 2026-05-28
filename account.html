@@ -309,6 +309,22 @@ Cette action est irréversible.');
   }catch(e){showToast('Erreur réseau: '+e.message,false);}
 }
 
+
+// Mobile hamburger
+document.getElementById('hamburgerBtn')?.addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('closeMenuBtn')?.addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.remove('open');
+});
+document.getElementById('mobileMenu')?.addEventListener('click', (e) => {
+  if (e.target === document.getElementById('mobileMenu')) document.getElementById('mobileMenu').classList.remove('open');
+});
+document.getElementById('logoutBtnMobile')?.addEventListener('click', async () => {
+  const sb = window._supabase; if (sb) await sb.auth.signOut();
+  window.location.href = 'login.html';
+});
+
 document.addEventListener('DOMContentLoaded',function(){
   var check=setInterval(function(){if(window._supabase){clearInterval(check);initAuth();}},100);
   setTimeout(function(){clearInterval(check);},5000);
