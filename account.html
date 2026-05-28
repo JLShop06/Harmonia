@@ -208,17 +208,27 @@
     }
 
     async function loadStats() {
-      const sb = window._supabase;
       const streak = parseInt(localStorage.getItem('harmonia_streak') || '0');
-      const sessions = parseInt(localStorage.getItem('harmonia_total_sessions') || '0');
       document.getElementById('statStreak').textContent = streak;
-      document.getElementById('statSessions').textContent = sessions;
+      document.getElementById('statSessions').textContent = localStorage.getItem('harmonia_total_sessions') || '0';
+      document.getElementById('statJournal').textContent = '...';
 
-      const { count } = await sb
-        .from('journal_entries')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', currentUser.id);
-      document.getElementById('statJournal').textContent = count || 0;
+      // Appel API pour stats complètes
+      try {
+        const { data: { session } } = await window._supabase.auth.getSession();
+        if (!session) return;
+        const res = await fetch('https://harmonia-woad.vercel.app/api/user-stats', {
+          headers: { 'Authorization': 'Bearer ' + session.access_token }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById('statJournal').textContent = data.journal?.count || 0;
+        if (data.sessions?.thisWeek) {
+          const total = data.sessions.thisWeek.total;
+          document.getElementById('statSessions').textContent =
+            total > 0 ? Math.round(total) + ' min' : localStorage.getItem('harmonia_total_sessions') || '0';
+        }
+      } catch(e) { console.warn('Stats API error:', e); }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
