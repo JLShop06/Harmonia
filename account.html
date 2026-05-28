@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Compte – Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .account-page { max-width:640px; margin:0 auto; padding:20px; }
+    .account-header { display:flex; align-items:center; gap:14px; margin-bottom:32px; }
+    .account-header h1 { font-size:1.8rem; color:#2d6a4f; margin:0; }
+    .avatar-circle { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#52b788,#2d6a4f); display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; font-weight:700; flex-shrink:0; }
+    .card { background:#fff; border-radius:16px; padding:28px; margin-bottom:20px; box-shadow:0 2px 12px rgba(0,0,0,.08); }
+    .card h2 { font-size:1.1rem; color:#2d6a4f; margin:0 0 20px; display:flex; align-items:center; gap:8px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-size:.85rem; font-weight:600; color:#555; }
+    .form-group input { padding:10px 14px; border:2px solid #d8f3dc; border-radius:8px; font-size:.95rem; color:#2d3436; transition:border-color .2s; }
+    .form-group input:focus { outline:none; border-color:#52b788; box-shadow:0 0 0 3px rgba(82,183,136,.15); }
+    .form-group input[readonly] { background:#f8fdf9; color:#888; cursor:default; }
+    .btn-primary { background:linear-gradient(135deg,#52b788,#2d6a4f); color:#fff; border:none; padding:12px 28px; border-radius:10px; font-size:1rem; font-weight:600; cursor:pointer; transition:all .2s; }
+    .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 4px 12px rgba(82,183,136,.4); }
+    .btn-primary:disabled { opacity:.6; cursor:not-allowed; }
+    .btn-secondary { background:transparent; color:#2d6a4f; border:2px solid #52b788; padding:10px 24px; border-radius:10px; font-size:.95rem; font-weight:600; cursor:pointer; transition:all .2s; }
+    .btn-secondary:hover { background:#d8f3dc; }
+    .btn-danger { background:transparent; color:#e74c3c; border:2px solid #e74c3c; padding:10px 24px; border-radius:10px; font-size:.95rem; font-weight:600; cursor:pointer; transition:all .2s; }
+    .btn-danger:hover { background:#e74c3c; color:#fff; }
+    .status-msg { margin-top:12px; font-size:.9rem; font-weight:600; min-height:1.2em; }
+    .status-ok { color:#52b788; }
+    .status-err { color:#e74c3c; }
+    .subscription-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; font-weight:700; font-size:.9rem; }
+    .sub-active { background:#d8f3dc; color:#2d6a4f; border:1px solid #52b788; }
+    .sub-inactive { background:#ffeaa7; color:#d35400; border:1px solid #f39c12; }
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+    .stat-box { background:#f8fdf9; border-radius:12px; padding:14px; text-align:center; border:1px solid #d8f3dc; }
+    .stat-box .val { font-size:1.6rem; font-weight:800; color:#2d6a4f; }
+    .stat-box .lbl { font-size:.75rem; color:#888; margin-top:4px; }
+    .toast { position:fixed; bottom:24px; right:24px; background:#52b788; color:#fff; padding:12px 24px; border-radius:10px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:9999; opacity:0; transform:translateY(20px); transition:all .3s; pointer-events:none; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    @media(max-width:500px) { .form-row { grid-template-columns:1fr; } .stats-grid { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">🌿 Harmonia</div>
+    <div class="nav-links">
+      <a href="dashboard.html">Tableau de bord</a>
+      <a href="journal.html">Journal</a>
+      <a href="account.html" class="active">Mon compte</a>
+    </div>
+    <button class="nav-logout" id="logoutBtn">Se déconnecter</button>
+  </nav>
+
+  <main class="account-page">
+    <div class="account-header">
+      <div class="avatar-circle" id="avatarCircle">?</div>
+      <div>
+        <h1 id="welcomeName">Mon Compte</h1>
+        <p id="userEmail" style="color:#888;margin:4px 0 0;font-size:.95rem;"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>👤 Informations personnelles</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Prénom</label>
+          <input type="text" id="firstName" placeholder="Votre prénom" maxlength="50">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nom</label>
+          <input type="text" id="lastName" placeholder="Votre nom" maxlength="50">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>Email</label>
+          <input type="email" id="emailField" readonly>
+        </div>
+      </div>
+      <button class="btn-primary" id="saveProfileBtn">💾 Enregistrer les modifications</button>
+      <p class="status-msg" id="profileStatus"></p>
+    </div>
+
+    <div class="card">
+      <h2>💳 Abonnement</h2>
+      <p id="subBadge"></p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;" id="subActions"></div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Mes statistiques</h2>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-box"><div class="val" id="statStreak">-</div><div class="lbl">Jours consécutifs</div></div>
+        <div class="stat-box"><div class="val" id="statSessions">-</div><div class="lbl">Séances totales</div></div>
+        <div class="stat-box"><div class="val" id="statJournal">-</div><div class="lbl">Entrées journal</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="border:2px solid #ffebeb;">
+      <h2 style="color:#e74c3c;">⚠️ Zone danger</h2>
+      <p style="color:#666;font-size:.9rem;margin-bottom:16px;">Attention, ces actions sont irréversibles.</p>
+      <button class="btn-danger" id="signOutAllBtn">🔓 Se déconnecter de tous les appareils</button>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="auth.js"></script>
+  <script>
+    let currentUser = null;
+    let userProfile = null;
+
+    function showToast(msg, ok=true) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.background = ok ? '#52b788' : '#e74c3c';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    function setStatus(id, msg, ok=true) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'status-msg ' + (ok ? 'status-ok' : 'status-err');
+      if (ok) setTimeout(() => el.textContent = '', 4000);
+    }
+
+    async function initAuth() {
+      const sb = window._supabase;
+      if (!sb) { window.location.href = 'login.html'; return; }
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) { window.location.href = 'login.html'; return; }
+      currentUser = session.user;
+
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await sb.auth.signOut(); window.location.href = 'login.html';
+      });
+      document.getElementById('signOutAllBtn').addEventListener('click', async () => {
+        if (!confirm('Se déconnecter de tous les appareils ?')) return;
+        await sb.auth.signOut({ scope: 'global' });
+        window.location.href = 'login.html';
+      });
+
+      loadProfile();
+      loadStats();
+    }
+
+    async function loadProfile() {
+      const sb = window._supabase;
+      document.getElementById('emailField').value = currentUser.email;
+      document.getElementById('userEmail').textContent = currentUser.email;
+
+      const { data: profile } = await sb
+        .from('users')
+        .select('*')
+        .eq('id', currentUser.id)
+        .maybeSingle();
+
+      if (profile) {
+        userProfile = profile;
+        document.getElementById('firstName').value = profile.first_name || '';
+        document.getElementById('lastName').value = profile.last_name || '';
+        const initials = ((profile.first_name||'')[0]||'') + ((profile.last_name||'')[0]||'');
+        document.getElementById('avatarCircle').textContent = initials || '?';
+        document.getElementById('welcomeName').textContent =
+          (profile.first_name ? 'Bonjour, ' + profile.first_name + ' !' : 'Mon Compte');
+
+        const sub = profile.subscribed;
+        document.getElementById('subBadge').innerHTML = sub
+          ? '<span class="subscription-badge sub-active">✅ Abonnement actif</span>'
+          : '<span class="subscription-badge sub-inactive">⚠️ Pas d'abonnement actif</span>';
+        document.getElementById('subActions').innerHTML = sub
+          ? '<button class="btn-secondary" onclick="window.location.href='https://billing.stripe.com/p/login'">Gérer mon abonnement</button>'
+          : '<button class="btn-primary" onclick="window.location.href='signup.html'">S'abonner maintenant</button>';
+      }
+
+      document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
+    }
+
+    async function saveProfile() {
+      const sb = window._supabase;
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const btn = document.getElementById('saveProfileBtn');
+
+      btn.disabled = true;
+      btn.textContent = 'Enregistrement...';
+
+      const payload = { first_name: firstName, last_name: lastName };
+      const { error } = await sb.from('users').upsert({
+        id: currentUser.id, email: currentUser.email, ...payload
+      }, { onConflict: 'id' });
+
+      btn.disabled = false;
+      btn.textContent = '💾 Enregistrer les modifications';
+
+      if (error) {
+        setStatus('profileStatus', 'Erreur: ' + error.message, false);
+        return;
+      }
+
+      setStatus('profileStatus', '✅ Profil mis à jour !');
+      showToast('Profil mis à jour !');
+      const initials = (firstName[0]||'') + (lastName[0]||'');
+      document.getElementById('avatarCircle').textContent = initials || '?';
+      if (firstName) document.getElementById('welcomeName').textContent = 'Bonjour, ' + firstName + ' !';
+    }
+
+    async function loadStats() {
+      const sb = window._supabase;
+      const streak = parseInt(localStorage.getItem('harmonia_streak') || '0');
+      const sessions = parseInt(localStorage.getItem('harmonia_total_sessions') || '0');
+      document.getElementById('statStreak').textContent = streak;
+      document.getElementById('statSessions').textContent = sessions;
+
+      const { count } = await sb
+        .from('journal_entries')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', currentUser.id);
+      document.getElementById('statJournal').textContent = count || 0;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const check = setInterval(() => {
+        if (window._supabase) { clearInterval(check); initAuth(); }
+      }, 100);
+      setTimeout(() => clearInterval(check), 5000);
+    });
+  </script>
+</body>
+</html>
