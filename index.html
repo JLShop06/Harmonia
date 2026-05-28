@@ -237,7 +237,29 @@
 
 <script>
 // Enregistrement du Service Worker PWA
-if ('serviceWorker' in navigator) {
+
+  // PWA Install prompt
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    var dismissed = localStorage.getItem('harmonia_install_dismissed');
+    if (!dismissed) {
+      document.getElementById('installBanner').style.display = 'flex';
+    }
+  });
+  document.getElementById('installBtn')?.addEventListener('click', async function() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    var result = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    document.getElementById('installBanner').style.display = 'none';
+  });
+  document.getElementById('dismissInstallBtn')?.addEventListener('click', function() {
+    document.getElementById('installBanner').style.display = 'none';
+    localStorage.setItem('harmonia_install_dismissed', '1');
+  });
+  if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
       .then(reg => console.log('SW registered:', reg.scope))
@@ -265,5 +287,12 @@ window.addEventListener('load', async () => {
   document.head.appendChild(sbCDN);
 });
 </script>
+<div class="install-banner" id="installBanner">
+<p><strong>📱 Installez Harmonia sur votre téléphone</strong>Accédez à vos séances sans connexion, directement depuis votre écran d'accueil.</p>
+<div style="display:flex;gap:8px;flex-shrink:0">
+<button class="install-btn" id="installBtn">Installer</button>
+<button class="install-dismiss" id="dismissInstallBtn">Plus tard</button>
+</div>
+</div>
 </body>
 </html>
