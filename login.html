@@ -1,73 +1,97 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Connexion — Harmonia</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .auth-container { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .auth-logo { font-family:"Cormorant Garamond",serif; font-size:1.6rem; color:white; opacity:.8; margin-bottom:24px; text-align:center; }
+    .auth-card { width:90%; max-width:380px; }
+    .auth-card h1 { font-size:1.8rem; margin-bottom:8px; }
+    .magic-info { background:rgba(255,255,255,.08); border-radius:10px; padding:12px 16px; margin-bottom:20px; font-size:.85em; opacity:.75; display:flex; align-items:center; gap:10px; }
+    .check-redirect { margin-top:16px; font-size:.82em; opacity:.6; text-align:center; }
+  </style>
+</head>
 <body class="auth-page">
 
-  <div class="auth-card">
-  
+<div class="auth-container">
+  <div>
+    <div class="auth-logo">🌿 Harmonia</div>
+    <div class="auth-card">
       <h1>Connexion</h1>
-      <p>Entre ton email pour recevoir un lien magique</p>
-  
+      <p>Reçois un lien magique par email, sans mot de passe.</p>
+
+      <div class="magic-info">
+        🔒 Connexion sécurisée sans mot de passe. Un lien unique est envoyé à ton adresse email.
+      </div>
+
       <form id="loginForm">
-            <input name="email" type="email" placeholder="Email" required autocomplete="email">
-            <button type="submit">Envoyer le lien</button>button>
-      </form>form>
-  
-      <div id="loginMsg" style="display:none;text-align:center;padding:16px;"></div>div>
-  
+        <input name="email" type="email" placeholder="Adresse email" required autocomplete="email">
+        <button type="submit">Envoyer le lien magique</button>
+      </form>
+
+      <div id="loginMsg" style="display:none;text-align:center;padding:16px;"></div>
+
       <div class="auth-links">
-            <p>Pas encore de compte ?</p>
-            <a href="signup.html">Créer un compte</a>a>
-      </div>div>
-  
-  </div>div>
+        <p>Pas encore de compte ?</p>
+        <a href="signup.html">Créer un compte</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="auth.js"></script>
-  <script>
-        // Init Supabase déjà fait par auth.js, on utilise window._supabase
-        const loginForm = document.getElementById("loginForm");
-        const loginMsg  = document.getElementById("loginMsg");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script>
+  const loginForm = document.getElementById("loginForm");
+  const loginMsg = document.getElementById("loginMsg");
 
-        loginForm.addEventListener("submit", async (e) => {
-                e.preventDefault();
+  // Si déjà connecté, rediriger
+  window.addEventListener("load", async () => {
+    const check = setInterval(async () => {
+      if (!window._supabase) return;
+      clearInterval(check);
+      const { data: { session } } = await window._supabase.auth.getSession();
+      if (session) window.location.href = "dashboard.html";
+    }, 100);
+    setTimeout(() => clearInterval(check), 3000);
+  });
 
-                const email = loginForm.email.value.trim();
-                const submitBtn = loginForm.querySelector("button[type=submit]");
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = loginForm.email.value.trim();
+    const submitBtn = loginForm.querySelector("button[type=submit]");
 
-                submitBtn.disabled = true;
-                submitBtn.textContent = "Envoi en cours...";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Envoi en cours...";
 
-                const { error } = await window._supabase.auth.signInWithOtp({
-                          email,
-                          options: {
-                                      emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html"
-                          }
-                });
+    const { error } = await window._supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html"
+      }
+    });
 
-                if (error) {
-                          loginMsg.style.display = "block";
-                          loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur : " + error.message + "</p>";
-                          submitBtn.disabled = false;
-                          submitBtn.textContent = "Envoyer le lien";
-                          return;
-                }
+    if (error) {
+      loginMsg.style.display = "block";
+      loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur : " + error.message + "<\/p>";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Envoyer le lien magique";
+      return;
+    }
 
-                loginForm.style.display = "none";
-                loginMsg.style.display = "block";
-                loginMsg.innerHTML = `
-                        <p style="font-size:1.1em;margin-bottom:8px;">✉️ Lien envoyé à <strong>${email}</strong></p>
-                                <p style="opacity:0.7;font-size:0.9em;">Clique sur le lien dans l'email pour te connecter.</p>
-                                      `;
-        });
-  </script>
+    loginForm.style.display = "none";
+    loginMsg.style.display = "block";
+    loginMsg.innerHTML = `
+      <div style="font-size:2rem;margin-bottom:12px;">✉️<\/div>
+      <p style="font-size:1.05em;margin-bottom:8px;">Lien envoyé à <strong>${email}<\/strong><\/p>
+      <p style="opacity:.7;font-size:.9em;">Clique sur le lien dans l'email pour accéder à ton espace.<\/p>
+      <p class="check-redirect">Tu peux fermer cet onglet après avoir cliqué sur le lien.<\/p>
+    `;
+  });
+</script>
 
-</body>body>
-</html>html>
-  </script></p></p></h1></title>
-  </head>
+</body>
+</html>
