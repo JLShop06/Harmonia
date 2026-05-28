@@ -12,6 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./styles.css">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="logo-harmonia.png">
 </head>
 
 <body>
@@ -186,5 +188,36 @@
 
 </section>
 
+
+<script>
+// Enregistrement du Service Worker PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.warn('SW registration failed:', err));
+  });
+}
+// Si déjà connecté → afficher bouton "Mon espace"
+window.addEventListener('load', async () => {
+  const sbCDN = document.createElement('script');
+  sbCDN.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+  sbCDN.onload = async () => {
+    const sb = window.supabase.createClient(
+      'https://arewzgemzqmokinlylhu.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw'
+    );
+    const { data: { session } } = await sb.auth.getSession();
+    const loginLinks = document.querySelectorAll('a[href="login.html"]');
+    if (session) {
+      loginLinks.forEach(a => {
+        a.href = 'dashboard.html';
+        a.textContent = a.textContent.includes('Connexion') ? 'Mon espace' : a.textContent.includes('abonner') ? 'Mon espace' : a.textContent;
+      });
+    }
+  };
+  document.head.appendChild(sbCDN);
+});
+</script>
 </body>
 </html>
