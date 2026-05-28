@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes Progrès – Harmonia</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.progress-page{max-width:900px;margin:0 auto;padding:20px 20px 80px}
+.page-header{margin-bottom:32px}
+.page-header h1{font-size:1.8rem;color:#2d6a4f;margin:0 0 6px}
+.page-header p{color:#888;font-size:.95rem;margin:0}
+.period-tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.period-tab{padding:8px 20px;border-radius:999px;border:2px solid #b7e4c7;background:transparent;color:#2d6a4f;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.period-tab.active{background:#52b788;color:#fff;border-color:#52b788}
+.period-tab:hover:not(.active){background:#d8f3dc}
+.stat-row-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:28px}
+.stat-mini{background:#fff;border-radius:14px;padding:18px;text-align:center;border:1px solid #d8f3dc;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.stat-mini .num{font-size:2rem;font-weight:800;color:#2d6a4f;line-height:1.1}
+.stat-mini .label{font-size:.75rem;color:#888;margin-top:6px}
+.chart-card{background:#fff;border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #e8f5e9}
+.chart-card h2{font-size:1.1rem;color:#2d6a4f;margin:0 0 20px;display:flex;align-items:center;gap:8px}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:140px;padding-bottom:24px;position:relative;border-bottom:2px solid #e8f5e9}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.bar{background:linear-gradient(180deg,#52b788,#2d6a4f);border-radius:6px 6px 0 0;width:100%;min-height:2px;transition:height .5s ease}
+.bar.med{background:linear-gradient(180deg,#52b788,#2d6a4f)}
+.bar.resp{background:linear-gradient(180deg,#74b9ff,#0984e3)}
+.bar.mob{background:linear-gradient(180deg,#fd79a8,#e84393)}
+.bar-label{font-size:.65rem;color:#aaa;text-align:center;margin-top:6px;white-space:nowrap}
+.bar-val{font-size:.65rem;color:#2d6a4f;font-weight:700;text-align:center}
+.mood-chart{display:flex;align-items:flex-end;gap:4px;height:100px;padding-bottom:20px;border-bottom:2px solid #e8f5e9}
+.mood-dot-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px}
+.mood-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.mood-dot-label{font-size:.6rem;color:#aaa;text-align:center}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.8rem;color:#555}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.entries-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.entries-table th{text-align:left;padding:10px 12px;color:#888;font-weight:600;border-bottom:2px solid #e8f5e9;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.entries-table td{padding:10px 12px;border-bottom:1px solid #f0faf2;vertical-align:top}
+.entries-table tr:hover td{background:#f8fdf9}
+.mood-emoji{font-size:1.2rem}
+.empty-state{text-align:center;padding:40px;color:#aaa}
+.empty-state .icon{font-size:3rem;display:block;margin-bottom:12px}
+.loading{text-align:center;padding:20px;color:#aaa;font-style:italic}
+@media(max-width:600px){.bar-chart{height:100px}.stat-row-cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<div class="nav-brand">🌿 Harmonia</div>
+<div class="nav-links">
+<a href="dashboard.html">Tableau de bord</a>
+<a href="journal.html">Journal</a>
+<a href="progress.html" class="active">Progrès</a>
+<a href="account.html">Mon compte</a>
+</div>
+<button class="nav-logout" id="logoutBtn">Se déconnecter</button>
+</nav>
+<main class="progress-page">
+<div class="page-header">
+<h1>📈 Mes Progrès</h1>
+<p>Visualisez votre évolution en bien-être semaine après semaine.</p>
+</div>
+<div class="period-tabs">
+<button class="period-tab active" data-period="7">7 jours</button>
+<button class="period-tab" data-period="14">14 jours</button>
+<button class="period-tab" data-period="30">30 jours</button>
+</div>
+<div class="stat-row-cards" id="summaryCards">
+<div class="stat-mini"><div class="num" id="statTotalMin">-</div><div class="label">Minutes pratiquées</div></div>
+<div class="stat-mini"><div class="num" id="statStreak">-</div><div class="label">Jours consécutifs</div></div>
+<div class="stat-mini"><div class="num" id="statSessions">-</div><div class="label">Séances</div></div>
+<div class="stat-mini"><div class="num" id="statJournal">-</div><div class="label">Entrées journal</div></div>
+</div>
+<div class="chart-card">
+<h2>📊 Séances par jour</h2>
+<div class="bar-chart" id="sessionChart"><div class="loading">Chargement...</div></div>
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#52b788"></div>Méditation</div>
+<div class="legend-item"><div class="legend-dot" style="background:#74b9ff"></div>Respiration</div>
+<div class="legend-item"><div class="legend-dot" style="background:#fd79a8"></div>Mobilité</div>
+</div>
+</div>
+<div class="chart-card">
+<h2>😊 Humeur du journal</h2>
+<div class="mood-chart" id="moodChart"><div class="loading">Chargement...</div></div>
+</div>
+<div class="chart-card">
+<h2>📓 Historique des entrées journal</h2>
+<div id="journalHistory"><div class="loading">Chargement...</div></div>
+</div>
+</main>
+<script src="auth.js"></script>
+<script>
+var _jwt = null;
+var _currentPeriod = 7;
+const MOOD_EMOJIS = ['','😔','😐','🙂','😊','😄'];
+const MOOD_COLORS = ['','#ff7675','#fdcb6e','#a29bfe','#55efc4','#00b894'];
+
+async function initAuth() {
+  const sb = window._supabase;
+  if (!sb) { window.location.href = 'login.html'; return; }
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  _jwt = session.access_token;
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await sb.auth.signOut(); window.location.href = 'login.html';
+  });
+  // Period tabs
+  document.querySelectorAll('.period-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      _currentPeriod = parseInt(tab.dataset.period);
+      loadAllData(session.user.id);
+    });
+  });
+  loadAllData(session.user.id);
+}
+
+async function loadAllData(userId) {
+  const sb = window._supabase;
+  const since = new Date();
+  since.setDate(since.getDate() - _currentPeriod);
+  const sinceStr = since.toISOString().split('T')[0];
+
+  // Parallel fetches
+  const [sessRes, journalRes, statsRes] = await Promise.all([
+    sb.from('wellness_sessions').select('session_type, duration_minutes, session_date, created_at')
+      .eq('user_id', userId).gte('session_date', sinceStr).order('session_date', { ascending: true }),
+    sb.from('journal_entries').select('entry_date, mood, content').eq('user_id', userId)
+      .gte('entry_date', sinceStr).order('entry_date', { ascending: false }),
+    fetch('/api/user-stats', { headers: { Authorization: 'Bearer ' + _jwt } }).then(r => r.json()).catch(() => ({}))
+  ]);
+
+  const sessions = sessRes.data || [];
+  const journals = journalRes.data || [];
+
+  // Summary stats
+  const totalMin = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
+  document.getElementById('statTotalMin').textContent = totalMin;
+  document.getElementById('statStreak').textContent = statsRes.streak || 0;
+  document.getElementById('statSessions').textContent = sessions.length;
+  document.getElementById('statJournal').textContent = journals.length;
+
+  renderSessionChart(sessions, sinceStr);
+  renderMoodChart(journals, sinceStr);
+  renderJournalHistory(journals);
+}
+
+function getDates(sinceStr, days) {
+  const dates = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    dates.push(d.toISOString().split('T')[0]);
+  }
+  return dates;
+}
+
+function renderSessionChart(sessions, sinceStr) {
+  const chart = document.getElementById('sessionChart');
+  const dates = getDates(sinceStr, _currentPeriod);
+
+  // Group by date and type
+  const byDate = {};
+  dates.forEach(d => { byDate[d] = { med: 0, resp: 0, mob: 0 }; });
+  sessions.forEach(s => {
+    const d = s.session_date || s.created_at.split('T')[0];
+    if (byDate[d] && byDate[d][s.session_type] !== undefined) {
+      byDate[d][s.session_type] += (s.duration_minutes || 0);
+    }
+  });
+
+  const maxVal = Math.max(...dates.map(d => (byDate[d].med + byDate[d].resp + byDate[d].mob)), 20);
+  const dayLabels = ['L','M','M','J','V','S','D'];
+
+  if (dates.every(d => byDate[d].med + byDate[d].resp + byDate[d].mob === 0)) {
+    chart.innerHTML = '<div class="empty-state"><span class="icon">🌱</span><p>Aucune séance dans cette période</p></div>';
+    return;
+  }
+
+  chart.innerHTML = dates.map(d => {
+    const data = byDate[d];
+    const total = data.med + data.resp + data.mob;
+    const dateObj = new Date(d + 'T12:00:00');
+    const dayLabel = _currentPeriod <= 14
+      ? dayLabels[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1] + ' ' + dateObj.getDate()
+      : dateObj.getDate().toString();
+    const medH = Math.max(1, Math.round(data.med / maxVal * 110));
+    const respH = Math.max(1, Math.round(data.resp / maxVal * 110));
+    const mobH = Math.max(1, Math.round(data.mob / maxVal * 110));
+    return `<div class="bar-wrap">
+${total > 0 ? `<div class="bar-val">${total}m</div>` : ''}
+${data.mob > 0 ? `<div class="bar mob" style="height:${mobH}px" title="Mobilité: ${data.mob}min"></div>` : ''}
+${data.resp > 0 ? `<div class="bar resp" style="height:${respH}px" title="Respiration: ${data.resp}min"></div>` : ''}
+${data.med > 0 ? `<div class="bar med" style="height:${medH}px" title="Méditation: ${data.med}min"></div>` : ''}
+${total === 0 ? '<div style="height:2px;width:100%;background:#e8f5e9;border-radius:2px"></div>' : ''}
+<div class="bar-label">${dayLabel}</div>
+</div>`;
+  }).join('');
+}
+
+function renderMoodChart(journals, sinceStr) {
+  const chart = document.getElementById('moodChart');
+  const dates = getDates(sinceStr, _currentPeriod);
+  const moodByDate = {};
+  journals.forEach(j => { moodByDate[j.entry_date] = j.mood; });
+
+  const hasData = dates.some(d => moodByDate[d]);
+  if (!hasData) {
+    chart.innerHTML = '<div class="empty-state"><span class="icon">😊</span><p>Pas encore de données d'humeur</p></div>';
+    return;
+  }
+
+  const dayLabels = ['L','M','M','J','V','S','D'];
+  chart.innerHTML = dates.map(d => {
+    const mood = moodByDate[d];
+    const dateObj = new Date(d + 'T12:00:00');
+    const dayLabel = _currentPeriod <= 14
+      ? dayLabels[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1]
+      : dateObj.getDate().toString();
+    const emoji = mood ? MOOD_EMOJIS[mood] : '•';
+    const color = mood ? MOOD_COLORS[mood] : '#eee';
+    return `<div class="mood-dot-wrap">
+<div class="mood-dot" style="background:${color}20;border:2px solid ${color}" title="${d}">${emoji}</div>
+<div class="mood-dot-label">${dayLabel}</div>
+</div>`;
+  }).join('');
+}
+
+function renderJournalHistory(journals) {
+  const container = document.getElementById('journalHistory');
+  if (!journals || journals.length === 0) {
+    container.innerHTML = '<div class="empty-state"><span class="icon">✏️</span><p>Aucune entrée dans cette période</p></div>';
+    return;
+  }
+  container.innerHTML = `<table class="entries-table">
+<thead><tr><th>Date</th><th>Humeur</th><th>Extrait</th></tr></thead>
+<tbody>${journals.map(e => {
+    const d = new Date(e.entry_date + 'T12:00:00').toLocaleDateString('fr-FR', {weekday:'short',day:'numeric',month:'short'});
+    const preview = (e.content || '').slice(0, 80) + ((e.content || '').length > 80 ? '…' : '');
+    const mood = e.mood ? MOOD_EMOJIS[e.mood] : '–';
+    return `<tr><td style="white-space:nowrap;color:#888;font-size:.82rem">${d}</td><td class="mood-emoji">${mood}</td><td style="color:#444">${preview.replace(/</g,'&lt;')}</td></tr>`;
+  }).join('')}
+</tbody></table>`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const check = setInterval(() => { if (window._supabase) { clearInterval(check); initAuth(); } }, 100);
+  setTimeout(() => clearInterval(check), 5000);
+});
+</script>
+</body>
+</html>
