@@ -292,4 +292,15 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 - ✅ progress.html: https://harmonia-woad.vercel.app/progress.html → "Mes Progrès – Harmonia"
 - ✅ journal.html: redirige vers login (auth required) ✅
 
-*Document mis à jour automatiquement — Harmonia v3.2 — 28/05/2026*
+
+- ✅ **Dark mode** — Support automatique via prefers-color-scheme (CSS)
+- ✅ **Journal search** — Recherche avec surlignage des résultats dans les entrées
+- ✅ **Journal fix** — Correction SyntaxError, réécriture complète et propre
+- ✅ **Streak milestones** — Célébrations aux paliers 3, 7, 14, 21, 30, 60, 90 jours
+- ✅ **Legal.html** — Réécriture complète RGPD (sous-traitants, tableau données, droits)
+- ✅ **PWA install banner** — Bouton d'installation natif sur la landing page
+- ✅ **auth-callback** — Gestion des paramètres d'erreur URL (lien expiré)
+- ✅ **login.html** — Suppression CDN dupliqué, waitForSupabase async
+- ✅ **signup.html / success.html** — Suppression CDN dupliqué
+
+*Document mis à jour — Harmonia v3.3 — 28/05/2026*
