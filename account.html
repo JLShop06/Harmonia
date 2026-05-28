@@ -98,6 +98,34 @@
       </div>
     </div>
 
+
+    <div class="card">
+      <h2>🎯 Objectifs hebdomadaires</h2>
+      <p style="color:#888;font-size:.88em;margin-bottom:20px;">Personnalisez vos objectifs de pratique par semaine (en minutes).</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="goalMed">🧘 Méditation (min)</label>
+          <input type="number" id="goalMed" min="0" max="300" value="10">
+        </div>
+        <div class="form-group">
+          <label for="goalResp">🌬️ Respiration (min)</label>
+          <input type="number" id="goalResp" min="0" max="300" value="5">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="goalMob">🤸 Mobilité (min)</label>
+          <input type="number" id="goalMob" min="0" max="300" value="20">
+        </div>
+        <div class="form-group">
+          <label for="goalJournal">📓 Entrées journal</label>
+          <input type="number" id="goalJournal" min="0" max="7" value="1">
+        </div>
+      </div>
+      <button class="btn-primary" id="saveGoalsBtn">💾 Enregistrer les objectifs</button>
+      <p class="status-msg" id="goalsStatus"></p>
+    </div>
+
     <div class="card" style="border:2px solid #ffebeb;">
       <h2 style="color:#e74c3c;">⚠️ Zone danger</h2>
       <p style="color:#666;font-size:.9rem;margin-bottom:16px;">Attention, ces actions sont irréversibles.</p>
@@ -126,12 +154,15 @@
       if (ok) setTimeout(() => el.textContent = '', 4000);
     }
 
+    let _jwt = null;
+
     async function initAuth() {
       const sb = window._supabase;
       if (!sb) { window.location.href = 'login.html'; return; }
       const { data: { session } } = await sb.auth.getSession();
       if (!session) { window.location.href = 'login.html'; return; }
       currentUser = session.user;
+      _jwt = session.access_token;
 
       document.getElementById('logoutBtn').addEventListener('click', async () => {
         await sb.auth.signOut(); window.location.href = 'login.html';
@@ -144,6 +175,51 @@
 
       loadProfile();
       loadStats();
+      loadGoals();
+    }
+
+    async function loadGoals() {
+      if (!_jwt) return;
+      try {
+        const res = await fetch('https://harmonia-woad.vercel.app/api/goals', {
+          headers: { 'Authorization': 'Bearer ' + _jwt }
+        });
+        if (!res.ok) return;
+        const goals = await res.json();
+        if (goals.goal_med !== undefined) document.getElementById('goalMed').value = goals.goal_med;
+        if (goals.goal_resp !== undefined) document.getElementById('goalResp').value = goals.goal_resp;
+        if (goals.goal_mob !== undefined) document.getElementById('goalMob').value = goals.goal_mob;
+        if (goals.goal_journal !== undefined) document.getElementById('goalJournal').value = goals.goal_journal;
+      } catch(e) { console.warn('Goals load error:', e); }
+
+      document.getElementById('saveGoalsBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('saveGoalsBtn');
+        btn.disabled = true; btn.textContent = 'Enregistrement...';
+        try {
+          const res = await fetch('https://harmonia-woad.vercel.app/api/goals', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + _jwt, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              goal_med: document.getElementById('goalMed').value,
+              goal_resp: document.getElementById('goalResp').value,
+              goal_mob: document.getElementById('goalMob').value,
+              goal_journal: document.getElementById('goalJournal').value
+            })
+          });
+          const data = await res.json();
+          const el = document.getElementById('goalsStatus');
+          if (data.success) {
+            el.className = 'status-msg status-ok'; el.textContent = '✅ Objectifs enregistrés !';
+            showToast('Objectifs mis à jour !');
+            setTimeout(() => el.textContent = '', 3000);
+          } else {
+            el.className = 'status-msg status-err'; el.textContent = 'Erreur: ' + (data.error || 'inconnue');
+          }
+        } catch(e) {
+          document.getElementById('goalsStatus').textContent = 'Erreur réseau';
+        }
+        btn.disabled = false; btn.textContent = '💾 Enregistrer les objectifs';
+      });
     }
 
     async function loadProfile() {
