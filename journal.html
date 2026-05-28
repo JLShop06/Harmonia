@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal – Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .journal-page { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .journal-header { display:flex; align-items:center; gap:12px; margin-bottom:28px; }
+    .journal-header h1 { font-size:1.8rem; color:#2d6a4f; margin:0; }
+    .mood-selector { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+    .mood-btn { font-size:1.8rem; background:none; border:2px solid transparent; border-radius:50%; width:52px; height:52px; cursor:pointer; transition:all .2s; line-height:1; }
+    .mood-btn:hover, .mood-btn.active { border-color:#52b788; background:#d8f3dc; transform:scale(1.15); }
+    .mood-label { font-size:.75rem; color:#666; text-align:center; display:block; }
+    .mood-item { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .journal-editor-wrap { position:relative; margin-bottom:20px; }
+    .journal-textarea { width:100%; min-height:180px; padding:16px; border:2px solid #b7e4c7; border-radius:12px; font-size:1rem; line-height:1.6; resize:vertical; font-family:inherit; color:#2d3436; background:#fff; transition:border-color .2s; box-sizing:border-box; }
+    .journal-textarea:focus { outline:none; border-color:#52b788; box-shadow:0 0 0 3px rgba(82,183,136,.15); }
+    .char-count { position:absolute; bottom:10px; right:14px; font-size:.75rem; color:#aaa; }
+    .save-btn { background:linear-gradient(135deg,#52b788,#2d6a4f); color:#fff; border:none; padding:12px 32px; border-radius:10px; font-size:1rem; font-weight:600; cursor:pointer; transition:all .2s; }
+    .save-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 4px 12px rgba(82,183,136,.4); }
+    .save-btn:disabled { opacity:.6; cursor:not-allowed; }
+    .save-status { margin-left:14px; font-size:.9rem; font-weight:600; color:#52b788; }
+    .entries-section { margin-top:40px; }
+    .entries-section h2 { font-size:1.3rem; color:#2d6a4f; margin-bottom:16px; }
+    .entry-card { background:#fff; border-radius:14px; padding:20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,.08); border-left:4px solid #52b788; }
+    .entry-card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .entry-date { font-size:.85rem; color:#888; font-weight:600; }
+    .entry-mood { font-size:1.4rem; }
+    .entry-content { color:#444; line-height:1.6; white-space:pre-wrap; font-size:.95rem; }
+    .entry-actions { margin-top:12px; display:flex; gap:10px; }
+    .entry-del-btn { background:none; border:1px solid #ff6b6b; color:#ff6b6b; padding:5px 12px; border-radius:8px; cursor:pointer; font-size:.8rem; transition:all .2s; }
+    .entry-del-btn:hover { background:#ff6b6b; color:#fff; }
+    .empty-journal { text-align:center; padding:40px; color:#aaa; }
+    .empty-journal .icon { font-size:3rem; display:block; margin-bottom:12px; }
+    .date-picker-wrap { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+    .date-picker-wrap label { font-weight:600; color:#2d6a4f; }
+    .date-input { padding:8px 14px; border:2px solid #b7e4c7; border-radius:8px; font-size:.95rem; color:#2d3436; }
+    .date-input:focus { outline:none; border-color:#52b788; }
+    .toast { position:fixed; bottom:24px; right:24px; background:#52b788; color:#fff; padding:12px 24px; border-radius:10px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:9999; opacity:0; transform:translateY(20px); transition:all .3s; pointer-events:none; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    @media(max-width:600px) { .journal-page { padding:12px; } .mood-btn { width:44px; height:44px; font-size:1.5rem; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">🌿 Harmonia</div>
+    <div class="nav-links">
+      <a href="dashboard.html">Tableau de bord</a>
+      <a href="journal.html" class="active">Journal</a>
+      <a href="account.html">Mon compte</a>
+    </div>
+    <button class="nav-logout" id="logoutBtn">Se déconnecter</button>
+  </nav>
+
+  <main class="journal-page">
+    <div class="journal-header">
+      <span style="font-size:2rem">📓</span>
+      <h1>Mon Journal de Bien-être</h1>
+    </div>
+
+    <div class="date-picker-wrap">
+      <label for="entryDate">Date :</label>
+      <input type="date" id="entryDate" class="date-input">
+    </div>
+
+    <div class="mood-selector" id="moodSelector">
+      <div class="mood-item">
+        <button class="mood-btn" data-mood="1" title="Très difficile">😔</button>
+        <span class="mood-label">Difficile</span>
+      </div>
+      <div class="mood-item">
+        <button class="mood-btn" data-mood="2" title="Pas terrible">😐</button>
+        <span class="mood-label">Moyen</span>
+      </div>
+      <div class="mood-item">
+        <button class="mood-btn" data-mood="3" title="Correct">🙂</button>
+        <span class="mood-label">Correct</span>
+      </div>
+      <div class="mood-item">
+        <button class="mood-btn" data-mood="4" title="Bien">😊</button>
+        <span class="mood-label">Bien</span>
+      </div>
+      <div class="mood-item">
+        <button class="mood-btn" data-mood="5" title="Excellent">😄</button>
+        <span class="mood-label">Excellent</span>
+      </div>
+    </div>
+
+    <div class="journal-editor-wrap">
+      <textarea class="journal-textarea" id="journalText" placeholder="Comment vous sentez-vous aujourd'hui ? Notez vos pensées, vos ressentis, vos progrès..." maxlength="2000"></textarea>
+      <span class="char-count" id="charCount">0 / 2000</span>
+    </div>
+
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
+      <button class="save-btn" id="saveBtn" disabled>💾 Enregistrer l'entrée</button>
+      <span class="save-status" id="saveStatus"></span>
+    </div>
+
+    <section class="entries-section">
+      <h2>📚 Mes dernières entrées</h2>
+      <div id="entriesList">
+        <div class="empty-journal">
+          <span class="icon">✏️</span>
+          <p>Votre journal est vide. Commencez à écrire ci-dessus !</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="auth.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://arewzgemzqmokinlylhu.supabase.co';
+    const MOOD_EMOJIS = ['','😔','😐','🙂','😊','😄'];
+    let currentUser = null;
+    let selectedMood = null;
+
+    function today() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00');
+      return d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    }
+
+    function showToast(msg, ok=true) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.background = ok ? '#52b788' : '#e74c3c';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    async function initAuth() {
+      const sb = window._supabase;
+      if (!sb) { window.location.href = 'login.html'; return; }
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) { window.location.href = 'login.html'; return; }
+      currentUser = session.user;
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await sb.auth.signOut();
+        window.location.href = 'login.html';
+      });
+      setupForm();
+      loadEntries();
+    }
+
+    function setupForm() {
+      const dateInput = document.getElementById('entryDate');
+      dateInput.value = today();
+      dateInput.max = today();
+
+      const textarea = document.getElementById('journalText');
+      const charCount = document.getElementById('charCount');
+      const saveBtn = document.getElementById('saveBtn');
+
+      textarea.addEventListener('input', () => {
+        const len = textarea.value.length;
+        charCount.textContent = len + ' / 2000';
+        saveBtn.disabled = len < 3;
+      });
+
+      document.getElementById('moodSelector').addEventListener('click', (e) => {
+        const btn = e.target.closest('.mood-btn');
+        if (!btn) return;
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedMood = parseInt(btn.dataset.mood);
+      });
+
+      saveBtn.addEventListener('click', saveEntry);
+    }
+
+    async function saveEntry() {
+      const sb = window._supabase;
+      const content = document.getElementById('journalText').value.trim();
+      const entryDate = document.getElementById('entryDate').value;
+      const saveBtn = document.getElementById('saveBtn');
+      const saveStatus = document.getElementById('saveStatus');
+
+      if (content.length < 3) return;
+      saveBtn.disabled = true;
+      saveStatus.textContent = 'Enregistrement...';
+
+      const { data: existing } = await sb
+        .from('journal_entries')
+        .select('id')
+        .eq('user_id', currentUser.id)
+        .eq('entry_date', entryDate)
+        .maybeSingle();
+
+      let error;
+      if (existing) {
+        ({ error } = await sb.from('journal_entries').update({
+          content, mood: selectedMood, updated_at: new Date().toISOString()
+        }).eq('id', existing.id));
+      } else {
+        ({ error } = await sb.from('journal_entries').insert({
+          user_id: currentUser.id, entry_date: entryDate,
+          content, mood: selectedMood
+        }));
+      }
+
+      if (error) {
+        saveStatus.textContent = '';
+        showToast('Erreur: ' + error.message, false);
+        saveBtn.disabled = false;
+        return;
+      }
+
+      saveStatus.textContent = existing ? '✅ Mis à jour !' : '✅ Enregistré !';
+      showToast(existing ? 'Entrée mise à jour !' : 'Entrée enregistrée !');
+      setTimeout(() => { saveStatus.textContent = ''; }, 3000);
+      document.getElementById('journalText').value = '';
+      document.getElementById('charCount').textContent = '0 / 2000';
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+      selectedMood = null;
+      saveBtn.disabled = true;
+      loadEntries();
+    }
+
+    async function loadEntries() {
+      const sb = window._supabase;
+      const { data: entries, error } = await sb
+        .from('journal_entries')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .order('entry_date', { ascending: false })
+        .limit(14);
+
+      const list = document.getElementById('entriesList');
+      if (error || !entries || entries.length === 0) {
+        list.innerHTML = '<div class="empty-journal"><span class="icon">✏️</span><p>Votre journal est vide. Commencez à écrire ci-dessus !</p></div>';
+        return;
+      }
+
+      list.innerHTML = entries.map(e => {
+        const moodEmoji = e.mood ? MOOD_EMOJIS[e.mood] : '';
+        const preview = e.content.length > 200 ? e.content.slice(0,200) + '…' : e.content;
+        return `<div class="entry-card" data-id="${e.id}">
+          <div class="entry-card-header">
+            <span class="entry-date">📅 ${formatDate(e.entry_date)}</span>
+            <span class="entry-mood">${moodEmoji}</span>
+          </div>
+          <div class="entry-content">${preview.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+          <div class="entry-actions">
+            <button class="entry-del-btn" onclick="deleteEntry('${e.id}')">🗑 Supprimer</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    async function deleteEntry(id) {
+      if (!confirm('Supprimer cette entrée ?')) return;
+      const { error } = await window._supabase.from('journal_entries').delete().eq('id', id);
+      if (!error) { showToast('Entrée supprimée'); loadEntries(); }
+      else showToast('Erreur suppression', false);
+    }
+
+    window.deleteEntry = deleteEntry;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkReady = setInterval(() => {
+        if (window._supabase) { clearInterval(checkReady); initAuth(); }
+      }, 100);
+      setTimeout(() => clearInterval(checkReady), 5000);
+    });
+  </script>
+</body>
+</html>
