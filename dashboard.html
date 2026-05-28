@@ -203,20 +203,28 @@ async function initDashboard(){
 }
 async function loadApiStats(jwt){
   try{
-    var res=await fetch("https://harmonia-woad.vercel.app/api/user-stats",{headers:{"Authorization":"Bearer "+jwt}});
-    if(!res.ok)return;
-    var data=await res.json();
+    var [statsRes,goalsRes]=await Promise.all([
+      fetch("https://harmonia-woad.vercel.app/api/user-stats",{headers:{"Authorization":"Bearer "+jwt}}),
+      fetch("https://harmonia-woad.vercel.app/api/goals",{headers:{"Authorization":"Bearer "+jwt}})
+    ]);
+    var data=statsRes.ok?await statsRes.json():{};
+    var goals=goalsRes.ok?await goalsRes.json():{goal_med:60,goal_resp:30,goal_mob:60};
     if(data.sessions&&data.sessions.thisWeek){
       var s=data.sessions.thisWeek;
-      var max=Math.max(s.med||0,s.resp||0,s.mob||0,60);
-      ["med","resp","mob"].forEach(function(k){
-        var v=s[k]||0;
-        var bar=document.getElementById("stat-"+k),val=document.getElementById("sval-"+k);
-        if(bar)bar.style.width=(v/max*100)+"%";
-        if(val)val.textContent=v+" min";
+      var items=[
+        {k:"med",goal:goals.goal_med||60},
+        {k:"resp",goal:goals.goal_resp||30},
+        {k:"mob",goal:goals.goal_mob||60}
+      ];
+      items.forEach(function(item){
+        var v=s[item.k]||0;
+        var pct=item.goal>0?Math.min(100,Math.round(v/item.goal*100)):0;
+        var bar=document.getElementById("stat-"+item.k),val=document.getElementById("sval-"+item.k);
+        if(bar)bar.style.width=pct+"%";
+        if(val)val.textContent=v+" / "+item.goal+"min";
       });
     }
-  }catch(e){console.warn("user-stats API error:",e);}
+  }catch(e){console.warn("stats/goals API error:",e);}
 }
 async function loadJournalPreview(sb,userId){
   var today=new Date().toISOString().split("T")[0];
