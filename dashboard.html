@@ -91,6 +91,18 @@
 .toast-notif{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,#2d6a4f,#52b788);color:white;padding:14px 24px;border-radius:14px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:9999;opacity:0;transform:translateY(20px);transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:300px;line-height:1.4}
 .toast-notif.show{opacity:1;transform:translateY(0)}
 
+
+.welcome-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
+.welcome-panel{background:white;border-radius:24px;padding:36px 32px;max-width:480px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.welcome-panel h2{font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--accent);margin-bottom:12px}
+.welcome-panel p{color:var(--muted);font-size:.95em;line-height:1.6;margin-bottom:20px}
+.welcome-steps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;text-align:left}
+.welcome-step{background:var(--bg);border-radius:14px;padding:14px;font-size:.85em}
+.welcome-step .step-icon{font-size:1.5rem;margin-bottom:6px}
+.welcome-step strong{display:block;color:var(--text);margin-bottom:4px}
+.welcome-step span{color:var(--muted)}
+.welcome-close{background:var(--accent);color:white;border:none;padding:12px 36px;border-radius:999px;font-size:1rem;font-weight:600;cursor:pointer;transition:.2s}
+.welcome-close:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(157,122,67,.4)}
 .notif-banner{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 24px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.88em}
 .notif-banner p{margin:0;opacity:.95}
 .notif-btn{background:white;color:#667eea;border:none;padding:7px 18px;border-radius:999px;font-size:.82em;font-weight:700;cursor:pointer;white-space:nowrap}
@@ -100,6 +112,21 @@
 </head>
 <body class="dash-page">
 
+
+<div class="welcome-modal" id="welcomeModal" role="dialog" aria-modal="true">
+<div class="welcome-panel">
+<div style="font-size:3rem;margin-bottom:16px">🌿</div>
+<h2>Bienvenue dans Harmonia !</h2>
+<p>Votre espace bien-être est prêt. Voici comment démarrer en 4 étapes simples :</p>
+<div class="welcome-steps">
+<div class="welcome-step"><div class="step-icon">🧘</div><strong>Séances du jour</strong><span>Lancez un timer et suivez les instructions</span></div>
+<div class="welcome-step"><div class="step-icon">📓</div><strong>Journal quotidien</strong><span>Notez vos ressentis et votre humeur chaque jour</span></div>
+<div class="welcome-step"><div class="step-icon">📈</div><strong>Vos Progrès</strong><span>Visualisez votre évolution semaine après semaine</span></div>
+<div class="welcome-step"><div class="step-icon">🎯</div><strong>Objectifs perso</strong><span>Personnalisez vos objectifs dans Mon Compte</span></div>
+</div>
+<button class="welcome-close" id="closeWelcomeBtn">C'est parti ! →</button>
+</div>
+</div>
 <div class="notif-banner" id="notifBanner">
 <p>🔔 Activez les rappels pour ne jamais rater votre séance quotidienne !</p>
 <div style="display:flex;gap:8px;align-items:center">
@@ -226,6 +253,19 @@
 <script>
 
 // Browser notifications
+
+function showWelcomeModal(){
+  var shown=localStorage.getItem('harmonia_welcome_shown');
+  if(shown)return;
+  var modal=document.getElementById('welcomeModal');
+  if(modal){
+    modal.style.display='flex';
+    localStorage.setItem('harmonia_welcome_shown','true');
+  }
+  document.getElementById('closeWelcomeBtn')?.addEventListener('click',function(){
+    modal.style.display='none';
+  });
+}
 function checkNotifPermission(){
   if(!('Notification' in window))return;
   var banner=document.getElementById('notifBanner');
@@ -289,7 +329,8 @@ async function loadApiStats(jwt){
         });
       }
       if(data.streak>0){var sc=document.getElementById('streakCount');
-  checkNotifPermission();if(sc)sc.textContent=data.streak;}
+  checkNotifPermission();
+  setTimeout(showWelcomeModal, 1500);if(sc)sc.textContent=data.streak;}
     }
   }catch(e){console.warn('stats API:',e);}
 }
