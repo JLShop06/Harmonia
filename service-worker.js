@@ -1,75 +1,57 @@
-// service-worker.js — Harmonia PWA v4
-// Stratégie : Network First pour HTML, Cache First pour assets statiques
-
-const CACHE_NAME = "harmonia-v4";
-const STATIC_CACHE = "harmonia-static-v4";
-
-// Assets statiques à précacher
-const STATIC_ASSETS = [
-  "/",
-  "/index.html",
-  "/dashboard.html",
-  "/login.html",
-  "/signup.html",
-  "/journal.html",
-  "/account.html",
-  "/auth-callback.html",
-  "/success.html",
-  "/cancel.html",
-  "/legal.html",
-  "/404.html",
-  "/styles.css",
-  "/auth.js",
-  "/manifest.json",
-  "/logo-harmonia.png"
+// service-worker.js — Harmonia PWA v5
+const CACHE_NAME = 'harmonia-v5';
+const CACHE_PAGES = [
+  '/',
+  '/index.html',
+  '/login.html',
+  '/signup.html',
+  '/dashboard.html',
+  '/journal.html',
+  '/progress.html',
+  '/account.html',
+  '/success.html',
+  '/cancel.html',
+  '/404.html',
+  '/legal.html',
+  '/auth-callback.html',
+  '/styles.css',
+  '/auth.js',
+  '/manifest.json'
 ];
 
-// ─── INSTALL ────────────────────────────────────────────────
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then(cache => {
-      return cache.addAll(STATIC_ASSETS);
-    }).catch(err => console.warn("Cache install error:", err))
-  );
+// Install: pre-cache all pages
+self.addEventListener('install', event => {
   self.skipWaiting();
-});
-
-// ─── ACTIVATE ───────────────────────────────────────────────
-self.addEventListener("activate", event => {
-  const validCaches = [CACHE_NAME, STATIC_CACHE];
   event.waitUntil(
-    caches.keys().then(cacheNames =>
-      Promise.all(
-        cacheNames
-          .filter(name => !validCaches.includes(name))
-          .map(name => caches.delete(name))
-      )
-    )
+    caches.open(CACHE_NAME).then(cache => cache.addAll(CACHE_PAGES))
   );
-  self.clients.claim();
 });
 
-// ─── FETCH ──────────────────────────────────────────────────
-self.addEventListener("fetch", event => {
+// Activate: clean old caches
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
+});
+
+// Fetch: Network First for HTML/API, Cache First for static assets
+self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Ne pas intercepter les requêtes API, Supabase, Stripe, CDN
-  if (
-    url.pathname.startsWith("/api/") ||
-    url.hostname.includes("supabase.co") ||
-    url.hostname.includes("stripe.com") ||
-    url.hostname.includes("googleapis.com") ||
-    url.hostname.includes("jsdelivr.net") ||
-    url.hostname.includes("vercel.live") ||
-    request.method !== "GET"
-  ) {
-    return;
-  }
+  // Skip non-GET requests
+  if (request.method !== 'GET') return;
 
-  // HTML pages : Network First (toujours à jour)
-  if (request.headers.get("accept")?.includes("text/html") ||
-      url.pathname.endsWith(".html") || url.pathname === "/") {
+  // Skip API calls (always network)
+  if (url.pathname.startsWith('/api/')) return;
+
+  // Skip external resources (CDN, fonts, etc.)
+  if (url.origin !== location.origin) return;
+
+  // HTML pages: Network First
+  if (request.headers.get('accept') && request.headers.get('accept').includes('text/html')) {
     event.respondWith(
       fetch(request)
         .then(response => {
@@ -79,24 +61,29 @@ self.addEventListener("fetch", event => {
           }
           return response;
         })
-        .catch(() => caches.match(request)
-          .then(r => r || caches.match("/index.html"))
-        )
+        .catch(() => caches.match(request).then(cached => cached || caches.match('/404.html')))
     );
     return;
   }
 
-  // CSS/JS/Images : Cache First
+  // Static assets: Cache First, fallback network
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
       return fetch(request).then(response => {
         if (response.ok) {
           const clone = response.clone();
-          caches.open(STATIC_CACHE).then(cache => cache.put(request, clone));
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
         }
         return response;
-      });
-    }).catch(() => caches.match("/404.html"))
+      }).catch(() => new Response('Not found', { status: 404 }));
+    })
   );
+});
+
+// Handle messages (e.g. force update)
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
