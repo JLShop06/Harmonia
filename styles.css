@@ -277,3 +277,51 @@ h1 {
   color: #cbd5e1;
   text-decoration: none;
 }
+
+
+/* ================= AUTH LINKS ================= */
+.auth-links {
+  margin-top: 20px;
+  text-align: center;
+}
+.auth-links p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85em;
+  margin-bottom: 6px;
+}
+.auth-links a {
+  color: #cbd5e1;
+  font-size: 0.9em;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 1px;
+  transition: 0.2s;
+}
+.auth-links a:hover {
+  color: white;
+  border-bottom-color: white;
+}
+
+/* ================= INPUT FOCUS ================= */
+.auth-card input:focus {
+  outline: none;
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 2px rgba(79,70,229,0.4);
+}
+
+/* ================= INPUT PLACEHOLDER ================= */
+.auth-card input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+/* ================= BUTTON LOADING ================= */
+.auth-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================= NAV ACTIVE ================= */
+.nav a.active {
+  color: var(--text);
+  font-weight: 600;
+}
