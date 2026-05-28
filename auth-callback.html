@@ -65,7 +65,21 @@ async function handleCallback() {
     setTimeout(() => { clearInterval(t); resolve(); }, 5000);
   });
 
-  await waitReady();
+  
+  // Check for URL error parameters (e.g. expired link)
+  var hash = window.location.hash || '';
+  var search = window.location.search || '';
+  var urlParams = new URLSearchParams(hash.replace('#', '?') + '&' + search.replace('?',''));
+  var urlError = urlParams.get('error_description') || urlParams.get('error');
+  if (urlError) {
+    showIcon('⚠️');
+    titleEl.textContent = 'Lien invalide ou expiré';
+    msgEl.textContent = urlError.replace(/_/g,' ') + '. Demande un nouveau lien.';
+    setTimeout(() => window.location.href = 'login.html', 4000);
+    return;
+  }
+
+await waitReady();
   const db = window._supabase;
 
   if (!db) {
