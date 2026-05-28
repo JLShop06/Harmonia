@@ -4,6 +4,14 @@
     {
       "src": "api/*.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.{css,js,png,jpg,json,ico,svg}",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -12,21 +20,16 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/(.*\\.(?:html|css|js|png|jpg|json|ico|svg|woff|woff2|ttf))",
+      "dest": "/$1"
+    },
+    {
       "src": "/",
       "dest": "/index.html"
     },
     {
-      "src": "/(.*\\.(html|css|js|png|jpg|json|ico|svg|woff|woff2|ttf))",
-      "dest": "/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/$1.html",
-      "continue": true
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/$1.html"
     }
   ],
   "headers": [
