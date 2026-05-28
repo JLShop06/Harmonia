@@ -98,7 +98,21 @@ async function handleCallback() {
     last_name: lastName || null
   }], { onConflict: "id" });
 
-  if (pendingStripe) {
+  // Check if already subscribed (prevent double Stripe redirect)
+const { data: existingProfile } = await db.from("users").select("subscribed").eq("id", user.id).maybeSingle();
+if (existingProfile && existingProfile.subscribed && pendingStripe) {
+  localStorage.removeItem("signup_pending_stripe");
+  localStorage.removeItem("signup_first_name");
+  localStorage.removeItem("signup_last_name");
+  localStorage.removeItem("signup_email");
+  showIcon("✅");
+  titleEl.textContent = "Bienvenue !";
+  msgEl.textContent = "Abonnement actif. Redirection vers votre espace…";
+  setTimeout(() => window.location.href = "dashboard.html", 1500);
+  return;
+}
+
+if (pendingStripe) {
     showIcon("✅");
     titleEl.textContent = "Compte créé !";
     msgEl.textContent = "Redirection vers le paiement…";
