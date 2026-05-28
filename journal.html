@@ -1,4 +1,4 @@
-}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -28,6 +28,12 @@
 .save-status{margin-left:14px;font-size:.9rem;font-weight:600;color:#52b788}
 .entries-section{margin-top:40px}
 .entries-section h2{font-size:1.3rem;color:#2d6a4f;margin-bottom:16px}
+.search-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.search-input{flex:1;padding:10px 14px;border:2px solid #b7e4c7;border-radius:8px;font-size:.92rem;color:#2d3436;transition:border-color .2s}
+.search-input:focus{outline:none;border-color:#52b788;box-shadow:0 0 0 3px rgba(82,183,136,.15)}
+.search-clear{background:none;border:none;color:#888;cursor:pointer;font-size:1.2rem;padding:4px 8px}
+.search-clear:hover{color:#e74c3c}
+.search-count{font-size:.8rem;color:#888;white-space:nowrap}
 .entry-card{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:4px solid #52b788}
 .entry-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .entry-date{font-size:.85rem;color:#888;font-weight:600}
@@ -38,18 +44,11 @@
 .entry-edit-btn:hover{background:#52b788;color:#fff}
 .entry-del-btn{background:none;border:1px solid #ff6b6b;color:#ff6b6b;padding:5px 12px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s}
 .entry-del-btn:hover{background:#ff6b6b;color:#fff}
-
-.search-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.search-input{flex:1;padding:10px 14px;border:2px solid #b7e4c7;border-radius:8px;font-size:.92rem;color:#2d3436;transition:border-color .2s}
-.search-input:focus{outline:none;border-color:#52b788;box-shadow:0 0 0 3px rgba(82,183,136,.15)}
-.search-clear{background:none;border:none;color:#888;cursor:pointer;font-size:1.1rem;padding:4px 8px;line-height:1}
-.search-clear:hover{color:#e74c3c}
-.search-results-count{font-size:.8rem;color:#888;white-space:nowrap}
 .empty-journal{text-align:center;padding:40px;color:#aaa}
 .empty-journal .icon{font-size:3rem;display:block;margin-bottom:12px}
-.autosave-badge{display:inline-block;background:#e8f5e9;color:#2d6a4f;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:600;margin-left:8px;vertical-align:middle}
 .toast{position:fixed;bottom:24px;right:24px;background:#52b788;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:9999;opacity:0;transform:translateY(20px);transition:all .3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
+mark{background:#d8f3dc;padding:0 2px;border-radius:2px}
 @media(max-width:600px){.journal-page{padding:12px}.mood-btn{width:44px;height:44px;font-size:1.5rem}}
 </style>
 </head>
@@ -102,12 +101,12 @@
 <span class="save-status" id="saveStatus"></span>
 </div>
 <section class="entries-section">
-
+<h2>📚 Mes dernières entrées</h2>
 <div class="search-wrap">
 <input type="search" class="search-input" id="journalSearch" placeholder="🔍 Rechercher dans mes entrées...">
-<button class="search-clear" id="clearSearchBtn" title="Effacer">×</button>
-<span class="search-results-count" id="searchCount"></span>
-</div><h2>📚 Mes dernières entrées</h2>
+<button class="search-clear" id="clearSearchBtn" style="display:none">×</button>
+<span class="search-count" id="searchCount"></span>
+</div>
 <div id="entriesList"><div class="empty-journal"><span class="icon">✏️</span><p>Votre journal est vide. Commencez à écrire ci-dessus !</p></div></div>
 </section>
 </main>
@@ -115,18 +114,10 @@
 <script src="auth.js"></script>
 <script>
 const MOOD_EMOJIS=['','😔','😐','🙂','😊','😄'];
-let currentUser=null,selectedMood=null,autoSaveTimer=null;
-
+let currentUser=null,selectedMood=null,autoSaveTimer=null,allEntries=[];
 function today(){return new Date().toISOString().split('T')[0];}
-function formatDate(dateStr){
-  const d=new Date(dateStr+'T12:00:00');
-  return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-}
-function showToast(msg,ok=true){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.style.background=ok?'#52b788':'#e74c3c';
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
-}
+function formatDate(d){const dt=new Date(d+'T12:00:00');return dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function showToast(msg,ok){const t=document.getElementById('toast');t.textContent=msg;t.style.background=(ok===false)?'#e74c3c':'#52b788';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 async function initAuth(){
   const sb=window._supabase;
@@ -135,160 +126,117 @@ async function initAuth(){
   if(!session){window.location.href='login.html';return;}
   currentUser=session.user;
   document.getElementById('logoutBtn').addEventListener('click',async()=>{await sb.auth.signOut();window.location.href='login.html';});
-  setupForm();
-  setupSearch();
-  loadEntries();
+  document.getElementById('logoutBtnMobile')?.addEventListener('click',async()=>{await sb.auth.signOut();window.location.href='login.html';});
+  document.getElementById('hamburgerBtn')?.addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('open'));
+  document.getElementById('closeMenuBtn')?.addEventListener('click',()=>document.getElementById('mobileMenu').classList.remove('open'));
+  document.getElementById('mobileMenu')?.addEventListener('click',e=>{if(e.target===document.getElementById('mobileMenu'))document.getElementById('mobileMenu').classList.remove('open');});
+  setupForm();setupSearch();loadEntries();
 }
 
 function setupForm(){
-  const dateInput=document.getElementById('entryDate');
-  dateInput.value=today();
-  dateInput.max=today();
-
-  const textarea=document.getElementById('journalText');
-  const charCount=document.getElementById('charCount');
-  const saveBtn=document.getElementById('saveBtn');
-
-  // Load draft for today
+  const di=document.getElementById('entryDate');
+  di.value=today();di.max=today();
+  const ta=document.getElementById('journalText');
+  const cc=document.getElementById('charCount');
+  const sb2=document.getElementById('saveBtn');
   const draft=localStorage.getItem('harmonia_journal_draft_'+today());
-  if(draft){textarea.value=draft;charCount.textContent=draft.length+' / 2000';if(draft.length>=3)saveBtn.disabled=false;}
-
-  // Load entry when date changes
-  dateInput.addEventListener('change',()=>loadEntryForDate(dateInput.value));
-
-  textarea.addEventListener('input',()=>{
-    const len=textarea.value.length;
-    charCount.textContent=len+' / 2000';
-    saveBtn.disabled=len<3;
-    if(dateInput.value===today())localStorage.setItem('harmonia_journal_draft_'+today(),textarea.value);
+  if(draft){ta.value=draft;cc.textContent=draft.length+' / 2000';if(draft.length>=3)sb2.disabled=false;}
+  di.addEventListener('change',()=>loadEntryForDate(di.value));
+  ta.addEventListener('input',()=>{
+    const len=ta.value.length;
+    cc.textContent=len+' / 2000';
+    sb2.disabled=len<3;
+    if(di.value===today())localStorage.setItem('harmonia_journal_draft_'+today(),ta.value);
     clearTimeout(autoSaveTimer);
-    if(len>=10){
-      autoSaveTimer=setTimeout(()=>{
-        document.getElementById('saveStatus').textContent='💾 Sauvegarde auto...';
-        saveEntry(true).then(()=>{
-          document.getElementById('saveStatus').textContent='✅ Sauvegardé';
-          setTimeout(()=>{document.getElementById('saveStatus').textContent='';},2000);
-        });
-      },3000);
-    }
+    if(len>=10){autoSaveTimer=setTimeout(()=>{
+      document.getElementById('saveStatus').textContent='💾 Sauvegarde auto...';
+      saveEntry(true).then(()=>{
+        document.getElementById('saveStatus').textContent='✅ Sauvegardé';
+        setTimeout(()=>{document.getElementById('saveStatus').textContent='';},2000);
+      });
+    },3000);}
   });
-
-  document.getElementById('moodSelector').addEventListener('click',(e)=>{
-    const btn=e.target.closest('.mood-btn');
-    if(!btn)return;
+  document.getElementById('moodSelector').addEventListener('click',e=>{
+    const btn=e.target.closest('.mood-btn');if(!btn)return;
     document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedMood=parseInt(btn.dataset.mood);
+    btn.classList.add('active');selectedMood=parseInt(btn.dataset.mood);
   });
+  document.getElementById('saveBtn').addEventListener('click',()=>saveEntry(false));
+}
 
-  saveBtn.addEventListener('click',()=>saveEntry(false));
+function setupSearch(){
+  const si=document.getElementById('journalSearch');
+  const cb=document.getElementById('clearSearchBtn');
+  si.addEventListener('input',function(){const q=this.value.trim().toLowerCase();cb.style.display=q?'block':'none';renderEntries(q);});
+  cb.addEventListener('click',function(){si.value='';this.style.display='none';renderEntries('');});
+}
+
+function renderEntries(query){
+  const list=document.getElementById('entriesList');
+  const cEl=document.getElementById('searchCount');
+  const filtered=query?allEntries.filter(e=>(e.content||'').toLowerCase().includes(query)):allEntries;
+  cEl.textContent=query?(filtered.length+' résultat(s)'):'';
+  if(!filtered.length){
+    list.innerHTML='<div class="empty-journal"><span class="icon">✏️</span><p>'+(query?'Aucun résultat.':'Votre journal est vide.')+'</p></div>';
+    return;
+  }
+  list.innerHTML=filtered.map(function(e){
+    var mE=e.mood?MOOD_EMOJIS[e.mood]:'';
+    var prev=e.content.length>200?e.content.slice(0,200)+'…':e.content;
+    var esc=prev.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if(query){var re=new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');esc=esc.replace(re,function(m){return '<mark>'+m+'</mark>';});}
+    return '<div class="entry-card"><div class="entry-card-header"><span class="entry-date">📅 '+formatDate(e.entry_date)+'</span><span class="entry-mood">'+mE+'</span></div><div class="entry-content">'+esc+'</div><div class="entry-actions"><button class="entry-edit-btn" onclick="editEntry(\''+e.id+'\',\''+e.entry_date+'\')">✏️ Modifier</button><button class="entry-del-btn" onclick="deleteEntry(\''+e.id+'\')">🗑 Supprimer</button></div></div>';
+  }).join('');
 }
 
 async function loadEntryForDate(dateStr){
   const sb=window._supabase;
-  const textarea=document.getElementById('journalText');
-  const charCount=document.getElementById('charCount');
-  const saveBtn=document.getElementById('saveBtn');
-
-  // If today, load from draft
-  if(dateStr===today()){
-    const draft=localStorage.getItem('harmonia_journal_draft_'+today())||'';
-    textarea.value=draft;
-    charCount.textContent=draft.length+' / 2000';
-    saveBtn.disabled=draft.length<3;
-  }
-
-  // Load from DB
+  const ta=document.getElementById('journalText');
+  const cc=document.getElementById('charCount');
+  const sb2=document.getElementById('saveBtn');
+  if(dateStr===today()){const d=localStorage.getItem('harmonia_journal_draft_'+today())||'';ta.value=d;cc.textContent=d.length+' / 2000';sb2.disabled=d.length<3;}
   const {data}=await sb.from('journal_entries').select('*').eq('user_id',currentUser.id).eq('entry_date',dateStr).maybeSingle();
   if(data){
-    textarea.value=data.content||'';
-    charCount.textContent=(data.content||'').length+' / 2000';
-    saveBtn.disabled=(data.content||'').length<3;
-    // Set mood
+    ta.value=data.content||'';cc.textContent=(data.content||'').length+' / 2000';sb2.disabled=(data.content||'').length<3;
     document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-    if(data.mood){
-      const moodBtn=document.querySelector('.mood-btn[data-mood="'+data.mood+'"]');
-      if(moodBtn)moodBtn.classList.add('active');
-      selectedMood=data.mood;
-    } else {
-      selectedMood=null;
-    }
-  } else {
-    if(dateStr!==today()){
-      textarea.value='';charCount.textContent='0 / 2000';saveBtn.disabled=true;
-      document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-      selectedMood=null;
-    }
-  }
+    if(data.mood){const mb=document.querySelector('.mood-btn[data-mood="'+data.mood+'"]');if(mb)mb.classList.add('active');selectedMood=data.mood;}else selectedMood=null;
+  }else if(dateStr!==today()){ta.value='';cc.textContent='0 / 2000';sb2.disabled=true;document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));selectedMood=null;}
 }
 
-async function saveEntry(silent=false){
+async function saveEntry(silent){
   const sb=window._supabase;
   const content=document.getElementById('journalText').value.trim();
   const entryDate=document.getElementById('entryDate').value;
-  const saveBtn=document.getElementById('saveBtn');
-  const saveStatus=document.getElementById('saveStatus');
+  const sb2=document.getElementById('saveBtn');
+  const ss=document.getElementById('saveStatus');
   if(content.length<3)return;
-  if(!silent){saveBtn.disabled=true;saveStatus.textContent='Enregistrement...';}
+  if(!silent){sb2.disabled=true;ss.textContent='Enregistrement...';}
   const {data:existing}=await sb.from('journal_entries').select('id').eq('user_id',currentUser.id).eq('entry_date',entryDate).maybeSingle();
   let error;
-  if(existing){
-    ({error}=await sb.from('journal_entries').update({content,mood:selectedMood,updated_at:new Date().toISOString()}).eq('id',existing.id));
-  } else {
-    ({error}=await sb.from('journal_entries').insert({user_id:currentUser.id,entry_date:entryDate,content,mood:selectedMood}));
-  }
-  if(error){saveStatus.textContent='';showToast('Erreur: '+error.message,false);if(!silent)saveBtn.disabled=false;return;}
+  if(existing){({error}=await sb.from('journal_entries').update({content,mood:selectedMood,updated_at:new Date().toISOString()}).eq('id',existing.id));}
+  else{({error}=await sb.from('journal_entries').insert({user_id:currentUser.id,entry_date:entryDate,content,mood:selectedMood}));}
+  if(error){ss.textContent='';showToast('Erreur: '+error.message,false);if(!silent)sb2.disabled=false;return;}
   if(!silent){
-    saveStatus.textContent=existing?'✅ Mis à jour !':'✅ Enregistré !';
+    ss.textContent=existing?'✅ Mis à jour !':'✅ Enregistré !';
     showToast(existing?'Entrée mise à jour !':'Entrée enregistrée !');
-    setTimeout(()=>{saveStatus.textContent='';},3000);
+    setTimeout(()=>{ss.textContent='';},3000);
     localStorage.removeItem('harmonia_journal_draft_'+today());
     document.getElementById('journalText').value='';
     document.getElementById('charCount').textContent='0 / 2000';
     document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-    selectedMood=null;saveBtn.disabled=true;
-    loadEntries();
+    selectedMood=null;sb2.disabled=true;loadEntries();
   }
 }
 
-
-// Search functionality
-var allEntries = [];
-function setupSearch(){
-  document.getElementById('journalSearch').addEventListener('input', function(e){
-    var q = e.target.value.trim().toLowerCase();
-    document.getElementById('clearSearchBtn').style.display = q ? 'block' : 'none';
-    filterEntries(q);
-  });
-  document.getElementById('clearSearchBtn').addEventListener('click', function(){
-    document.getElementById('journalSearch').value = '';
-    this.style.display = 'none';
-    filterEntries('');
-  });
-  document.getElementById('clearSearchBtn').style.display = 'none';
+async function loadEntries(){
+  const sb=window._supabase;
+  const {data:entries}=await sb.from('journal_entries').select('*').eq('user_id',currentUser.id).order('entry_date',{ascending:false}).limit(30);
+  allEntries=entries||[];
+  renderEntries(document.getElementById('journalSearch')?.value.trim().toLowerCase()||'');
 }
-function filterEntries(q) {
-  if (!allEntries.length) return;
-  var filtered = q ? allEntries.filter(e => (e.content||'').toLowerCase().includes(q)) : allEntries;
-  var countEl = document.getElementById('searchCount');
-  if (q) countEl.textContent = filtered.length + ' résultat(s)';
-  else countEl.textContent = '';
-  renderEntriesList(filtered, q);
-}
-function renderEntriesList(entries, highlight){
-  var list=document.getElementById('entriesList');
-  if(!entries||entries.length===0){list.innerHTML='<div class="empty-journal"><span class="icon">✏️</span><p>'+(highlight?'Aucun résultat pour "'+highlight+'".':'Votre journal est vide.')+'</p></div>';return;}
-  list.innerHTML=entries.map(e=>{
-    var moodEmoji=e.mood?MOOD_EMOJIS[e.mood]:'';
-    var txt=e.content.length>200?e.content.slice(0,200)+'…':e.content;
-    var escaped=txt.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    if(highlight)escaped=escaped.replace(new RegExp('('+highlight.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\async function loadEntries(){')+')','gi'),'<mark style="background:#d8f3dc;padding:0 2px;border-radius:2px">$1</mark>');
-    return '<div class="entry-card" data-id="'+e.id+'"><div class="entry-card-header"><span class="entry-date">📅 '+formatDate(e.entry_date)+'</span><span class="entry-mood">'+moodEmoji+'</span></div><div class="entry-content">'+escaped+'</div><div class="entry-actions"><button class="entry-edit-btn" onclick="editEntry(\''+e.id+'\',\''+e.entry_date+'\')">Modifier</button><button class="entry-del-btn" onclick="deleteEntry(\''+e.id+'\')">Supprimer</button></div></div>';
-  }).join('');
 
 async function editEntry(id,dateStr){
-  const dateInput=document.getElementById('entryDate');
-  dateInput.value=dateStr;
+  document.getElementById('entryDate').value=dateStr;
   await loadEntryForDate(dateStr);
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -296,25 +244,14 @@ async function editEntry(id,dateStr){
 async function deleteEntry(id){
   if(!confirm('Supprimer cette entrée ?'))return;
   const {error}=await window._supabase.from('journal_entries').delete().eq('id',id);
-  if(!error){showToast('Entrée supprimée');loadEntries();}
+  if(!error){showToast('Entrée supprimée');allEntries=allEntries.filter(e=>e.id!==id);renderEntries(document.getElementById('journalSearch')?.value.trim().toLowerCase()||'');}
   else showToast('Erreur suppression',false);
 }
-window.deleteEntry=deleteEntry;
-window.editEntry=editEntry;
+window.deleteEntry=deleteEntry;window.editEntry=editEntry;
 
-// Mobile hamburger
-document.getElementById('hamburgerBtn')?.addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.add('open');
-});
-document.getElementById('closeMenuBtn')?.addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.remove('open');
-});
-document.getElementById('mobileMenu')?.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('mobileMenu')) document.getElementById('mobileMenu').classList.remove('open');
-});
 document.addEventListener('DOMContentLoaded',()=>{
-  const check=setInterval(()=>{if(window._supabase){clearInterval(check);initAuth();}},100);
-  setTimeout(()=>clearInterval(check),5000);
+  const chk=setInterval(()=>{if(window._supabase){clearInterval(chk);initAuth();}},100);
+  setTimeout(()=>clearInterval(chk),5000);
 });
 </script>
 </body>
