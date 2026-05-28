@@ -44,53 +44,62 @@
 
 <script src="auth.js"></script>
 <script>
-  const loginForm = document.getElementById("loginForm");
-  const loginMsg = document.getElementById("loginMsg");
-
-  // Si déjà connecté, rediriger
-  window.addEventListener("load", async () => {
-    const check = setInterval(async () => {
-      if (!window._supabase) return;
-      clearInterval(check);
-      const { data: { session } } = await window._supabase.auth.getSession();
-      if (session) window.location.href = "dashboard.html";
-    }, 100);
-    setTimeout(() => clearInterval(check), 3000);
+function waitForSupabase(timeout) {
+  return new Promise(function(resolve) {
+    if (window._supabase) return resolve(window._supabase);
+    var t = setInterval(function() {
+      if (window._supabase) { clearInterval(t); resolve(window._supabase); }
+    }, 50);
+    setTimeout(function() { clearInterval(t); resolve(window._supabase); }, timeout || 5000);
   });
+}
 
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = loginForm.email.value.trim();
-    const submitBtn = loginForm.querySelector("button[type=submit]");
+var loginForm = document.getElementById("loginForm");
+var loginMsg = document.getElementById("loginMsg");
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Envoi en cours...";
+// Si déjà connecté, rediriger
+waitForSupabase().then(async function(sb) {
+  if (!sb) return;
+  var s = await sb.auth.getSession();
+  if (s.data.session) window.location.href = "dashboard.html";
+});
 
-    const sb = window._supabase; if (!sb) { loginMsg.style.display="block"; loginMsg.innerHTML="<p style='color:#f87171;'>Erreur: service non disponible</p>"; submitBtn.disabled=false; submitBtn.textContent="Envoyer le lien magique"; return; }
-const { error } = await sb.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html"
-      }
-    });
-
-    if (error) {
-      loginMsg.style.display = "block";
-      loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur : " + error.message + "<\/p>";
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Envoyer le lien magique";
-      return;
-    }
-
-    loginForm.style.display = "none";
+loginForm.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  var email = loginForm.email.value.trim();
+  var submitBtn = loginForm.querySelector("button[type=submit]");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Envoi en cours...";
+  
+  var sb = await waitForSupabase();
+  if (!sb) {
     loginMsg.style.display = "block";
-    loginMsg.innerHTML = `
-      <div style="font-size:2rem;margin-bottom:12px;">✉️<\/div>
-      <p style="font-size:1.05em;margin-bottom:8px;">Lien envoyé à <strong>${email}<\/strong><\/p>
-      <p style="opacity:.7;font-size:.9em;">Clique sur le lien dans l'email pour accéder à ton espace.<\/p>
-      <p class="check-redirect">Tu peux fermer cet onglet après avoir cliqué sur le lien.<\/p>
-    `;
+    loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur: service non disponible. Rechargez la page.</p>";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Envoyer le lien magique";
+    return;
+  }
+  
+  var result = await sb.auth.signInWithOtp({
+    email: email,
+    options: { emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html" }
   });
+
+  if (result.error) {
+    loginMsg.style.display = "block";
+    loginMsg.innerHTML = "<p style='color:#f87171;'>Erreur : " + result.error.message + "</p>";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Envoyer le lien magique";
+    return;
+  }
+
+  loginForm.style.display = "none";
+  loginMsg.style.display = "block";
+  loginMsg.innerHTML = `<div style="font-size:2rem;margin-bottom:12px;">✉️</div>
+<p style="font-size:1.05em;margin-bottom:8px;">Lien envoyé à <strong>${email}</strong></p>
+<p style="opacity:.7;font-size:.9em;">Clique sur le lien dans l'email pour accéder à ton espace.</p>
+<p class="check-redirect">Tu peux fermer cet onglet après avoir cliqué sur le lien.</p>`;
+});
 </script>
 
 </body>
