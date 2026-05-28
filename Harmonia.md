@@ -243,4 +243,32 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 
 ---
 
-*Document généré automatiquement — Harmonia v2.0*
+
+
+---
+
+## 📋 Changelog des dernières améliorations (Session 3 - 28/05/2026)
+
+### Nouveautés
+- ✅ **progress.html** — Nouvelle page analytics avec graphiques bar charts interactifs
+- ✅ **package.json** — Déclaration des dépendances npm (stripe, @supabase/supabase-js)
+- ✅ **robots.txt** — Configuration SEO
+- ✅ **sitemap.xml** — Sitemap pour indexation Google
+- ✅ **OpenGraph tags** — Meta tags pour partage sur réseaux sociaux
+- ✅ **Hamburger menu mobile** — Toutes les pages app (dashboard, journal, progress, account)
+- ✅ **PWA Service Worker v5** — Cache 15 pages dont progress.html
+- ✅ **Manifest v2** — Shortcut progress.html ajouté
+- ✅ **Toast notifications** — Confirmation visuelle après chaque séance terminée
+
+### Corrections de bugs
+- ✅ **ES modules → CommonJS** — Toutes les 8 APIs converties (import/export → require/module.exports)
+- ✅ **Goals defaults** — Corrigé (60/30/60 min au lieu de 10/5/20 min)
+- ✅ **Stats dashboard** — API-first (plus de conflit avec localStorage)
+- ✅ **Billing portal** — URL hardcodée remplacée par appel API
+- ✅ **auth-callback** — Vérification abonnement avant redirect Stripe (évite double facturation)
+- ✅ **user-stats API** — Ajoute streak + thisMonth au retour API
+- ✅ **Journal** — Chargement entrée existante quand la date change
+- ✅ **Journal** — Bouton "Modifier" pour charger une ancienne entrée dans l'éditeur
+- ✅ **Journal** — Brouillon localStorage par date (plus global)
+
+*Document mis à jour automatiquement — Harmonia v3.0*
