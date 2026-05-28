@@ -1,0 +1,13 @@
+{
+  "name": "harmonia",
+  "version": "1.0.0",
+  "description": "Harmonia - Application de bien-etre premium",
+  "private": true,
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "stripe": "^14.20.0"
+  }
+}
