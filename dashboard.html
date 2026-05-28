@@ -85,6 +85,9 @@
 .journal-cta-text p{color:#666;font-size:.88em;margin:0}
 .journal-cta-btn{background:linear-gradient(135deg,#52b788,#2d6a4f);color:white;border:none;padding:10px 24px;border-radius:999px;font-size:.88em;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:.2s}
 .journal-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(82,183,136,.4)}
+
+.toast-notif{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,#2d6a4f,#52b788);color:white;padding:14px 24px;border-radius:14px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:9999;opacity:0;transform:translateY(20px);transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:300px;line-height:1.4}
+.toast-notif.show{opacity:1;transform:translateY(0)}
 @media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}.dash-nav{display:none}#hamburgerBtn{display:block!important}}
 </style>
 </head>
@@ -313,6 +316,13 @@ document.addEventListener('DOMContentLoaded',function(){
   if(sc)sc.textContent=localStorage.getItem('harmonia_streak')||'0';
 });
 
+
+function showDashToast(msg){
+  var t=document.getElementById('dashToast');
+  if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3500);
+}
 var timers={};
 function pad(n){return String(Math.floor(n)).padStart(2,'0');}
 function updateDisplay(id,rem,total){
@@ -335,6 +345,8 @@ function toggleTimer(id,total){
       if(timers[id].remaining<=0){
         clearInterval(timers[id].interval);timers[id].running=false;
         if(btn)btn.textContent='Terminé ✓';
+        var names={med:'Méditation 🧘',resp:'Cohérence cardiaque 🌬️',mob:'Mobilité 🤸'};
+        showDashToast('✅ Séance '+(names[id]||id)+' terminée ! Bravo !');
         if(id==='resp')stopBreath();
         saveSession(id,Math.round(total/60));
       }
@@ -389,5 +401,7 @@ function saveSession(id,minutes){
   }
 }
 </script>
+
+<div class="toast-notif" id="dashToast"></div>
 </body>
 </html>
