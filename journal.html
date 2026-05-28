@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+}<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -38,6 +38,13 @@
 .entry-edit-btn:hover{background:#52b788;color:#fff}
 .entry-del-btn{background:none;border:1px solid #ff6b6b;color:#ff6b6b;padding:5px 12px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:all .2s}
 .entry-del-btn:hover{background:#ff6b6b;color:#fff}
+
+.search-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.search-input{flex:1;padding:10px 14px;border:2px solid #b7e4c7;border-radius:8px;font-size:.92rem;color:#2d3436;transition:border-color .2s}
+.search-input:focus{outline:none;border-color:#52b788;box-shadow:0 0 0 3px rgba(82,183,136,.15)}
+.search-clear{background:none;border:none;color:#888;cursor:pointer;font-size:1.1rem;padding:4px 8px;line-height:1}
+.search-clear:hover{color:#e74c3c}
+.search-results-count{font-size:.8rem;color:#888;white-space:nowrap}
 .empty-journal{text-align:center;padding:40px;color:#aaa}
 .empty-journal .icon{font-size:3rem;display:block;margin-bottom:12px}
 .autosave-badge{display:inline-block;background:#e8f5e9;color:#2d6a4f;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:600;margin-left:8px;vertical-align:middle}
@@ -95,7 +102,12 @@
 <span class="save-status" id="saveStatus"></span>
 </div>
 <section class="entries-section">
-<h2>📚 Mes dernières entrées</h2>
+
+<div class="search-wrap">
+<input type="search" class="search-input" id="journalSearch" placeholder="🔍 Rechercher dans mes entrées...">
+<button class="search-clear" id="clearSearchBtn" title="Effacer">×</button>
+<span class="search-results-count" id="searchCount"></span>
+</div><h2>📚 Mes dernières entrées</h2>
 <div id="entriesList"><div class="empty-journal"><span class="icon">✏️</span><p>Votre journal est vide. Commencez à écrire ci-dessus !</p></div></div>
 </section>
 </main>
@@ -124,6 +136,7 @@ async function initAuth(){
   currentUser=session.user;
   document.getElementById('logoutBtn').addEventListener('click',async()=>{await sb.auth.signOut();window.location.href='login.html';});
   setupForm();
+  setupSearch();
   loadEntries();
 }
 
@@ -238,30 +251,40 @@ async function saveEntry(silent=false){
   }
 }
 
-async function loadEntries(){
-  const sb=window._supabase;
-  const {data:entries,error}=await sb.from('journal_entries').select('*').eq('user_id',currentUser.id).order('entry_date',{ascending:false}).limit(14);
-  const list=document.getElementById('entriesList');
-  if(error||!entries||entries.length===0){
-    list.innerHTML='<div class="empty-journal"><span class="icon">✏️</span><p>Votre journal est vide. Commencez à écrire ci-dessus !</p></div>';
-    return;
-  }
-  list.innerHTML=entries.map(e=>{
-    const moodEmoji=e.mood?MOOD_EMOJIS[e.mood]:'';
-    const preview=e.content.length>200?e.content.slice(0,200)+'…':e.content;
-    return `<div class="entry-card" data-id="${e.id}">
-<div class="entry-card-header">
-<span class="entry-date">📅 ${formatDate(e.entry_date)}</span>
-<span class="entry-mood">${moodEmoji}</span>
-</div>
-<div class="entry-content">${preview.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-<div class="entry-actions">
-<button class="entry-edit-btn" onclick="editEntry('${e.id}','${e.entry_date}')">Modifier</button>
-<button class="entry-del-btn" onclick="deleteEntry('${e.id}')">Supprimer</button>
-</div>
-</div>`;
-  }).join('');
+
+// Search functionality
+var allEntries = [];
+function setupSearch(){
+  document.getElementById('journalSearch').addEventListener('input', function(e){
+    var q = e.target.value.trim().toLowerCase();
+    document.getElementById('clearSearchBtn').style.display = q ? 'block' : 'none';
+    filterEntries(q);
+  });
+  document.getElementById('clearSearchBtn').addEventListener('click', function(){
+    document.getElementById('journalSearch').value = '';
+    this.style.display = 'none';
+    filterEntries('');
+  });
+  document.getElementById('clearSearchBtn').style.display = 'none';
 }
+function filterEntries(q) {
+  if (!allEntries.length) return;
+  var filtered = q ? allEntries.filter(e => (e.content||'').toLowerCase().includes(q)) : allEntries;
+  var countEl = document.getElementById('searchCount');
+  if (q) countEl.textContent = filtered.length + ' résultat(s)';
+  else countEl.textContent = '';
+  renderEntriesList(filtered, q);
+}
+function renderEntriesList(entries, highlight){
+  var list=document.getElementById('entriesList');
+  if(!entries||entries.length===0){list.innerHTML='<div class="empty-journal"><span class="icon">✏️</span><p>'+(highlight?'Aucun résultat pour "'+highlight+'".':'Votre journal est vide.')+'</p></div>';return;}
+  list.innerHTML=entries.map(e=>{
+    var moodEmoji=e.mood?MOOD_EMOJIS[e.mood]:'';
+    var txt=e.content.length>200?e.content.slice(0,200)+'…':e.content;
+    var escaped=txt.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if(highlight)escaped=escaped.replace(new RegExp('('+highlight.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\async function loadEntries(){')+')','gi'),'<mark style="background:#d8f3dc;padding:0 2px;border-radius:2px">$1</mark>');
+    return '<div class="entry-card" data-id="'+e.id+'"><div class="entry-card-header"><span class="entry-date">📅 '+formatDate(e.entry_date)+'</span><span class="entry-mood">'+moodEmoji+'</span></div><div class="entry-content">'+escaped+'</div><div class="entry-actions"><button class="entry-edit-btn" onclick="editEntry(\''+e.id+'\',\''+e.entry_date+'\')">Modifier</button><button class="entry-del-btn" onclick="deleteEntry(\''+e.id+'\')">Supprimer</button></div></div>';
+  }).join('');
 
 async function editEntry(id,dateStr){
   const dateInput=document.getElementById('entryDate');
