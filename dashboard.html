@@ -88,10 +88,23 @@
 
 .toast-notif{position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,#2d6a4f,#52b788);color:white;padding:14px 24px;border-radius:14px;font-size:.9rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:9999;opacity:0;transform:translateY(20px);transition:all .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;max-width:300px;line-height:1.4}
 .toast-notif.show{opacity:1;transform:translateY(0)}
+
+.notif-banner{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 24px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.88em}
+.notif-banner p{margin:0;opacity:.95}
+.notif-btn{background:white;color:#667eea;border:none;padding:7px 18px;border-radius:999px;font-size:.82em;font-weight:700;cursor:pointer;white-space:nowrap}
+.notif-dismiss{background:transparent;border:none;color:white;opacity:.7;cursor:pointer;font-size:1.1rem;padding:2px 6px}
 @media(max-width:700px){.dash-header{padding:14px 18px}.bottom-grid{grid-template-columns:1fr}.quote-card{padding:24px 20px}.dash-nav{display:none}#hamburgerBtn{display:block!important}}
 </style>
 </head>
 <body class="dash-page">
+
+<div class="notif-banner" id="notifBanner">
+<p>🔔 Activez les rappels pour ne jamais rater votre séance quotidienne !</p>
+<div style="display:flex;gap:8px;align-items:center">
+<button class="notif-btn" id="enableNotifBtn">Activer</button>
+<button class="notif-dismiss" id="dismissNotifBtn">×</button>
+</div>
+</div>
 <div class="sub-warning" id="subWarning">
 ⚠️ Votre abonnement n'est pas actif. <a onclick="window.location.href='signup.html'">Souscrire maintenant →</a>
 </div>
@@ -208,6 +221,29 @@
 </main>
 <script src="auth.js"></script>
 <script>
+
+// Browser notifications
+function checkNotifPermission(){
+  if(!('Notification' in window))return;
+  var banner=document.getElementById('notifBanner');
+  var dismissed=localStorage.getItem('harmonia_notif_dismissed');
+  if(Notification.permission==='default'&&!dismissed&&banner){
+    banner.style.display='flex';
+  }
+  document.getElementById('enableNotifBtn')?.addEventListener('click',function(){
+    Notification.requestPermission().then(function(perm){
+      if(perm==='granted'){
+        new Notification('🌿 Harmonia',{body:'Rappels activés ! On se retrouve demain ☺️',icon:'/logo-harmonia.png'});
+      }
+      document.getElementById('notifBanner').style.display='none';
+      localStorage.setItem('harmonia_notif_dismissed','true');
+    });
+  });
+  document.getElementById('dismissNotifBtn')?.addEventListener('click',function(){
+    document.getElementById('notifBanner').style.display='none';
+    localStorage.setItem('harmonia_notif_dismissed','true');
+  });
+}
 var _currentJWT=null,_goalMed=60,_goalResp=30,_goalMob=60;
 
 async function initDashboard(){
@@ -249,7 +285,8 @@ async function loadApiStats(jwt){
           if(val)val.textContent=v+' / '+item[1]+' min';
         });
       }
-      if(data.streak>0){var sc=document.getElementById('streakCount');if(sc)sc.textContent=data.streak;}
+      if(data.streak>0){var sc=document.getElementById('streakCount');
+  checkNotifPermission();if(sc)sc.textContent=data.streak;}
     }
   }catch(e){console.warn('stats API:',e);}
 }
