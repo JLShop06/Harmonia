@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tai Chi Guidé — Harmonia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .taichi-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .taichi-header { text-align: center; margin-bottom: 40px; padding: 30px 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; }
+    .taichi-header h1 { font-size: 2.5em; margin: 0; font-weight: 700; }
+    .taichi-header p { margin: 10px 0 0 0; font-size: 1.1em; opacity: 0.95; }
+    .mode-selector { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
+    .mode-btn { padding: 12px 30px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .mode-btn.active { background: #10b981; color: white; border-color: #10b981; }
+    .mode-btn:hover { border-color: #10b981; }
+    .mode-section { display: none; }
+    .mode-section.active { display: block; }
+    .sequence-card { background: white; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 25px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .sequence-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .move-number { display: inline-block; background: #10b981; color: white; width: 50px; height: 50px; border-radius: 50%; text-align: center; line-height: 50px; font-weight: 700; font-size: 1.2em; margin-bottom: 15px; }
+    .move-title { font-size: 1.5em; font-weight: 700; color: #333; margin-bottom: 10px; }
+    .move-subtitle { color: #666; font-size: 0.95em; font-style: italic; margin-bottom: 15px; }
+    .move-description { color: #555; line-height: 1.8; margin-bottom: 15px; }
+    .move-steps { background: #f9f9f9; border-left: 4px solid #10b981; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+    .move-steps-title { font-weight: 700; color: #333; margin-bottom: 10px; }
+    .move-step { color: #555; margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.95em; line-height: 1.6; }
+    .move-step:before { content: "→"; position: absolute; left: 0; color: #10b981; font-weight: bold; }
+    .move-benefits { background: #e6f9f5; border-left: 4px solid #10b981; padding: 12px 15px; border-radius: 6px; }
+    .move-benefits-title { font-weight: 700; color: #059669; margin-bottom: 6px; }
+    .move-benefits-text { color: #047857; font-size: 0.95em; line-height: 1.6; }
+    .timing { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px 15px; border-radius: 6px; margin-top: 12px; }
+    .timing-title { font-weight: 700; color: #cc7a00; margin-bottom: 4px; }
+    .timing-text { color: #997404; font-size: 0.95em; }
+    .intro-section { background: #f9f9f9; padding: 25px; border-radius: 12px; margin-bottom: 30px; line-height: 1.8; }
+    .intro-section p { color: #555; margin-bottom: 15px; }
+    .back-link { margin-bottom: 20px; }
+    .back-link a { color: #10b981; text-decoration: none; font-weight: 600; }
+    .back-link a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .taichi-header h1 { font-size: 1.8em; }
+      .mode-selector { flex-direction: column; }
+      .mode-btn { width: 100%; }
+      .sequence-card { padding: 18px; }
+      .move-title { font-size: 1.2em; }
+    }
+    .dark-mode .sequence-card { background: #2a2a2a; border-color: #444; }
+    .dark-mode .move-title { color: #fff; }
+    .dark-mode .move-description, .dark-mode .move-step { color: #ccc; }
+    .dark-mode .move-steps { background: #1f1f1f; border-left-color: #10b981; }
+    .dark-mode .intro-section { background: #1f1f1f; }
+    .dark-mode .intro-section p { color: #ccc; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">🌿 Harmonia</div>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="journal.html">Journal</a>
+      <a href="progress.html">Progrès</a>
+      <a href="teachings.html">Enseignements</a>
+      <a href="tai-chi.html" class="active">Tai Chi</a>
+      <a href="account.html">Compte</a>
+    </div>
+  </nav>
+
+  <div class="taichi-container">
+    <div class="back-link">
+      <a href="dashboard.html">← Retour au Dashboard</a>
+    </div>
+
+    <div class="taichi-header">
+      <h1>☮️ Tai Chi Guidé</h1>
+      <p>Pratique du mouvement pour l'équilibre, la sérénité et la santé</p>
+    </div>
+
+    <div class="intro-section">
+      <p><strong>Bienvenue dans ta pratique Tai Chi.</strong></p>
+      <p>Le Tai Chi est une discipline interne chinoise basée sur le mouvement lent, conscient et continu. Chaque séquence améliore ton équilibre, ta flexibilité, ta force intérieure (chi) et ton alignement énergétique. Pratique sans force, sans ego — le Tai Chi est une méditation en mouvement.</p>
+      <p><strong>Conseil :</strong> Respire lentement et profondément. Chaque mouvement dure 3-4 respirations. Ne vise pas la perfection — vise la conscience.</p>
+    </div>
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+      <button class="mode-btn active" onclick="switchMode('debout')">🧍 Tai Chi Debout (15 min)</button>
+      <button class="mode-btn" onclick="switchMode('assis')">🪑 Tai Chi Assis (10 min)</button>
+    </div>
+
+    <!-- ===== TAI CHI DEBOUT ===== -->
+    <div id="debout" class="mode-section active">
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Séquence Debout — 15 Minutes</h2>
+
+      <!-- Posture de Base -->
+      <div class="sequence-card">
+        <div class="move-number">1</div>
+        <div class="move-title">Posture de Base (Zhan Zhuang)</div>
+        <div class="move-subtitle">Fondation de tout mouvement Tai Chi</div>
+        <div class="move-description">
+          La posture de base est l'ancrage de la pratique. C'est depuis cette position d'équilibre que tous les mouvements émergent et reviennent. Une bonne posture de base = stabilité énergétique.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Position</div>
+          <div class="move-step">Pieds écartés de la largeur des épaules, parallèles</div>
+          <div class="move-step">Poids équitablement réparti sur les deux pieds, légèrement sur l'avant</div>
+          <div class="move-step">Genoux très légèrement fléchis (5-10 degrés) — pas raides</div>
+          <div class="move-step">Bassin légèrement rentré, colonne vertébrale naturelle</div>
+          <div class="move-step">Épaules relâchées vers l'arrière et le bas</div>
+          <div class="move-step">Tête droite, menton légèrement rentré</div>
+          <div class="move-step">Bras le long du corps, légèrement écartés, paumes vers l'arrière</div>
+          <div class="move-step">Respiration : abdominale, lente et naturelle (inspiré-expiré = 6-8 secondes)</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Renforce les jambes, centre le chi dans le dantien inférieur, improve l'équilibre et la conscience corporelle.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée</div>
+          <div class="timing-text">2 minutes — Restes dans cette position, respire, sent ton enracinement.</div>
+        </div>
+      </div>
+
+      <!-- Levée des Bras -->
+      <div class="sequence-card">
+        <div class="move-number">2</div>
+        <div class="move-title">Levée des Bras (Qi Shi)</div>
+        <div class="move-subtitle">Élévation du chi vers le haut</div>
+        <div class="move-description">
+          Ce mouvement lève l'énergie à travers le corps. Les bras montent comme si tu flottais doucement dans l'eau. C'est le premier mouvement de la séquence classique.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Inspire en levant les bras sur les côtés, paumes vers le bas</div>
+          <div class="move-step">Les bras montent jusqu'au niveau des épaules (lentement — 4-5 secondes)</div>
+          <div class="move-step">Momentanément, retiens ta respiration</div>
+          <div class="move-step">Expire en abaissant les bras le long du corps, les mains pressurent légèrement l'air vers le bas</div>
+          <div class="move-step">Sens l'énergie descendre par la colonne vertébrale vers le dantien inférieur</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Ouvre les articulations des épaules, équilibre le chi entre le haut et le bas du corps, calme le système nerveux.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">6-8 répétitions lentes (1 min 30 sec total) — Chaque mouvement = 10-12 secondes</div>
+        </div>
+      </div>
+
+      <!-- Écarter et Fermer -->
+      <div class="sequence-card">
+        <div class="move-number">3</div>
+        <div class="move-title">Écarter et Fermer (Jian Ju)</div>
+        <div class="move-subtitle">Circulation du chi latéralement</div>
+        <div class="move-description">
+          Tu sépares l'énergie (écarter) puis la réunis (fermer). Ce mouvement tonifie les bras et développe la force interne douce. Mouvements lents, circulaires, conscients.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Bras à hauteur du cœur, mains comme si tu tenais une balle</div>
+          <div class="move-step">Inspire en écartant les mains vers l'extérieur (côtés, légèrement en arrière)</div>
+          <div class="move-step">Pause 1-2 secondes, sens l'étirement dans la poitrine</div>
+          <div class="move-step">Expire en ramenant les mains vers le centre, comme si tu pliaient l'espace</div>
+          <div class="move-step">Reviens à la position "balle" — haut du corps détendu</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Ouvre la poitrine et le cœur, améliore la circulation, développe la conscience du chi dans les mains.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">8 répétitions (2 min) — Chaque cycle = 15 secondes</div>
+        </div>
+      </div>
+
+      <!-- Ondulation du Tronc -->
+      <div class="sequence-card">
+        <div class="move-number">4</div>
+        <div class="move-title">Ondulation du Tronc (Yao Bu)</div>
+        <div class="move-subtitle">Mobilisation de la colonne vertébrale</div>
+        <div class="move-description">
+          La colonne vertébrale ondule doucement, libérant les tensions. Ce mouvement massage les organes internes et régule le système digestif et nerveux. Très important pour la santé globale.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Posture de base, mains sur les hanches ou croisées sur la poitrine</div>
+          <div class="move-step">Inspire en poussant les hanches légèrement vers l'avant</div>
+          <div class="move-step">Expire en pliant légèrement les genoux, ramenant le bassin vers l'arrière (comme un léger "crunch")</div>
+          <div class="move-step">Continue : avant-arrière, avant-arrière — lent et fluide</div>
+          <div class="move-step">Laisse la colonne vertébrale onduler naturellement</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Assouplit la colonne, améliore la digestion, soulage les tensions du bas du dos, régule le chi du dantien.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">12-16 ondulations (2 min) — Lent, du rythme de la respiration profonde</div>
+        </div>
+      </div>
+
+      <!-- Rotation des Épaules -->
+      <div class="sequence-card">
+        <div class="move-number">5</div>
+        <div class="move-title">Rotation des Épaules (Jian Lun)</div>
+        <div class="move-subtitle">Libération des tensions supérieures</div>
+        <div class="move-description">
+          Les épaules stockent beaucoup de tension. Ces rotations lentes éliminent le stress accumulé et ouvrent le haut du corps pour une meilleure circulation.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Bras tombant naturellement, posture de base</div>
+          <div class="move-step">Inspire en montant les épaules vers les oreilles</div>
+          <div class="move-step">Expire en les poussant vers l'arrière, puis vers le bas</div>
+          <div class="move-step">Complète un cercle complet : avant, haut, arrière, bas</div>
+          <div class="move-step">Puis inverse : bas, avant, haut, arrière (rotation contraire)</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Réduit le stress, améliore la circulation, augmente la mobilité des épaules et du cou.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">6 rotations avant + 6 arrière (2 min) — Chaque rotation = 20 secondes</div>
+        </div>
+      </div>
+
+      <!-- Retour à la Posture de Base -->
+      <div class="sequence-card">
+        <div class="move-number">6</div>
+        <div class="move-title">Retour à la Posture de Base & Fermeture</div>
+        <div class="move-subtitle">Ancrage de l'énergie</div>
+        <div class="move-description">
+          Tu reviens au calme, à l'équilibre. Cette phase de fermeture consolide les bénéfices énergétiques et mentaux de ta pratique. C'est l'intégration.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Posture de base — immobiles, détendu</div>
+          <div class="move-step">Respire lentement, 5-6 cycles de respiration abdominale profonde</div>
+          <div class="move-step">Avec chaque expiration, sens l'énergie descendre dans le dantien inférieur</div>
+          <div class="move-step">Quand prêt, ouvre lentement les yeux (si fermés), reviens à la conscience de la pièce</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Consolide les bénéfices, calme le mental, ancre l'énergie, crée une transition douce vers les activités suivantes.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée</div>
+          <div class="timing-text">2 min — Sois présent, ne te presse pas</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f0f9f7; border-radius: 8px;">
+        <p style="color: #047857; font-weight: 600;">✅ Séquence Debout complétée ! Tu as intégré le chi, amélioré ton équilibre et apaisé ton esprit.</p>
+      </div>
+    </div>
+
+    <!-- ===== TAI CHI ASSIS ===== -->
+    <div id="assis" class="mode-section">
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Séquence Assis — 10 Minutes</h2>
+
+      <div class="intro-section" style="margin-bottom: 30px;">
+        <p><strong>Pour mobilité réduite ou repos.</strong> Cette séquence peut être pratiquée assis sur une chaise solide (dos droit) ou sur un lit. Les mouvements sont doux, accessibles et tout aussi bénéfiques. Le chi circule peu importe la position — c'est l'intention qui compte.</p>
+      </div>
+
+      <!-- Posture Assise de Base -->
+      <div class="sequence-card">
+        <div class="move-number">1</div>
+        <div class="move-title">Posture Assise de Base</div>
+        <div class="move-subtitle">Enracinement depuis une chaise</div>
+        <div class="move-description">
+          Assis offre une stabilité naturelle. Tu peux relâcher les jambes et te concentrer sur le haut du corps et la respiration.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Position</div>
+          <div class="move-step">Assis au bord d'une chaise solide, pieds au sol écartés de la largeur des épaules</div>
+          <div class="move-step">Dos droit mais détendu, appuyé légèrement contre le dossier</div>
+          <div class="move-step">Mains sur les genoux, paumes vers le bas</div>
+          <div class="move-step">Épaules relâchées</div>
+          <div class="move-step">Tête droite, menton légèrement rentré</div>
+          <div class="move-step">Respire profondément dans le ventre, 6-8 secondes par cycle</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Stabilité sécurisée, enracinement des jambes, éveil du chi du dantien.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée</div>
+          <div class="timing-text">1 minute 30 sec — Sens-toi stable et ancré</div>
+        </div>
+      </div>
+
+      <!-- Rotation Supérieure -->
+      <div class="sequence-card">
+        <div class="move-number">2</div>
+        <div class="move-title">Rotation du Tronc Supérieur</div>
+        <div class="move-subtitle">Circulation du chi dans le haut</div>
+        <div class="move-description">
+          Assis, tu peux tourner le tronc de gauche à droite. Cela masse les organes, assouplit la colonne et crée du flux énergétique.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Inspire en tournant le tronc vers la gauche, bras croisés sur la poitrine ou pendants</div>
+          <div class="move-step">Regarde par-dessus l'épaule — doux, sans effort</div>
+          <div class="move-step">Expire en revenant au centre</div>
+          <div class="move-step">Inspire en tournant vers la droite</div>
+          <div class="move-step">Alterne gauche-droite, lent et conscient</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Assouplit la colonne thoracique, améliore la digestion, réduit les douleurs dorsales.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">10-12 rotations (2 min) — Chaque rotation = 10-12 secondes</div>
+        </div>
+      </div>
+
+      <!-- Élévation des Bras Assis -->
+      <div class="sequence-card">
+        <div class="move-number">3</div>
+        <div class="move-title">Élévation des Bras Assis</div>
+        <div class="move-subtitle">Ouverture du haut du corps</div>
+        <div class="move-description">
+          Similaire à la version debout, mais depuis la chaise. Cela ouvre la poitrine, améliore la respiration et tonifie les bras.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Inspire en levant les bras sur les côtés, paumes vers le bas</div>
+          <div class="move-step">Lève jusqu'au niveau des épaules (lentement)</div>
+          <div class="move-step">Pause 1-2 secondes</div>
+          <div class="move-step">Expire en abaissant les bras, paumes pressurant l'air vers le bas</div>
+          <div class="move-step">Reviens aux mains sur les genoux</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Améliore la respiration thoracique, tonifie les bras, ouvre les articulations de l'épaule.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée & Répétitions</div>
+          <div class="timing-text">8 répétitions (2 min) — Chaque mouvement = 15 secondes</div>
+        </div>
+      </div>
+
+      <!-- Mouvements des Poignets -->
+      <div class="sequence-card">
+        <div class="move-number">4</div>
+        <div class="move-title">Rotation des Poignets & Étirement des Mains</div>
+        <div class="move-subtitle">Circulation du chi dans les extrémités</div>
+        <div class="move-description">
+          Les mains et poignets sont importants pour la circulation du chi. Ces petits mouvements réveillent l'énergie dans les extrémités.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Bras devant toi, coudes légèrement fléchis, paumes vers le bas</div>
+          <div class="move-step">Fais tourner les poignets en cercles lents (5-6 rotations avant, puis arrière)</div>
+          <div class="move-step">Puis, étire les doigts et renverse les mains (paumes vers le haut), tiens 3-4 secondes</div>
+          <div class="move-step">Referme les poings doucement, reviens les mains sur les genoux</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Prévient la raideur des poignets, stimule la circulation du chi dans les bras et mains, relaxe les avant-bras.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée</div>
+          <div class="timing-text">1 min 30 sec — Doux et sans forcer</div>
+        </div>
+      </div>
+
+      <!-- Respiration Finale -->
+      <div class="sequence-card">
+        <div class="move-number">5</div>
+        <div class="move-title">Respiration Finale & Fermeture</div>
+        <div class="move-subtitle">Intégration et repos</div>
+        <div class="move-description">
+          Tu termines ta pratique assis, ancrée, consciente. C'est un moment de paix.
+        </div>
+        <div class="move-steps">
+          <div class="move-steps-title">📍 Exécution</div>
+          <div class="move-step">Posture assise de base, ferme les yeux si tu te sens à l'aise</div>
+          <div class="move-step">6-8 cycles de respiration abdominale profonde et lente</div>
+          <div class="move-step">Avec chaque expiration, relâche toute tension</div>
+          <div class="move-step">Quand prêt, ouvre doucement les yeux</div>
+        </div>
+        <div class="move-benefits">
+          <div class="move-benefits-title">✨ Bénéfices</div>
+          <div class="move-benefits-text">Calme le mental, ancre l'énergie, crée une sensation de bien-être durable.</div>
+        </div>
+        <div class="timing">
+          <div class="timing-title">⏱️ Durée</div>
+          <div class="timing-text">1 min 30 sec — Pas de pression, sois présent</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f0f9f7; border-radius: 8px;">
+        <p style="color: #047857; font-weight: 600;">✅ Séquence Assis terminée ! Tu as cultivé une paix intérieure et un équilibre énergétique.</p>
+      </div>
+    </div>
+
+    <div class="back-link" style="margin-top: 40px;">
+      <a href="dashboard.html">← Retour au Dashboard</a>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    function switchMode(mode) {
+      // Hide all sections
+      document.getElementById('debout').classList.remove('active');
+      document.getElementById('assis').classList.remove('active');
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      
+      // Show selected section and activate button
+      document.getElementById(mode).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Check if user is authenticated
+    window.addEventListener('DOMContentLoaded', async function() {
+      const session = await window.waitForSupabase?.() || null;
+      if(!session) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>
