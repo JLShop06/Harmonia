@@ -1,376 +1,211 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta name="theme-color" content="#f8f5f0" />
-  <meta name="description" content="Harmonia - Bien-être premium, méditation, respiration, mobilité." />
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://harmonia-woad.vercel.app/">
-  <meta property="og:title" content="Harmonia — Bien-être Premium">
-  <meta property="og:description" content="Méditation, cohérence cardiaque, yoga et journal de bien-être. Transformez votre quotidien en 10 minutes par jour.">
-  <meta property="og:image" content="https://harmonia-woad.vercel.app/logo-harmonia.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Harmonia — Bien-être Premium">
-  <meta name="twitter:description" content="Méditation, respiration, mobilité et journal quotidien. 14,90€/mois.">
-
-  <title>Harmonia</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./styles.css">
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="logo-harmonia.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonia — Tai Chi & Développement Personnel Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:title" content="Harmonia — Harmonie Intérieure par le Tai Chi">
+  <meta property="og:description" content="Pratique du Tai Chi guidée + 12 Lois de l'Attraction pour transformation personnelle.">
+  <meta property="og:image" content="logo-harmonia.png">
 </head>
-
 <body>
-
-<!-- ================= NAV ================= -->
-<header class="header">
-  <nav class="nav">
-    <a href="#accueil">Accueil</a>
-    <a href="#programmes">Programmes</a>
-    <a href="#tarifs">Tarifs</a>
-    <a href="login.html">Connexion</a>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">Harmonia</div>
+    <div class="nav-links">
+      <a href="#manifesto">Philosophie</a>
+      <a href="#tai-chi">Tai Chi</a>
+      <a href="#teachings">Enseignements</a>
+      <a href="#pricing">Accès Premium</a>
+      <a href="login.html" class="active">Connexion</a>
+    </div>
   </nav>
-</header>
 
-<!-- ================= HERO ================= -->
-<section id="accueil" class="hero">
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Retrouvez votre Harmonie Intérieure</h1>
+      <p>Une pratique millénaire du Tai Chi guidée par les 12 Lois de l'Attraction pour transformer votre vie, corps et esprit.</p>
+      <div class="hero-buttons">
+        <a href="signup.html" class="btn">Commencer Aujourd'hui</a>
+        <a href="#manifesto" class="btn btn-outline">Découvrir</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="hero-container">
-
-    <!-- LEFT -->
-    <div class="hero-text">
-
-      <div class="badge">Plateforme bien-être premium</div>
-
-      <h1>
-        Corps.<br>
-        Esprit.<br>
-        Élégance.
-      </h1>
-
-      <p>
-        Une expérience de bien-être haut de gamme pour améliorer votre équilibre physique et mental.
+  <!-- ===== MANIFESTO ===== -->
+  <section id="manifesto" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <h2>Notre Philosophie</h2>
+      <p style="font-size: 1.2rem; color: #666660; margin-top: 32px; font-weight: 300; line-height: 1.8;">
+        Harmonia n'est pas une simple application. C'est un compagnon de transformation personnelle basé sur deux piliers millénaires : 
+        le <span class="text-gold">Tai Chi</span>, discipline interne chinoise qui cultive l'équilibre et la force intérieure, 
+        et les <span class="text-gold">12 Lois de l'Attraction</span>, principes universels qui gouvernent la création consciente.
       </p>
+      <p style="font-size: 1.1rem; color: #888880; margin-top: 24px; font-weight: 300;">
+        Chaque jour, vous pratiquez le mouvement conscient et vous intégrez les lois de l'univers. Transformation garantie en 30 jours.
+      </p>
+    </div>
+  </section>
 
-      <div class="actions">
-        <a class="btn" href="login.html">Commencer</a>
-        <a class="btn-outline" href="#programmes">Découvrir</a>
+  <!-- ===== TAI CHI ===== -->
+  <section id="tai-chi" style="padding: 80px 32px;">
+    <h2>Tai Chi Guidé</h2>
+    <p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+      Deux séquences de mouvement conscient conçues pour tous les niveaux et toutes les mobilités.
+    </p>
+    <div class="features-grid" style="margin-top: 50px;">
+      <div class="feature-card">
+        <div class="feature-icon">🧍</div>
+        <h3>Tai Chi Debout</h3>
+        <p>Séquence complète de 15 minutes. Renforce les jambes, améliore l'équilibre, élève le chi à travers tout le corps. Idéale pour une pratique quotidienne.</p>
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
+          <span style="font-size: 0.9rem; color: #888880;">✓ 6 mouvements fluides</span><br>
+          <span style="font-size: 0.9rem; color: #888880;">✓ Instructions précises</span><br>
+          <span style="font-size: 0.9rem; color: #888880;">✓ Bénéfices énergétiques</span>
+        </div>
       </div>
-
+      
+      <div class="feature-card">
+        <div class="feature-icon">🪑</div>
+        <h3>Tai Chi Assis</h3>
+        <p>Séquence adaptée de 10 minutes. Pratique douce et accessible pour mobilité réduite. Cultive le chi et la sérénité sans effort.</p>
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
+          <span style="font-size: 0.9rem; color: #888880;">✓ Accessible à tous</span><br>
+          <span style="font-size: 0.9rem; color: #888880;">✓ Sécurisé et confortable</span><br>
+          <span style="font-size: 0.9rem; color: #888880;">✓ Résultats prouvés</span>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- RIGHT (LOGO LARGE) -->
-    <div class="hero-image">
-      <img src="logo-harmonia.png" alt="Harmonia logo" />
+  <!-- ===== TEACHINGS ===== -->
+  <section id="teachings" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
+    <h2>Les 12 Lois de l'Attraction</h2>
+    <p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+      Les principes universels qui créent votre réalité. Chaque loi inclut une pratique quotidienne et une affirmation.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 50px;">
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">🧲</div>
+        <h4>Loi de l'Attraction</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Semblable attire semblable</p>
+      </div>
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">🎯</div>
+        <h4>Création Intentionnelle</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tu crées consciemment</p>
+      </div>
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">📊</div>
+        <h4>La Vibration</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tout vibre à une fréquence</p>
+      </div>
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">🙏</div>
+        <h4>La Gratitude</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Remercier amplifie</p>
+      </div>
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">🦋</div>
+        <h4>Le Détachement</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Lâcher prise libère</p>
+      </div>
+      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">✨</div>
+        <h4>Et 7 Lois Plus</h4>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">À découvrir en détail</p>
+      </div>
     </div>
+  </section>
 
-  </div>
-
-</section>
-
-<!-- ================= FEATURES ================= -->
-<section id="programmes" class="features">
-
-  <div class="card">
-    <h3>Méditation</h3>
-    <p>Calme mental et concentration guidée.</p>
-  </div>
-
-  <div class="card">
-    <h3>Respiration</h3>
-    <p>Techniques pour réduire le stress.</p>
-  </div>
-
-  <div class="card">
-    <h3>Mobilité</h3>
-    <p>Étirements et yoga pour un corps libre.</p>
-  </div>
-
-  <div class="card">
-    <h3>Suivi</h3>
-    <p>Progression quotidienne et discipline.</p>
-  </div>
-
-</section>
-
-<!-- ================= ENSEIGNEMENTS / TEACHINGS ================= -->
-<section id="enseignements" class="teachings-preview">
-  <h2>✨ Les 12 Lois de l'Attraction</h2>
-  <p>Maîtrise les principes universels qui façonnent ta réalité</p>
-  
-  <div class="laws-grid">
-    <div class="law-item">
-      <span class="law-emoji">🧲</span>
-      <h3>Loi de l'Attraction</h3>
-      <p>Semblable attire semblable</p>
+  <!-- ===== BENEFITS ===== -->
+  <section style="padding: 80px 32px;">
+    <h2>Transformez Votre Vie en 30 Jours</h2>
+    <div class="features-grid" style="margin-top: 50px;">
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Équilibre Physique</h3>
+        <p>Amélioration de la posture, de la flexibilité et de l'équilibre. Force interne développée.</p>
+      </div>
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Clarté Mentale</h3>
+        <p>Esprit apaisé, concentration améliorée, stress réduit. Sérénité durable.</p>
+      </div>
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Alignment Énergétique</h3>
+        <p>Chakras alignés, chi cultivé, intention puissante. Création consciente activée.</p>
+      </div>
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Transformation Personnelle</h3>
+        <p>Abondance attirée, relations améliorées, confiance en soi restaurée. Vie nouvelle.</p>
+      </div>
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Journal Quotidien</h3>
+        <p>Suivi de votre progression, observations personnelles, intégration des lois.</p>
+      </div>
+      <div class="feature-card">
+        <h3 style="color: #d4af37;">Statistiques Détaillées</h3>
+        <p>Graphiques de progression, streaks de discipline, tendances et analyses.</p>
+      </div>
     </div>
-    <div class="law-item">
-      <span class="law-emoji">🎯</span>
-      <h3>Création Intentionnelle</h3>
-      <p>Tu crées consciemment</p>
-    </div>
-    <div class="law-item">
-      <span class="law-emoji">📊</span>
-      <h3>La Vibration</h3>
-      <p>Tout vibre à une fréquence</p>
-    </div>
-    <div class="law-item">
-      <span class="law-emoji">🙏</span>
-      <h3>La Gratitude</h3>
-      <p>Remercier amplifie</p>
-    </div>
-    <div class="law-item">
-      <span class="law-emoji">🦋</span>
-      <h3>Le Détachement</h3>
-      <p>Lâcher prise libère</p>
-    </div>
-    <div class="law-item">
-      <span class="law-emoji">✨</span>
-      <h3>Et 7 lois de plus...</h3>
-      <p>À découvrir dans l'app</p>
-    </div>
-  </div>
-  
-  <p class="teachings-cta">Chaque loi inclut une pratique quotidienne et une affirmation personnelle.</p>
-  <a href="signup.html" class="btn">Accéder aux Enseignements</a>
-</section>
+  </section>
 
-
-
-<!-- ================= TAI CHI ================= -->
-<section id="tai-chi" class="taichi-section">
-  <h2>☮️ Tai Chi Guidé</h2>
-  <p>Mouvement conscient pour l'équilibre, la force interne et la sérénité</p>
-  
-  <div class="taichi-modes">
-    <div class="taichi-card">
-      <span class="taichi-emoji">🧍</span>
-      <h3>Debout (15 min)</h3>
-      <p>Séquence dynamique qui renforce les jambes, améliore l'équilibre et élève le chi dans tout le corps.</p>
-      <ul style="text-align: left;">
-        <li>Posture de base</li>
-        <li>Levée des bras</li>
-        <li>Ondulation du tronc</li>
-        <li>Rotations fluides</li>
+  <!-- ===== PRICING ===== -->
+  <section class="pricing" id="pricing">
+    <h2>Accès Premium</h2>
+    <p style="text-align: center; font-size: 1.1rem; color: #ccc; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+      Un accès illimité à toutes les séquences, enseignements et fonctionnalités. Facturé mensuellement.
+    </p>
+    <div class="pricing-card">
+      <div class="badge">Accès Complet</div>
+      <h2 style="color: #d4af37;">14,90€</h2>
+      <p style="color: #ccc; font-size: 0.95rem;">par mois</p>
+      <ul class="pricing-features">
+        <li>Tai Chi debout et assis illimité</li>
+        <li>12 Lois de l'Attraction détaillées</li>
+        <li>Journal quotidien de bien-être</li>
+        <li>Statistiques et progrès en temps réel</li>
+        <li>Affirmations quotidiennes personnalisées</li>
+        <li>Accès mobile (PWA offline)</li>
+        <li>Support par email</li>
+        <li>Annulation possible à tout moment</li>
       </ul>
+      <a href="signup.html" class="btn" style="margin-top: 32px; width: 100%;">Commencer Maintenant</a>
     </div>
-    <div class="taichi-card">
-      <span class="taichi-emoji">🪑</span>
-      <h3>Assis (10 min)</h3>
-      <p>Pour mobilité réduite. Mouvements doux et accessibles qui cultivent le chi sans effort.</p>
-      <ul style="text-align: left;">
-        <li>Rotations du tronc</li>
-        <li>Mobilité des bras</li>
-        <li>Respiration guidée</li>
-        <li>Pratique sécurisée</li>
-      </ul>
-    </div>
-  </div>
-  
-  <p class="taichi-cta-text">Chaque séquence inclut des instructions détaillées, les bénéfices énergétiques et le timing exact.</p>
-  <a href="signup.html" class="btn">Commencer la Pratique Tai Chi</a>
-</section>
+    <p style="text-align: center; margin-top: 48px; color: #ccc; font-size: 0.9rem;">
+      Pas de contrat long terme. Annulez quand vous voulez. 💳 Paiement sécurisé par Stripe.
+    </p>
+  </section>
 
-<!-- ================= PRICING ================= -->
-<section id="tarifs" class="pricing">
+  <!-- ===== CTA FINAL ===== -->
+  <section style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); padding: 80px 32px; text-align: center;">
+    <h2 style="color: white;">Commencez votre Transformation Aujourd'hui</h2>
+    <p style="color: #ccc; font-size: 1.1rem; margin-top: 24px; margin-bottom: 40px;">
+      30 jours pour retrouver l'équilibre, l'énergie et l'harmonie intérieure.
+    </p>
+    <a href="signup.html" class="btn btn-gold">S'Inscrire Gratuitement</a>
+  </section>
 
-  <div class="pricing-card">
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>&copy; 2026 Harmonia — Tai Chi & Développement Personnel Premium. Tous droits réservés.</p>
+    <p style="margin-top: 16px;">
+      <a href="legal.html">Mentions Légales</a> • 
+      <a href="legal.html">Politique de Confidentialité</a>
+    </p>
+  </footer>
 
-    <span class="badge">Premium</span>
-
-    <h2>Accès complet Harmonia</h2>
-
-    <div class="price">14,90€</div>
-
-    <p>Accès illimité à tous les programmes et mises à jour.</p>
-
-    <a class="btn" href="login.html">S’abonner</a>
-
-  </div>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer class="footer" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-  <div>© 2026 Harmonia — Corps • Esprit • Équilibre</div>
-  <div style="display:flex;gap:24px;font-size:.82em;flex-wrap:wrap;justify-content:center;">
-    <a href="legal.html" style="color:var(--muted);text-decoration:none;">Mentions légales</a>
-    <a href="legal.html" style="color:var(--muted);text-decoration:none;">Données personnelles</a>
-    <a href="mailto:support@harmonia.app" style="color:var(--muted);text-decoration:none;">Contact</a>
-  </div>
-</footer>
-
-
-
-<!-- ================= COMMENT CA MARCHE ================= -->
-<section id="comment" style="max-width:1100px;margin:0 auto 80px;padding:0 20px;">
-
-<h2 class="section-heading">Comment ça marche ?</h2>
-
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center;">
-
-<div style="background:white;border-radius:24px;padding:32px 24px;border:1px solid var(--border);">
-  <div style="font-size:2.5rem;margin-bottom:16px;">🔗</div>
-  <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;">Étape 1</div>
-  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:10px;">Créez votre compte</h3>
-  <p style="color:var(--muted);font-size:.88em;line-height:1.6;">Entrez votre email, recevez un lien magique. Aucun mot de passe à retenir. Connexion en 10 secondes.</p>
-</div>
-
-<div style="background:white;border-radius:24px;padding:32px 24px;border:1px solid var(--border);">
-  <div style="font-size:2.5rem;margin-bottom:16px;">💳</div>
-  <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;">Étape 2</div>
-  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:10px;">Activez votre accès</h3>
-  <p style="color:var(--muted);font-size:.88em;line-height:1.6;">14,90€/mois, sans engagement. Paiement sécurisé via Stripe. Annulez à tout moment en un clic.</p>
-</div>
-
-<div style="background:white;border-radius:24px;padding:32px 24px;border:1px solid var(--border);">
-  <div style="font-size:2.5rem;margin-bottom:16px;">🌿</div>
-  <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;">Étape 3</div>
-  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:10px;">Transformez votre quotidien</h3>
-  <p style="color:var(--muted);font-size:.88em;line-height:1.6;">Méditation, respiration, mobilité et journal de bien-être. Progressez chaque jour à votre rythme.</p>
-</div>
-
-</div>
-</section>
-
-<!-- ================= TEMOIGNAGES ================= -->
-<section id="temoignages" class="testimonials">
-
-  <h2 class="section-heading">Ce qu'ils en disent</h2>
-
-  <div class="testimonials-grid">
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>« Harmonia a transformé mes matins. 10 minutes de méditation guidée et je commence chaque journée avec une clartté que je n'avais jamais connue. »</p>
-      <div class="testimonial-author">
-        <strong>Sophie M.</strong>
-        <span>Coach sportive, Paris</span>
-      </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>« Les séances de cohérence cardiaque ont réduit mon stress de manière spectaculaire. Cinq minutes suffisent pour retrouver mon calme, même en plein rush. »</p>
-      <div class="testimonial-author">
-        <strong>Thomas K.</strong>
-        <span>Directeur commercial, Lyon</span>
-      </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>« Mes douleurs lombaires ont quasiment disparu grâce aux séances de mobilité. Le suivi quotidien me motive à rester constant dans ma pratique. »</p>
-      <div class="testimonial-author">
-        <strong>Camille R.</strong>
-        <span>Graphiste, Bordeaux</span>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= FAQ ================= -->
-<section id="faq" class="faq">
-
-  <h2 class="section-heading">Questions fréquentes</h2>
-
-  <div class="faq-list">
-
-    <details class="faq-item">
-      <summary>Qu'est-ce qu'Harmonia exactement ?</summary>
-      <p>Harmonia est une plateforme premium de bien-être qui regroupe des séances de méditation guidée, des exercices de respiration et des programmes de mobilité. Tout est accessible depuis votre navigateur, sans installation.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary>Comment fonctionne l'abonnement ?</summary>
-      <p>Pour 14,90€/mois, vous accédez à l'intégralité des programmes, aux nouvelles séances ajoutées chaque semaine, et au suivi de votre progression. Pas d'engagement, résiliation à tout moment.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary>Combien de temps faut-il consacrer par jour ?</summary>
-      <p>Aussi peu que 5 minutes suffisent pour commencer. Nos séances vont de 5 à 30 minutes selon votre disponibilité. La régularité prime sur la durée.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary>Faut-il une expérience préalable ?</summary>
-      <p>Non. Tous les programmes débutent au niveau zéro et progressent à votre rythme. Que vous soyez novice ou praticien averti, vous trouverez des séances adaptées.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary>Puis-je utiliser Harmonia sur mobile ?</summary>
-      <p>Oui. Harmonia est une Progressive Web App (PWA) installée directement depuis votre navigateur mobile, sans passer par les stores. L'expérience est optimisée pour tous les appareils.</p>
-    </details>
-
-  </div>
-
-</section>
-
-
-<script>
-// Enregistrement du Service Worker PWA
-
-  // PWA Install prompt
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    var dismissed = localStorage.getItem('harmonia_install_dismissed');
-    if (!dismissed) {
-      document.getElementById('installBanner').style.display = 'flex';
+  <script src="auth.js"></script>
+  <script>
+    // Dark mode toggle (optional future feature)
+    // Simple PWA support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(() => {});
     }
-  });
-  document.getElementById('installBtn')?.addEventListener('click', async function() {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    var result = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    document.getElementById('installBanner').style.display = 'none';
-  });
-  document.getElementById('dismissInstallBtn')?.addEventListener('click', function() {
-    document.getElementById('installBanner').style.display = 'none';
-    localStorage.setItem('harmonia_install_dismissed', '1');
-  });
-  if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => console.log('SW registered:', reg.scope))
-      .catch(err => console.warn('SW registration failed:', err));
-  });
-}
-// Si déjà connecté → afficher bouton "Mon espace"
-window.addEventListener('load', async () => {
-  const sbCDN = document.createElement('script');
-  sbCDN.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-  sbCDN.onload = async () => {
-    const sb = window.supabase.createClient(
-      'https://arewzgemzqmokinlylhu.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyZXd6Z2VtenFtb2tpbmx5bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzgyNzQsImV4cCI6MjA5MzgxNDI3NH0.vBh00PCILcjrcGynLto-5Ce7zfRvjTXMUDqzG1PWGMw'
-    );
-    const { data: { session } } = await sb.auth.getSession();
-    const loginLinks = document.querySelectorAll('a[href="login.html"]');
-    if (session) {
-      loginLinks.forEach(a => {
-        a.href = 'dashboard.html';
-        a.textContent = a.textContent.includes('Connexion') ? 'Mon espace' : a.textContent.includes('abonner') ? 'Mon espace' : a.textContent;
-      });
-    }
-  };
-  document.head.appendChild(sbCDN);
-});
-</script>
-<div class="install-banner" id="installBanner">
-<p><strong>📱 Installez Harmonia sur votre téléphone</strong>Accédez à vos séances sans connexion, directement depuis votre écran d'accueil.</p>
-<div style="display:flex;gap:8px;flex-shrink:0">
-<button class="install-btn" id="installBtn">Installer</button>
-<button class="install-dismiss" id="dismissInstallBtn">Plus tard</button>
-</div>
-</div>
+  </script>
 </body>
 </html>
