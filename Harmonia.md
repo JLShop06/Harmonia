@@ -528,3 +528,20 @@ Reste a faire: (1) message quotidien dev perso (affirmation/citation differente 
 - L'image fait ~1,3 Mo: lourde pour un favicon. Optimisation future: creer un favicon.ico/PNG 32x32 + version web compressee du logo (<200ko) pour la performance.
 - Favicon ajoute uniquement sur index.html pour l'instant; a propager aux autres pages (login, signup, dashboard, etc.) pour coherence dans tous les onglets.
 - Logo a integrer aussi dans la navbar (petit format .nav-brand-logo deja stylise mais pas encore place dans le HTML).
+
+
+---
+
+## v4.2 — Remplacement des emojis par icones SVG premium
+
+### Realise
+- **index.html**: 9 emojis decoratifs (Tai Chi debout/assis, attraction, objectif, stats, gratitude, transformation, sparkle, paiement) remplaces par icones SVG line-art dorees. Etoiles d'avis (★) et checkmarks (✓) conserves (deja elegants).
+- **dashboard.html**: ~29 icones SVG remplacent les emojis de navigation, sections (step/seance/prog-icon), badges de streak, et titres. Pastilles de difficulte 🟢🟡 => .diff-dot CSS (point colore). Emojis d'humeur (selecteur journal) CONSERVES = fonctionnels, choisis par l'utilisateur.
+- **styles.css**: regles .step-icon/.seance-icon/.prog-icon svg, .diff-dot/.diff-easy/.diff-mid/.diff-hard, alignement svg dans nav.
+
+### Reste a faire (emojis)
+- tai-chi.html et teachings.html contiennent encore quelques emojis decoratifs (🌿🧍🪑📍✨🌟...) a remplacer par SVG a la prochaine etape.
+- Symboles UI conserves volontairement: ☰ (menu), ✕ (fermer), ⚠ (alerte abonnement), ✓/✅.
+
+### Note
+- Methode SVG choisie plutot que images PNG: vectoriel, leger, parfaitement aligne, couleur or heritee via currentColor. Coherent avec une marque de luxe.
