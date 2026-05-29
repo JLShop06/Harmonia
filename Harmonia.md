@@ -304,3 +304,19 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 - ✅ **signup.html / success.html** — Suppression CDN dupliqué
 
 *Document mis à jour — Harmonia v3.3 — 28/05/2026*
+
+---
+
+## 📋 Changelog (Session 4 - 29/05/2026)
+
+### Améliorations
+- ✅ **auth.js — `window.waitForSupabase()`** : utilitaire global centralisé qui retourne une Promise résolue dès que `window._supabase` est prêt (timeout 8s par défaut). Toutes les pages peuvent l'utiliser via `await window.waitForSupabase()` au lieu de réimplémenter leur propre boucle `setInterval`.
+- ✅ **Déploiement vérifié** : auth.js en production (5520 octets) sert bien la nouvelle version avec `waitForSupabase` (test cache-buster confirmé).
+
+### État vérifié (29/05/2026)
+- ✅ Site live opérationnel : https://harmonia-woad.vercel.app/
+- ✅ APIs sécurisées : 401 JSON sans token (user-stats, check-subscription, etc.)
+- ✅ Déploiement Vercel : "Ready" en Production
+- ✅ Auth magic link uniquement, 0 mot de passe (signInWithOtp)
+
+*Document mis à jour — Harmonia v3.4 — 29/05/2026*
