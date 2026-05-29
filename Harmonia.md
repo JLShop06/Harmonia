@@ -352,3 +352,51 @@ La configuration du portail client a été finalisée dans le Dashboard Stripe :
 7. Page `account.html` : client clique "Gérer mon abonnement" → portail Stripe → accès au portail client, puis retour à `account.html`
 
 **Application prête pour la production.**
+
+
+---
+
+## ✨ Nouvelle Section : Les 12 Lois de l'Attraction (Session 5 - 29/05/2026)
+
+### Création de teachings.html
+
+Une page complète dédiée au développement personnel :
+
+- **12 lois avec explication détaillée** : Loi de l'Attraction, Création Intentionnelle, Vibration, Gratitude, Détachement, Foi, Abondance, Résonance, Action Inspirée, Pardon, Transmutation, Relativité.
+- **Pour chaque loi** :
+  - Description et principe fondamental
+  - Pratique quotidienne (action concrète)
+  - Affirmation personnelle (vibration)
+- **Design** : Cartes interactives, section d'introduction, styles dark-mode compatible
+- **Navigation** : Accessible depuis dashboard.html (navbar) pour abonnés, avec authentification requise
+
+### Modifications landing page (index.html)
+
+- Ajout d'une nouvelle section Enseignements avant le pricing
+- Aperçu visuel de 6 lois (grille interactive)
+- CTA Accéder aux Enseignements -> vers signup.html (pour convertir visiteurs)
+
+### Styles (styles.css)
+
+- .teachings-preview : section landing
+- .laws-grid : grille 3x2 responsive avec hover effects
+- .law-item : cartes individuelles avec emojis et hover animation
+- Support dark mode complet
+
+### Intégration app
+
+- Dashboard : lien Enseignements dans la navbar
+- Teachings page : accès protégé (auth required via window.waitForSupabase)
+- Journal : les utilisateurs peuvent noter leurs observations sur les lois appliquées
+
+### Alignement avec ta vision
+
+La page enseignements offre exactement ce que tu demandais :
+1. **Développement personnel** : Les 12 lois + pratiques quotidiennes
+2. **Messages/Contenus quotidiens** : Chaque loi peut être lue une par jour, avec une affirmation du jour
+
+**Prochaine étape** (optionnelle) : Système de notifications push quotidiennes (Morning Message feature) pour envoyer une affirmation + une loi chaque matin.
+
+---
+
+*Document mis à jour — Harmonia v3.5 (Teachings) — 29/05/2026*
