@@ -117,4 +117,20 @@
     });
   });
 
+
+  // ============================================================
+  // waitForSupabase — attend que le client Supabase soit prêt
+  // Usage: await window.waitForSupabase(); puis utiliser window._supabase
+  // ============================================================
+  window.waitForSupabase = function (timeoutMs) {
+    timeoutMs = timeoutMs || 8000;
+    return new Promise(function (resolve, reject) {
+      if (window._supabase) { resolve(window._supabase); return; }
+      var start = Date.now();
+      var iv = setInterval(function () {
+        if (window._supabase) { clearInterval(iv); resolve(window._supabase); }
+        else if (Date.now() - start > timeoutMs) { clearInterval(iv); reject(new Error('Supabase non initialisé (timeout)')); }
+      }, 60);
+    });
+  };
 })();
