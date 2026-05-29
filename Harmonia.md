@@ -481,3 +481,14 @@ L'app offre désormais :
 ---
 
 *Document mis à jour — Harmonia v3.6 (Tai Chi Guidé) — 29/05/2026*
+
+
+---
+
+## v3.7 — Landing Page Luxe (Premium)
+
+Realise: styles.css (animations .reveal + IntersectionObserver, cartes gradient hover, testimonials, hero h1 degrade or anime shimmer, divider or, brillance boutons). index.html (hero image fond Unsplash Tai Chi, section temoignages 3 avis, classes reveal + script IntersectionObserver fade-in). Accueil premium Noir & Or + Creme & Vert; sections Tai Chi Debout/Assis et 12 Lois en avant; CTA noir & or; pricing card checklist or.
+
+Note: lien styles.css sans parametre version => cache navigateur possible apres update; recharger en forcant le cache. Envisager ?v=X.X.
+
+Reste a faire: (1) message quotidien dev perso (affirmation/citation differente chaque jour sur dashboard; seule teachings.html statique existe). (2) harmoniser design luxe sur autres pages. (3) STRIPE_WEBHOOK_SECRET dans Vercel (manuel client). (4) verifier rendu mobile.
