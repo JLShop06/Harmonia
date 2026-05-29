@@ -400,3 +400,84 @@ La page enseignements offre exactement ce que tu demandais :
 ---
 
 *Document mis à jour — Harmonia v3.5 (Teachings) — 29/05/2026*
+
+
+---
+
+## ♥️ TAI CHI GUIDÉ — Contenu Complet Ajouté (Session 5 - 29/05/2026)
+
+### Création de tai-chi.html
+
+Une page entièrement dédiée au Tai Chi avec du contenu réel et précis :
+
+#### Séquence Debout (15 minutes)
+
+1. **Posture de Base (Zhan Zhuang)** — Fondation, 2 min
+   - Position précise des pieds, genoux, bassin, épaules
+   - Instructions de respiration abdominale
+   - Ancrage énergétique
+
+2. **Levée des Bras (Qi Shi)** — 6-8 répétitions, 1 min 30
+   - Mouvement lent et conscient
+   - Bénéfices : ouverture articulaire, équilibre chi
+
+3. **Écarter et Fermer (Jian Ju)** — 8 répétitions, 2 min
+   - Circulation latérale du chi
+   - Tonification des bras
+
+4. **Ondulation du Tronc (Yao Bu)** — 12-16 ondulations, 2 min
+   - Mobilisation de la colonne
+   - Massage des organes internes
+
+5. **Rotation des Épaules (Jian Lun)** — 6 avant + 6 arrière, 2 min
+   - Liération des tensions
+   - Circulation du haut du corps
+
+6. **Retour à la Posture & Fermeture** — 2 min
+   - Ancrage de l'énergie
+   - Intégration
+
+#### Séquence Assis (10 minutes)
+
+Adaptée pour mobilité réduite :
+
+1. **Posture Assise de Base** — 1 min 30
+2. **Rotation du Tronc Supérieur** — 10-12 rotations, 2 min
+3. **Élévation des Bras Assis** — 8 répétitions, 2 min
+4. **Rotation des Poignets & Étirement des Mains** — 1 min 30
+5. **Respiration Finale & Fermeture** — 1 min 30
+
+#### Caractéristiques
+
+- Mode sélecteur avec boutons (Debout / Assis)
+- Pour chaque mouvement :
+  - 📋 Description et principe
+  - 📤 Étape par Étape (instructions précises)
+  - ✨ Bénéfices énergétiques
+  - ⏱️ Durée et répétitions
+- Design responsive
+- Support dark mode
+- Auth protégé (waitForSupabase)
+
+### Intégration dans l'app
+
+- ✅ **Dashboard** : lien "☮️ Tai Chi" dans la navbar
+- ✅ **Teachings** : lien Tai Chi dans la navbar
+- ✅ **Landing page** : nouvelle section "Tai Chi Guidé" avec teaser (Debout & Assis) avant le pricing
+- ✅ **Styles** : cartes interactives .taichi-section, .taichi-card avec hover effects
+
+### Alignement avec ta vision
+
+L'app offre désormais :
+
+1. **Tai Chi Debout** : séquence complète avec instructions réelles
+2. **Tai Chi Assis** : accessible pour tous, même mobilité réduite
+3. **12 Lois de l'Attraction** : développement personnel
+4. **Journal quotidien** : suivi des présessions et observations
+5. **Progrès & statistiques** : suivi de l'évolution
+
+**L'app est maintenant un vrai produit Tai Chi + Développement Personnel**, prête à convertir des clients.
+
+---
+
+*Document mis à jour — Harmonia v3.6 (Tai Chi Guidé) — 29/05/2026*
