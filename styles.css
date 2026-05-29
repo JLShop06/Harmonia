@@ -803,3 +803,109 @@ a, button { transition: all .2s ease; }
 .dark-mode .law-item h3 { color: #fff; }
 .dark-mode .law-item p { color: #aaa; }
 .dark-mode .law-item:hover { border-color: #667eea; box-shadow: 0 4px 14px rgba(102, 126, 234, 0.2); }
+
+
+/* ============================================================
+   Tai Chi Section (Landing Page)
+   ============================================================ */
+.taichi-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.taichi-section h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.taichi-section > p {
+  font-size: 1.1em;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.taichi-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.taichi-card {
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 30px 25px;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.taichi-card:hover {
+  transform: translateY(-6px);
+  border-color: #10b981;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
+}
+
+.taichi-emoji {
+  font-size: 3em;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.taichi-card h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.taichi-card p {
+  color: #666;
+  font-size: 0.95em;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.taichi-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 18px;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.taichi-card li {
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.taichi-card li:last-child {
+  border-bottom: none;
+}
+
+.taichi-card li:before {
+  content: "✓ ";
+  color: #10b981;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.taichi-cta-text {
+  font-size: 1em;
+  color: #555;
+  margin: 20px 0 30px 0;
+}
+
+/* Dark mode support */
+.dark-mode .taichi-section h2 { color: #fff; }
+.dark-mode .taichi-section > p { color: #ccc; }
+.dark-mode .taichi-card { background: #2a2a2a; border-color: #444; }
+.dark-mode .taichi-card h3 { color: #fff; }
+.dark-mode .taichi-card p, .dark-mode .taichi-card li { color: #aaa; }
+.dark-mode .taichi-card:hover { border-color: #10b981; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.2); }
+.dark-mode .taichi-card li { border-color: #444; }
