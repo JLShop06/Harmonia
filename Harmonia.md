@@ -320,3 +320,35 @@ RLS: SELECT/INSERT/UPDATE/DELETE par user_id = auth.uid()
 - ✅ Auth magic link uniquement, 0 mot de passe (signInWithOtp)
 
 *Document mis à jour — Harmonia v3.4 — 29/05/2026*
+
+---
+
+## ✅ Configuration Stripe terminée (29/05/2026)
+
+**Portail client Stripe : ACTIVÉ**
+
+La configuration du portail client a été finalisée dans le Dashboard Stripe :
+- ✅ Factures : historique de facturation activé
+- ✅ Informations client : consultation et mise à jour du nom, email, adresse
+- ✅ Moyens de paiement : modification et ajout de méthodes de paiement
+- ✅ Annulations : clients peuvent annuler (avec effet à fin de période)
+- ✅ Politiques légales : lien vers https://harmonia-woad.vercel.app/legal.html configuré
+- ✅ Lien de redirection : https://harmonia-woad.vercel.app/account.html
+
+**Vérifications technique :**
+- ✅ API `/api/create-checkout-session` : mode subscription, prix `price_1TUn0AF9c1lWA0HyP8ZwVeBN`, success/cancel URLs
+- ✅ API `/api/billing-portal` : crée une session Stripe avec return_url, sécurisée (service role key côté serveur)
+- ✅ `account.html` : bouton "Gérer mon abonnement" appelle `/api/billing-portal` au clic
+- ✅ Déploiement : toutes les pages et APIs en Production (live)
+- ✅ Sécurité : APIs retournent 401 sans token (RLS actif)
+
+**Flux client final :**
+1. Client clique "Inscrivez-vous" sur landing page → `signup.html`
+2. Envoie email → magic link de Supabase
+3. Clic lien → `auth-callback.html` → croque la session
+4. Auto-redirect vers Stripe Checkout (paramétrisé avec `price_1TUn0AF9c1lWA0HyP8ZwVeBN`)
+5. Paiement → redirection vers `success.html` (vérification abonnement)
+6. Accès `dashboard.html` accordé
+7. Page `account.html` : client clique "Gérer mon abonnement" → portail Stripe → accès au portail client, puis retour à `account.html`
+
+**Application prête pour la production.**
