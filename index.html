@@ -27,6 +27,7 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="home">
+    <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1920&q=80')"></div>
     <div class="hero-content">
       <h1>Retrouvez votre Harmonie Intérieure</h1>
       <p>Une pratique millénaire du Tai Chi guidée par les 12 Lois de l'Attraction pour transformer votre vie, corps et esprit.</p>
@@ -155,7 +156,7 @@
   </section>
 
   <!-- ===== PRICING ===== -->
-  <section class="pricing" id="pricing">
+  <section class="pricing reveal" id="pricing">
     <h2>Accès Premium</h2>
     <p style="text-align: center; font-size: 1.1rem; color: #ccc; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
       Un accès illimité à toutes les séquences, enseignements et fonctionnalités. Facturé mensuellement.
@@ -191,7 +192,33 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer>
+  
+
+  <!-- ===== TEMOIGNAGES ===== -->
+  <section class="testimonials reveal" id="temoignages">
+    <div class="container">
+      <h2 style="text-align:center">Ils ont transforme leur vie</h2>
+      <hr class="divider-gold">
+      <div class="testimonial-grid">
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>Les seances de Tai Chi assis m'ont reconnectee a mon corps apres des annees de stress. Les Lois de l'Attraction ont fait le reste. Un veritable art de vivre.</p>
+          <div class="author">Isabelle M.</div><div class="role">Membre depuis 8 mois</div>
+        </div>
+        <div class="testimonial reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <p>Le message quotidien sur le developpement personnel est devenu mon rituel du matin. Elegant, profond, jamais superflu. Exactement ce que je cherchais.</p>
+          <div class="author">Laurent D.</div><div class="role">Membre depuis 1 an</div>
+        </div>
+        <div class="testimonial reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <p>Une application d'une rare elegance. La pratique du Tai Chi debout, guidee pas a pas, m'apporte une serenite que je n'avais jamais connue.</p>
+          <div class="author">Sophie R.</div><div class="role">Membre depuis 6 mois</div>
+        </div>
+      </div>
+    </div>
+  </section>
+<footer>
     <p>&copy; 2026 Harmonia — Tai Chi & Développement Personnel Premium. Tous droits réservés.</p>
     <p style="margin-top: 16px;">
       <a href="legal.html">Mentions Légales</a> • 
@@ -206,6 +233,15 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js').catch(() => {});
     }
+  </script>
+
+  <script>
+    (function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('visible');});return;}
+      var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target);}});},{threshold:0.12});
+      els.forEach(function(e){io.observe(e);});
+    })();
   </script>
 </body>
 </html>
