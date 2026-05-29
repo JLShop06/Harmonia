@@ -492,3 +492,23 @@ Realise: styles.css (animations .reveal + IntersectionObserver, cartes gradient 
 Note: lien styles.css sans parametre version => cache navigateur possible apres update; recharger en forcant le cache. Envisager ?v=X.X.
 
 Reste a faire: (1) message quotidien dev perso (affirmation/citation differente chaque jour sur dashboard; seule teachings.html statique existe). (2) harmoniser design luxe sur autres pages. (3) STRIPE_WEBHOOK_SECRET dans Vercel (manuel client). (4) verifier rendu mobile.
+
+
+---
+
+## v4.0 — Harmonisation Luxe & Cache
+
+### Realise
+- **Pages auth (login, signup) au niveau luxe**: styles.css central enrichi (.auth-page fond noir + halos or/vert, .auth-card bordure or, bouton submit DORE au lieu de violet, champs et liens or). Login + signup harmonises d'un seul commit.
+- **Pages internes (journal, progress, account)**: titres en serif, bouton save en degrade vert luxe, champs avec focus or, nav-brand en serif.
+- **Probleme de cache CSS RESOLU**: vercel.json => header Cache-Control 'no-cache, must-revalidate' sur /styles.css. Les clients voient toujours la derniere version. API NON cassees (verifie: /api/check-subscription renvoie 401 attendu).
+
+### Etat du design
+- Landing, login, signup, dashboard (carte Loi du jour): NIVEAU LUXE OK.
+- journal/progress/account: harmonises via styles.css (titres/boutons/champs). Verification visuelle connectee impossible sans login (protection auth + lien magique).
+
+### Reste a faire
+1. STRIPE_WEBHOOK_SECRET dans Vercel (manuel client).
+2. Verification visuelle connectee des pages internes (necessite votre login par lien magique).
+3. Verifier rendu mobile global.
+4. Pages teachings.html / tai-chi.html: revoir finition serif/or si souhaite (deja fonctionnelles).
