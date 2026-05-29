@@ -587,3 +587,13 @@ footer a:hover {
 .auth-links,.check-redirect{color:rgba(245,239,226,.6)!important;}
 .auth-links a,.check-redirect a{color:var(--primary-gold,#C9A24B)!important;font-weight:600;text-decoration:none;}
 .auth-links a:hover{text-decoration:underline;}
+
+
+/* ===== PAGES INTERNES LUXE v3.9 ===== */
+.journal-header h1,.entries-section h2,.account-header h1,.progress-header h1,.stats-header h1,.section-title,.page-title{font-family:var(--font-serif,'Cormorant Garamond',serif)!important;letter-spacing:.01em;}
+.save-btn{background:linear-gradient(135deg,var(--primary-green,#2d6a4f),var(--green-dark,#1b4332))!important;color:#fff!important;border-radius:12px!important;font-weight:600!important;letter-spacing:.02em;box-shadow:0 6px 18px rgba(45,106,79,.28)!important;transition:transform .3s,box-shadow .3s!important;}
+.save-btn:hover{transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(45,106,79,.4)!important;}
+.mood-btn:hover,.mood-item.selected .mood-btn{border-color:var(--primary-gold,#C9A24B)!important;}
+.date-input,.search-input,.journal-textarea{border-radius:12px!important;border:1px solid rgba(45,106,79,.25)!important;transition:border-color .3s,box-shadow .3s!important;}
+.date-input:focus,.search-input:focus,.journal-textarea:focus{border-color:var(--primary-gold,#C9A24B)!important;outline:none!important;box-shadow:0 0 0 3px rgba(201,162,75,.15)!important;}
+.nav-brand{font-family:var(--font-serif,'Cormorant Garamond',serif)!important;}
