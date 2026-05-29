@@ -512,3 +512,19 @@ Reste a faire: (1) message quotidien dev perso (affirmation/citation differente 
 2. Verification visuelle connectee des pages internes (necessite votre login par lien magique).
 3. Verifier rendu mobile global.
 4. Pages teachings.html / tai-chi.html: revoir finition serif/or si souhaite (deja fonctionnelles).
+
+
+---
+
+## v4.1 — Logo Premium & Favicon
+
+### Realise
+- Logo or haut de gamme (lotus + silhouette Tai Chi + plume + cercle zen) televerse: **logo-harmonia-gold.png** (racine du repo).
+- index.html: logo affiche en medaillon circulaire dans le hero (.hero-logo, 340px, ombre or, fade-in) au-dessus du slogan.
+- Favicon + apple-touch-icon = logo-harmonia-gold.png (dans index.html).
+- Correction espacement .nav-brand dans la navbar.
+
+### Notes / a faire
+- L'image fait ~1,3 Mo: lourde pour un favicon. Optimisation future: creer un favicon.ico/PNG 32x32 + version web compressee du logo (<200ko) pour la performance.
+- Favicon ajoute uniquement sur index.html pour l'instant; a propager aux autres pages (login, signup, dashboard, etc.) pour coherence dans tous les onglets.
+- Logo a integrer aussi dans la navbar (petit format .nav-brand-logo deja stylise mais pas encore place dans le HTML).
