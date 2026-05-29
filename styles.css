@@ -605,3 +605,13 @@ footer a:hover {
 .navbar .nav-brand{display:inline-flex;align-items:center;gap:10px;margin-right:32px;}
 .nav-brand-logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px rgba(201,162,75,.4);}
 @media(max-width:600px){.hero-logo{width:min(240px,66vw);margin-bottom:20px;}}
+
+
+/* ===== ICONES SVG & PASTILLES v4.2 ===== */
+.step-icon svg,.seance-icon svg,.prog-icon svg,.feature-icon svg{display:block;}
+.step-icon,.seance-icon,.prog-icon{display:inline-flex;align-items:center;justify-content:center;color:var(--primary-gold,#C9A24B);}
+.diff-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+.diff-easy{background:#3a9d5d;box-shadow:0 0 0 2px rgba(58,157,93,.2);}
+.diff-mid{background:#d4a017;box-shadow:0 0 0 2px rgba(212,160,23,.2);}
+.diff-hard{background:#c0563b;box-shadow:0 0 0 2px rgba(192,86,59,.2);}
+nav a svg,.nav-links a svg{margin-right:6px;}
