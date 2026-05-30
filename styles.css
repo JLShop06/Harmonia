@@ -777,3 +777,6 @@ footer a:hover { color: #3a2a14 !important; }
 
 /* Divider */
 .divider-gold { background: linear-gradient(90deg, transparent, #9a7040, transparent) !important; }
+
+/* Hero paragraph - texte clair lisible sur fond image */
+.hero p { color: rgba(255,245,215,0.95) !important; text-shadow: 0 1px 6px rgba(0,0,0,0.75), 0 0 25px rgba(0,0,0,0.45) !important; }
