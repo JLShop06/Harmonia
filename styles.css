@@ -678,7 +678,7 @@ footer a:hover {
 @keyframes logoFadeIn{0%{opacity:0;transform:translateY(24px) scale(.94)}100%{opacity:1;transform:none}}
 .navbar .nav-brand{display:inline-flex;align-items:center;gap:10px;margin-right:32px;}
 .nav-brand-logo{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px rgba(201,162,75,.4);}
-@media(max-width:600px){.hero-logo{width:min(240px,66vw);height:min(240px,66vw);margin-bottom:20px;border-radius:50%;}.hero-bg{background-position:33% center!important;}}
+@media(max-width:600px){.hero-logo{width:min(240px,66vw);height:min(240px,66vw);margin-top:40px;margin-bottom:20px;border-radius:50%;}.hero-bg{background-position:33% center!important;}}
 
 
 /* ===== ICONES SVG & PASTILLES v4.2 ===== */
