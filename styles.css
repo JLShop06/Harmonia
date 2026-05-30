@@ -135,8 +135,8 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 1000;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   transition: background var(--transition-base), border-color var(--transition-base), padding var(--transition-base), box-shadow var(--transition-base);
 }
 
