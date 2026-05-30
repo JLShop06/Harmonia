@@ -124,25 +124,38 @@ a:hover {
 
 /* ===== NAVBAR ===== */
 .navbar {
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-200);
+  background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.15) 60%, rgba(10,10,10,0) 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
   padding: var(--spacing-lg) var(--spacing-2xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background var(--transition-base), border-color var(--transition-base), padding var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Navbar luxe state when scrolled */
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  padding-top: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .nav-brand {
   font-family: var(--font-serif);
   font-size: 1.6rem;
   font-weight: 700;
-  color: var(--primary-black);
+  color: var(--primary-cream);
   letter-spacing: -0.5px;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
 }
 
 .nav-links {
@@ -156,7 +169,8 @@ a:hover {
   font-weight: 500;
   letter-spacing: 0.4px;
   position: relative;
-  color: var(--text-light);
+  color: rgba(245, 243, 240, 0.85);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
   transition: color var(--transition-base);
 }
 
@@ -173,7 +187,7 @@ a:hover {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--primary-black);
+  color: var(--primary-gold);
 }
 
 .nav-links a:hover:after,
