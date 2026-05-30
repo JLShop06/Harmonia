@@ -689,3 +689,20 @@ footer a:hover {
 .diff-mid{background:#d4a017;box-shadow:0 0 0 2px rgba(212,160,23,.2);}
 .diff-hard{background:#c0563b;box-shadow:0 0 0 2px rgba(192,86,59,.2);}
 nav a svg,.nav-links a svg{margin-right:6px;}
+
+/* ===== THEME HARMONISE - Fond doré coucher de soleil (v1) ===== */
+html { background: #0d0907; }
+body { background: linear-gradient(180deg, #0d0907 0%, #161009 30%, #1f1408 60%, #2a1c0b 100%) !important; background-attachment: fixed !important; color: #ece1cd !important; }
+#manifesto, #teachings, #tai-chi { background: transparent !important; }
+section { background: transparent; }
+.feature-card { background: rgba(30, 22, 13, 0.55) !important; border: 1px solid rgba(201, 162, 75, 0.28) !important; backdrop-filter: blur(6px); }
+#teachings div[style*="background: white"], #teachings div[style*="background:white"] { background: rgba(30, 22, 13, 0.55) !important; border-color: rgba(201, 162, 75, 0.28) !important; }
+#manifesto h2, #teachings h2, #tai-chi h2, .feature-card h3, #teachings h4 { color: #f3e7d0 !important; }
+#manifesto p, #teachings p, #tai-chi p, .feature-card p { color: #c9bca2 !important; }
+#manifesto span[style*="color"], #teachings span[style*="color"] { color: inherit !important; }
+.feature-card div[style*="border-top"] { border-top-color: rgba(201, 162, 75, 0.22) !important; }
+#teachings div[style*="border"] { border-color: rgba(201, 162, 75, 0.22) !important; }
+.feature-card span[style*="color"], #teachings span[style*="color"] { color: #b6a886 !important; }
+.feature-icon { color: #d4af37 !important; }
+.testimonial p, .testimonials p { color: #d8cbb0 !important; }
+.btn-outline { color: #f0e2c6 !important; border-color: rgba(201, 162, 75, 0.5) !important; }
