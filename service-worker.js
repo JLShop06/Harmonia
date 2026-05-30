@@ -1,5 +1,5 @@
 // service-worker.js — Harmonia PWA v5
-const CACHE_NAME = 'harmonia-v5';
+const CACHE_NAME = 'harmonia-v6';
 const CACHE_PAGES = [
   '/',
   '/index.html',
@@ -62,6 +62,20 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(() => caches.match(request).then(cached => cached || caches.match('/404.html')))
+    );
+    return;
+  }
+
+  // CSS & JS: Network First (always fresh), fallback cache
+  if (url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
+    event.respondWith(
+      fetch(request).then(response => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        }
+        return response;
+      }).catch(() => caches.match(request))
     );
     return;
   }
