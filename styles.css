@@ -28,7 +28,7 @@
   --gray-400: #c0bbb5;
   --gray-500: #888880;
   --text-dark: #1a1a1a;
-  --text-light: #c9bca2;
+  --text-light: #4a3820;
   
   /* Spacing */
   --spacing-xs: 4px;
@@ -475,7 +475,7 @@ section h2::after {
 
 /* ===== FOOTER ===== */
 footer {
-  background: var(--primary-black);
+  background: #b8996a;
   color: var(--gray-300);
   padding: var(--spacing-2xl);
   text-align: center;
@@ -691,8 +691,8 @@ footer a:hover {
 nav a svg,.nav-links a svg{margin-right:6px;}
 
 /* ===== THEME HARMONISE - Fond doré coucher de soleil (v1) ===== */
-html { background: #0d0907; }
-body { background: linear-gradient(180deg, #0d0907 0%, #161009 30%, #1f1408 60%, #2a1c0b 100%) !important; background-attachment: fixed !important; color: #ece1cd !important; }
+html { background: #d5be9f; }
+body { background: linear-gradient(180deg, #d5be9f 0%, #cdb690 30%, #c8af88 60%, #c2a87e 100%) !important; background-attachment: fixed !important; color: #ece1cd !important; }
 #manifesto, #teachings, #tai-chi { background: transparent !important; }
 section { background: transparent; }
 .feature-card { background: rgba(30, 22, 13, 0.55) !important; border: 1px solid rgba(201, 162, 75, 0.28) !important; backdrop-filter: blur(6px); }
