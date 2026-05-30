@@ -710,3 +710,70 @@ section { background: transparent; }
 /* ===== Titres plus clairs sur fond sombre (v2) ===== */
 h2 { color: #f3e7d0 !important; -webkit-text-fill-color: #f3e7d0 !important; }
 .testimonials h2, #temoignages h2 { color: #f3e7d0 !important; -webkit-text-fill-color: #f3e7d0 !important; }
+
+/* ===== THEME SABLE - Adaptation fond clair ===== */
+
+/* Sections avec fonds noirs -> sable */
+.pricing {
+  background: linear-gradient(135deg, #b8996a 0%, #c2a87e 100%) !important;
+  color: #3a2a14 !important;
+}
+.pricing h2, .pricing h2::after { color: #3a2a14 !important; }
+.pricing > p, .pricing-card p { color: #4a3820 !important; }
+
+/* Carte pricing */
+.pricing-card {
+  background: rgba(255, 240, 210, 0.45) !important;
+  border: 2px solid rgba(160, 120, 60, 0.5) !important;
+  color: #3a2a14 !important;
+}
+.pricing-card h3, .pricing-card .price { color: #3a2a14 !important; }
+.pricing-card .plan-name { color: #7a5c2a !important; }
+.pricing-features li { color: #4a3820 !important; }
+.pricing-features li::before { color: #9a7040 !important; }
+
+/* Feature cards */
+.feature-card {
+  background: rgba(255, 238, 200, 0.35) !important;
+  border: 1px solid rgba(180, 140, 80, 0.35) !important;
+}
+.feature-card h3, .feature-card h4 { color: #3a2a14 !important; }
+.feature-card p { color: #4a3820 !important; }
+
+/* Section enseignements / teachings cards */
+.teaching-card, .tai-chi-card {
+  background: rgba(255, 238, 200, 0.35) !important;
+  border: 1px solid rgba(180, 140, 80, 0.35) !important;
+}
+.teaching-card h3, .tai-chi-card h3 { color: #3a2a14 !important; }
+.teaching-card p, .tai-chi-card p { color: #4a3820 !important; }
+
+/* Testimonials */
+.testimonial {
+  background: rgba(255, 238, 200, 0.4) !important;
+  border: 1px solid rgba(180, 140, 80, 0.3) !important;
+}
+.testimonial p { color: #4a3820 !important; }
+.testimonial .author { color: #7a5020 !important; }
+
+/* Titres de section (h2) qui etaient en blanc */
+section h2 { color: #3a2a14 !important; }
+section h3 { color: #4a3218 !important; }
+section p { color: #4a3820 !important; }
+
+/* CTA section noire */
+section:has(h2 + p + a.btn),
+.cta-section {
+  background: linear-gradient(135deg, #c2a87e, #b8996a) !important;
+}
+
+/* Section h2 apres barre doree */
+section h2::after { background: linear-gradient(90deg, transparent, #9a7040, transparent) !important; }
+
+/* Footer ajustement texte */
+footer { color: #3a2a14 !important; }
+footer a { color: #7a5020 !important; }
+footer a:hover { color: #3a2a14 !important; }
+
+/* Divider */
+.divider-gold { background: linear-gradient(90deg, transparent, #9a7040, transparent) !important; }
