@@ -706,3 +706,7 @@ section { background: transparent; }
 .feature-icon { color: #d4af37 !important; }
 .testimonial p, .testimonials p { color: #d8cbb0 !important; }
 .btn-outline { color: #f0e2c6 !important; border-color: rgba(201, 162, 75, 0.5) !important; }
+
+/* ===== Titres plus clairs sur fond sombre (v2) ===== */
+h2 { color: #f3e7d0 !important; -webkit-text-fill-color: #f3e7d0 !important; }
+.testimonials h2, #temoignages h2 { color: #f3e7d0 !important; -webkit-text-fill-color: #f3e7d0 !important; }
