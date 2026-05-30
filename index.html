@@ -246,5 +246,17 @@
       els.forEach(function(e){io.observe(e);});
     })();
   </script>
+  <script>
+    (function () {
+      var nav = document.querySelector(".navbar");
+      if (!nav) return;
+      var onScroll = function () {
+        if (window.scrollY > 40) { nav.classList.add("scrolled"); }
+        else { nav.classList.remove("scrolled"); }
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
