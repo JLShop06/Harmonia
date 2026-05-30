@@ -780,3 +780,15 @@ footer a:hover { color: #3a2a14 !important; }
 
 /* Hero paragraph - texte clair lisible sur fond image */
 .hero .hero-content p { color: rgba(255,245,215,0.95) !important; text-shadow: 0 1px 6px rgba(0,0,0,0.75), 0 0 25px rgba(0,0,0,0.45) !important; }
+
+/* Section Philosophie (manifesto) - paragraphes lisibles */
+#manifesto p, .manifesto p, section#manifesto p { color: #3a2a14 !important; font-size: 1.05rem; line-height: 1.9; }
+
+/* Sous-titres de sections - meilleur contraste */
+.tai-chi-section > p, .laws-section > p, section > .section-subtitle { color: #4a3820 !important; font-size: 1.1rem; line-height: 1.8; }
+
+/* Feature cards - paragraphes */
+.feature-card p, .tai-chi-card p, .teaching-card p { color: #3a2a14 !important; line-height: 1.75; }
+
+/* Testimonials - role texte */
+.testimonial .role, .testimonial small, .testimonial span { color: #7a5a2a !important; }
