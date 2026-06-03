@@ -6,51 +6,99 @@
   <title>Tai Chi Guidé — Harmonia</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .taichi-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-    .taichi-header { text-align: center; margin-bottom: 40px; padding: 30px 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; }
-    .taichi-header h1 { font-size: 2.5em; margin: 0; font-weight: 700; }
-    .taichi-header p { margin: 10px 0 0 0; font-size: 1.1em; opacity: 0.95; }
-    .mode-selector { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
-    .mode-btn { padding: 12px 30px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-    .mode-btn.active { background: #10b981; color: white; border-color: #10b981; }
-    .mode-btn:hover { border-color: #10b981; }
-    .mode-section { display: none; }
-    .mode-section.active { display: block; }
-    .sequence-card { background: white; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 25px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .sequence-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-    .move-number { display: inline-block; background: #10b981; color: white; width: 50px; height: 50px; border-radius: 50%; text-align: center; line-height: 50px; font-weight: 700; font-size: 1.2em; margin-bottom: 15px; }
-    .move-title { font-size: 1.5em; font-weight: 700; color: #333; margin-bottom: 10px; }
-    .move-subtitle { color: #666; font-size: 0.95em; font-style: italic; margin-bottom: 15px; }
-    .move-description { color: #555; line-height: 1.8; margin-bottom: 15px; }
-    .move-steps { background: #f9f9f9; border-left: 4px solid #10b981; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
-    .move-steps-title { font-weight: 700; color: #333; margin-bottom: 10px; }
-    .move-step { color: #555; margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.95em; line-height: 1.6; }
-    .move-step:before { content: "→"; position: absolute; left: 0; color: #10b981; font-weight: bold; }
-    .move-benefits { background: #e6f9f5; border-left: 4px solid #10b981; padding: 12px 15px; border-radius: 6px; }
-    .move-benefits-title { font-weight: 700; color: #059669; margin-bottom: 6px; }
-    .move-benefits-text { color: #047857; font-size: 0.95em; line-height: 1.6; }
-    .timing { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px 15px; border-radius: 6px; margin-top: 12px; }
-    .timing-title { font-weight: 700; color: #cc7a00; margin-bottom: 4px; }
-    .timing-text { color: #997404; font-size: 0.95em; }
-    .intro-section { background: #f9f9f9; padding: 25px; border-radius: 12px; margin-bottom: 30px; line-height: 1.8; }
-    .intro-section p { color: #555; margin-bottom: 15px; }
-    .back-link { margin-bottom: 20px; }
-    .back-link a { color: #10b981; text-decoration: none; font-weight: 600; }
-    .back-link a:hover { text-decoration: underline; }
-    @media (max-width: 768px) {
-      .taichi-header h1 { font-size: 1.8em; }
-      .mode-selector { flex-direction: column; }
-      .mode-btn { width: 100%; }
-      .sequence-card { padding: 18px; }
-      .move-title { font-size: 1.2em; }
-    }
-    .dark-mode .sequence-card { background: #2a2a2a; border-color: #444; }
-    .dark-mode .move-title { color: #fff; }
-    .dark-mode .move-description, .dark-mode .move-step { color: #ccc; }
-    .dark-mode .move-steps { background: #1f1f1f; border-left-color: #10b981; }
-    .dark-mode .intro-section { background: #1f1f1f; }
-    .dark-mode .intro-section p { color: #ccc; }
-  </style>
+  /* ===== TAI CHI — REFONTE LUXE (cohérent avec styles.css) ===== */
+  .taichi-container { max-width: 1100px; margin: 0 auto; padding: 110px 24px 64px; }
+
+  .back-link { margin-bottom: 24px; }
+  .back-link a { color: #9a7040; font-weight: 600; letter-spacing: .03em; font-size: .95rem; text-decoration: none; transition: color .3s; }
+  .back-link a:hover { color: #C9A24B; }
+
+  .taichi-header {
+    text-align: center; margin-bottom: 48px; padding: 56px 32px;
+    background: linear-gradient(150deg, rgba(30,22,13,.92), rgba(45,90,61,.78) 60%, rgba(30,22,13,.92));
+    color: #f3e7d0; border-radius: 22px; position: relative; overflow: hidden;
+    border: 1px solid rgba(201,162,75,.30);
+    box-shadow: 0 30px 70px rgba(0,0,0,.35), inset 0 0 0 1px rgba(201,162,75,.10);
+  }
+  .taichi-header::before { content:''; position:absolute; top:-40%; right:-15%; width:420px; height:420px; background:radial-gradient(circle, rgba(201,162,75,.18), transparent 70%); pointer-events:none; }
+  .taichi-header h1 { font-family:'Cormorant Garamond','Playfair Display',serif; font-size:3.2rem; line-height:1.1; margin:0; font-weight:700; letter-spacing:.01em;
+    background:linear-gradient(90deg,#C9A24B,#F3DFA2,#C9A24B); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .taichi-header p { margin:14px 0 0; font-size:1.15rem; color:rgba(243,231,208,.85); font-weight:300; letter-spacing:.02em; }
+
+  .mode-selector { display:flex; gap:18px; justify-content:center; margin-bottom:48px; flex-wrap:wrap; }
+  .mode-btn {
+    padding:14px 32px; border:1px solid rgba(201,162,75,.40); background:rgba(255,238,200,.30);
+    color:#3a2a14; border-radius:14px; cursor:pointer; font-weight:600; letter-spacing:.03em;
+    font-family:'Inter',sans-serif; transition:all .35s cubic-bezier(.16,1,.3,1); backdrop-filter:blur(4px);
+  }
+  .mode-btn:hover { border-color:#C9A24B; transform:translateY(-2px); box-shadow:0 10px 26px rgba(201,162,75,.22); }
+  .mode-btn.active { background:linear-gradient(135deg,#2d5a3d,#1d3a2d); color:#f3e7d0; border-color:rgba(201,162,75,.55); box-shadow:0 10px 28px rgba(45,90,61,.35); }
+
+  .mode-section { display:none; }
+  .mode-section.active { display:block; }
+  .mode-section h2 { text-align:center !important; margin-bottom:40px; font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:#3a2a14 !important; -webkit-text-fill-color:#3a2a14 !important; }
+
+  .intro-section {
+    background:rgba(30,22,13,.55); backdrop-filter:blur(6px);
+    border:1px solid rgba(201,162,75,.28); padding:32px 34px; border-radius:18px; margin-bottom:36px; line-height:1.9;
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+  }
+  .intro-section p { color:#d8cbb0; margin-bottom:14px; }
+  .intro-section strong { color:#f3e7d0; }
+
+  .sequence-card {
+    background:rgba(255,238,200,.34); backdrop-filter:blur(4px);
+    border:1px solid rgba(180,140,80,.35); border-radius:18px; margin-bottom:26px; padding:32px 30px;
+    box-shadow:0 8px 30px rgba(0,0,0,.10); transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s, border-color .5s;
+  }
+  .sequence-card:hover { transform:translateY(-6px); border-color:rgba(201,162,75,.55); box-shadow:0 24px 56px rgba(0,0,0,.20); }
+
+  .move-number {
+    display:inline-flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#C9A24B,#8A6D2F); color:#1a1208; width:54px; height:54px; border-radius:50%;
+    font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.4rem; margin-bottom:16px;
+    box-shadow:0 6px 20px rgba(201,162,75,.35);
+  }
+  .move-title { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:700; color:#3a2a14; margin-bottom:8px; }
+  .move-subtitle { color:#7a5a2a; font-size:.95rem; font-style:italic; margin-bottom:16px; }
+  .move-description { color:#4a3820; line-height:1.85; margin-bottom:18px; }
+
+  .move-steps { background:rgba(45,90,61,.10); border-left:3px solid #2d5a3d; padding:18px 20px; border-radius:10px; margin-bottom:16px; }
+  .move-steps-title { font-weight:700; color:#2d5a3d; margin-bottom:12px; letter-spacing:.02em; }
+  .move-step { color:#4a3820; margin-bottom:9px; padding-left:24px; position:relative; font-size:.96rem; line-height:1.65; }
+  .move-step:before { content:"\2192"; position:absolute; left:0; color:#C9A24B; font-weight:bold; }
+
+  .move-benefits { background:rgba(201,162,75,.12); border-left:3px solid #C9A24B; padding:14px 18px; border-radius:10px; }
+  .move-benefits-title { font-weight:700; color:#9a7040; margin-bottom:6px; letter-spacing:.02em; }
+  .move-benefits-text { color:#4a3820; font-size:.95rem; line-height:1.65; }
+
+  .timing { background:rgba(154,112,64,.10); border-left:3px solid #b8996a; padding:14px 18px; border-radius:10px; margin-top:14px; }
+  .timing-title { font-weight:700; color:#8a6d2f; margin-bottom:4px; letter-spacing:.02em; }
+  .timing-text { color:#5a4525; font-size:.95rem; }
+
+  .seq-complete { text-align:center; margin-top:32px; padding:24px; border-radius:16px;
+    background:linear-gradient(135deg, rgba(45,90,61,.16), rgba(201,162,75,.12)); border:1px solid rgba(201,162,75,.3); }
+  .seq-complete p { color:#2d5a3d; font-weight:600; font-size:1.02rem; margin:0; }
+
+  @media (max-width:768px) {
+    .taichi-container { padding-top:92px; }
+    .taichi-header { padding:40px 22px; }
+    .taichi-header h1 { font-size:2.2rem; }
+    .mode-selector { flex-direction:column; }
+    .mode-btn { width:100%; }
+    .sequence-card { padding:22px 20px; }
+    .move-title { font-size:1.4rem; }
+  }
+
+  /* overrides for inline-styled elements in HTML */
+  .mode-section > h2[style] { color:#3a2a14 !important; }
+  .mode-section > div[style*="f0f9f7"], .taichi-container div[style*="f0f9f7"] {
+    background:linear-gradient(135deg, rgba(45,90,61,.16), rgba(201,162,75,.12)) !important;
+    border:1px solid rgba(201,162,75,.3) !important; border-radius:16px !important;
+  }
+  .taichi-container div[style*="f0f9f7"] p[style] { color:#2d5a3d !important; }
+
+</style>
 </head>
 <body>
   <nav class="navbar">
