@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rituel Quotidien — Harmonia</title>
+<link rel="icon" type="image/png" href="logo-harmonia-gold.png">
+<link rel="apple-touch-icon" href="logo-harmonia-gold.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== RITUEL QUOTIDIEN — EXPERIENCE LUXE ===== */
+:root{ --r-gold:#C9A24B; --r-gold-soft:#F3DFA2; --r-green:#2d5a3d; --r-green-dark:#1d3a2d; --r-cream:#f3e7d0; --r-ink:#1a1208; }
+body{ background:#15100a; }
+.ritual-bg{ position:fixed; inset:0; z-index:-1; background:
+  radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+  radial-gradient(900px 500px at -10% 110%, rgba(45,90,61,.18), transparent 60%),
+  linear-gradient(160deg,#15100a 0%,#1d1610 50%,#14100a 100%); }
+.ritual-wrap{ max-width:980px; margin:0 auto; padding:108px 22px 80px; }
+
+.ritual-hero{ text-align:center; margin-bottom:18px; }
+.ritual-eyebrow{ letter-spacing:.32em; text-transform:uppercase; font-size:.72rem; color:var(--r-gold); font-weight:600; }
+.ritual-hero h1{ font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.05; margin:10px 0 8px; font-weight:700;
+  background:linear-gradient(90deg,var(--r-gold),var(--r-gold-soft),var(--r-gold)); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.ritual-date{ color:#d8cbb0; font-weight:300; letter-spacing:.04em; font-size:1.02rem; text-transform:capitalize; }
+
+.streak-pill{ display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:8px 18px; border-radius:999px;
+  background:rgba(201,162,75,.12); border:1px solid rgba(201,162,75,.34); color:var(--r-cream); font-size:.9rem; font-weight:500; }
+.streak-pill b{ color:var(--r-gold); }
+
+.glass{ background:rgba(255,238,200,.05); border:1px solid rgba(201,162,75,.22); border-radius:22px;
+  box-shadow:0 24px 60px rgba(0,0,0,.38); backdrop-filter:blur(8px); padding:34px 32px; margin-top:26px; position:relative; overflow:hidden; }
+.glass::before{ content:''; position:absolute; top:-40%; right:-12%; width:360px; height:360px;
+  background:radial-gradient(circle, rgba(201,162,75,.10), transparent 70%); pointer-events:none; }
+.card-label{ display:flex; align-items:center; gap:10px; letter-spacing:.18em; text-transform:uppercase; font-size:.74rem; font-weight:600; color:var(--r-gold); margin-bottom:14px; }
+.card-label .dot{ width:7px; height:7px; border-radius:50%; background:var(--r-gold); box-shadow:0 0 12px rgba(201,162,75,.8); }
+
+/* Affirmation */
+.affirmation{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,3.6vw,2.3rem); line-height:1.35; color:var(--r-cream); font-weight:500; }
+.affirmation .accent{ color:var(--r-gold); font-style:italic; }
+.affirm-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+.r-btn{ cursor:pointer; border-radius:12px; padding:11px 22px; font-family:'Inter',sans-serif; font-weight:600; font-size:.92rem; letter-spacing:.02em; transition:all .3s cubic-bezier(.16,1,.3,1); }
+.r-btn-primary{ background:linear-gradient(135deg,var(--r-gold),#8A6D2F); color:var(--r-ink); border:none; box-shadow:0 10px 26px rgba(201,162,75,.3); }
+.r-btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(201,162,75,.42); }
+.r-btn-ghost{ background:transparent; color:var(--r-cream); border:1px solid rgba(201,162,75,.4); }
+.r-btn-ghost:hover{ border-color:var(--r-gold); color:var(--r-gold); }
+
+/* Reflection */
+.reflect-prompt{ color:#e7dcc4; font-size:1.08rem; line-height:1.6; margin-bottom:16px; }
+.reflect-area{ width:100%; min-height:130px; resize:vertical; background:rgba(20,15,9,.6); border:1px solid rgba(201,162,75,.28); border-radius:14px;
+  color:var(--r-cream); padding:16px 18px; font-family:'Inter',sans-serif; font-size:1rem; line-height:1.6; outline:none; transition:border-color .3s; }
+.reflect-area::placeholder{ color:#8a7c5e; }
+.reflect-area:focus{ border-color:var(--r-gold); }
+.reflect-meta{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; color:#9a8b66; font-size:.82rem; }
+.save-flash{ color:var(--r-green); font-weight:600; opacity:0; transition:opacity .3s; }
+.save-flash.show{ opacity:1; color:#7fbf95; }
+</style>
+</head>
+<style>
+/* Mini-objectifs */
+.goals-list{ display:flex; flex-direction:column; gap:12px; }
+.goal{ display:flex; align-items:flex-start; gap:14px; padding:16px 18px; border-radius:14px; background:rgba(255,238,200,.04);
+  border:1px solid rgba(201,162,75,.2); transition:all .3s cubic-bezier(.16,1,.3,1); cursor:pointer; }
+.goal:hover{ border-color:rgba(201,162,75,.45); transform:translateX(3px); }
+.goal.done{ background:rgba(45,90,61,.16); border-color:rgba(45,90,61,.5); }
+.goal-check{ flex:0 0 26px; width:26px; height:26px; border-radius:8px; border:2px solid rgba(201,162,75,.5);
+  display:flex; align-items:center; justify-content:center; margin-top:2px; transition:all .3s; color:transparent; font-weight:700; }
+.goal.done .goal-check{ background:linear-gradient(135deg,var(--r-green),var(--r-green-dark)); border-color:var(--r-green); color:#fff; }
+.goal-body h4{ font-family:'Cormorant Garamond',serif; font-size:1.22rem; color:var(--r-cream); margin:0 0 3px; font-weight:600; }
+.goal.done .goal-body h4{ text-decoration:line-through; color:#a89a78; }
+.goal-body p{ color:#b6a884; font-size:.9rem; margin:0; line-height:1.5; }
+.goal-tag{ margin-left:auto; align-self:center; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--r-gold); font-weight:600;
+  background:rgba(201,162,75,.12); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+.goals-progress{ margin-top:18px; }
+.goals-bar{ height:8px; border-radius:999px; background:rgba(201,162,75,.14); overflow:hidden; }
+.goals-bar span{ display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--r-gold),var(--r-gold-soft)); transition:width .6s cubic-bezier(.16,1,.3,1); }
+.goals-progress-label{ display:flex; justify-content:space-between; margin-top:8px; color:#cdbf9f; font-size:.85rem; }
+
+/* Intention slider */
+.intention-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:6px; }
+.intent-pill{ text-align:center; padding:14px 10px; border-radius:14px; cursor:pointer; background:rgba(255,238,200,.04);
+  border:1px solid rgba(201,162,75,.22); transition:all .3s; color:#cdbf9f; }
+.intent-pill .ic{ font-size:1.5rem; display:block; margin-bottom:6px; }
+.intent-pill:hover{ border-color:rgba(201,162,75,.5); }
+.intent-pill.active{ background:linear-gradient(135deg,rgba(201,162,75,.2),rgba(45,90,61,.18)); border-color:var(--r-gold); color:var(--r-cream); box-shadow:0 8px 22px rgba(201,162,75,.18); }
+.intent-pill b{ display:block; font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--r-cream); }
+
+/* Weekly review */
+.week-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.week-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:14px; margin:20px 0 8px; }
+.wstat{ text-align:center; padding:18px 12px; border-radius:16px; background:rgba(20,15,9,.5); border:1px solid rgba(201,162,75,.18); }
+.wstat .num{ font-family:'Cormorant Garamond',serif; font-size:2.1rem; font-weight:700; color:var(--r-gold); line-height:1; }
+.wstat .lab{ color:#b6a884; font-size:.8rem; margin-top:6px; letter-spacing:.04em; }
+.week-dots{ display:flex; gap:8px; justify-content:center; margin:18px 0; }
+.wday{ width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:600;
+  background:rgba(255,238,200,.05); border:1px solid rgba(201,162,75,.2); color:#9a8b66; }
+.wday.filled{ background:linear-gradient(135deg,var(--r-gold),#8A6D2F); color:var(--r-ink); border-color:var(--r-gold); }
+.wday.today{ box-shadow:0 0 0 2px rgba(201,162,75,.5); }
+.adjust-note{ background:rgba(45,90,61,.12); border-left:3px solid var(--r-green); border-radius:10px; padding:16px 18px; margin-top:18px; }
+.adjust-note h4{ color:#7fbf95; margin:0 0 6px; font-size:.95rem; letter-spacing:.02em; }
+.adjust-note p{ color:#cdbf9f; margin:0; font-size:.95rem; line-height:1.6; }
+
+.complete-banner{ text-align:center; margin-top:30px; padding:30px; border-radius:20px;
+  background:linear-gradient(135deg,rgba(45,90,61,.2),rgba(201,162,75,.14)); border:1px solid rgba(201,162,75,.34); }
+.complete-banner h3{ font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--r-cream); margin:0 0 6px; }
+.complete-banner p{ color:#cdbf9f; margin:0; }
+
+@media (max-width:680px){
+  .ritual-wrap{ padding-top:90px; }
+  .glass{ padding:26px 20px; border-radius:18px; }
+}
+</style>
+<body>
+<div class="ritual-bg"></div>
+<nav class="navbar">
+  <div class="nav-brand">🌿 Harmonia</div>
+  <div class="nav-links">
+    <a href="dashboard.html">Tableau de bord</a>
+    <a href="rituel.html" class="active">Rituel</a>
+    <a href="journal.html">Journal</a>
+    <a href="progress.html">Progrès</a>
+    <a href="account.html">Mon compte</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button id="logoutBtn" class="nav-logout">Se déconnecter</button>
+    <button id="hamburgerBtn" class="nav-hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+<main class="ritual-wrap">
+  <header class="ritual-hero">
+    <div class="ritual-eyebrow">Votre rituel du jour</div>
+    <h1>Rituel Quotidien</h1>
+    <div class="ritual-date" id="todayDate">—</div>
+    <div class="streak-pill">✦ Série de <b id="streakNum">0</b> <span id="streakWord">jour</span> · Semaine <b id="weekNum">1</b></div>
+  </header>
+
+  <!-- AFFIRMATION -->
+  <section class="glass">
+    <div class="card-label"><span class="dot"></span>Affirmation du jour</div>
+    <div class="affirmation" id="affirmationText">…</div>
+    <div class="affirm-actions">
+      <button class="r-btn r-btn-primary" id="affirmReadBtn">J'ai ancré cette affirmation</button>
+      <button class="r-btn r-btn-ghost" id="affirmNewBtn">Une autre</button>
+    </div>
+  </section>
+
+  <!-- REFLEXION GUIDEE -->
+  <section class="glass">
+    <div class="card-label"><span class="dot"></span>Réflexion guidée</div>
+    <p class="reflect-prompt" id="reflectPrompt">…</p>
+    <textarea class="reflect-area" id="reflectArea" placeholder="Prenez un instant. Écrivez sans filtre, ce qui vient…"></textarea>
+    <div class="reflect-meta">
+      <span class="save-flash" id="reflectSaved">✓ Enregistré</span>
+      <span id="reflectCount">0 mot</span>
+    </div>
+  </section>
+
+  <!-- INTENTION DU JOUR -->
+  <section class="glass">
+    <div class="card-label"><span class="dot"></span>Mon intention du jour</div>
+    <div class="intention-grid" id="intentionGrid"></div>
+  </section>
+
+  <!-- MINI-OBJECTIFS -->
+  <section class="glass">
+    <div class="card-label"><span class="dot"></span>Trois mini-objectifs qui transforment la journée</div>
+    <div class="goals-list" id="goalsList"></div>
+    <div class="goals-progress">
+      <div class="goals-bar"><span id="goalsBar"></span></div>
+      <div class="goals-progress-label"><span id="goalsCount">0 / 3 accompli</span><span id="goalsPct">0%</span></div>
+    </div>
+  </section>
+
+  <!-- BILAN HEBDOMADAIRE -->
+  <section class="glass">
+    <div class="week-head">
+      <div class="card-label" style="margin-bottom:0;"><span class="dot"></span>Bilan de la semaine</div>
+      <span class="goal-tag" id="weekRange">—</span>
+    </div>
+    <div class="week-dots" id="weekDots"></div>
+    <div class="week-stats">
+      <div class="wstat"><div class="num" id="wsDays">0</div><div class="lab">Jours actifs</div></div>
+      <div class="wstat"><div class="num" id="wsGoals">0</div><div class="lab">Objectifs accomplis</div></div>
+      <div class="wstat"><div class="num" id="wsReflect">0</div><div class="lab">Réflexions écrites</div></div>
+      <div class="wstat"><div class="num" id="wsRate">0%</div><div class="lab">Régularité</div></div>
+    </div>
+    <div class="adjust-note">
+      <h4 id="adjustTitle">Ajustement des défis</h4>
+      <p id="adjustText">Complétez quelques jours pour recevoir vos défis personnalisés de la semaine prochaine.</p>
+    </div>
+  </section>
+
+  <div class="complete-banner" id="completeBanner" style="display:none;">
+    <h3>Rituel du jour accompli ✦</h3>
+    <p>La constance forge la clarté. Revenez demain pour ancrer un nouveau pas.</p>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script>
+/* ===== RITUEL QUOTIDIEN — MOTEUR ===== */
+(function(){
+  "use strict";
+
+  // ---------- Bibliothèques de contenu ----------
+  var AFFIRMATIONS = [
+    ["Je choisis aujourd'hui de", "cultiver ma confiance", "en honorant chaque petit pas que je franchis."],
+    ["Ma clarté grandit lorsque je", "ralentis et respire", "avant d'agir avec intention."],
+    ["Je suis l'auteur de ma journée :", "j'attire ce que j'incarne", "et j'incarne ce que je désire."],
+    ["Chaque défi est une", "invitation à grandir", "et je l'accueille avec sérénité."],
+    ["Je mérite la paix que je", "construis patiemment", "par mes choix conscients."],
+    ["Ma valeur ne dépend d'aucune", "validation extérieure", "elle vit déjà en moi."],
+    ["Je transforme l'inquiétude en", "intention claire", "et l'intention en action."],
+    ["Aujourd'hui, je m'accorde la", "douceur et l'exigence", "d'une personne qui s'aime vraiment."],
+    ["Je libère ce que je ne contrôle pas et", "j'investis mon énergie", "là où elle compte."],
+    ["Ma confiance se renforce à chaque fois que je", "tiens parole envers moi-même", "."]
+  ];
+  var PROMPTS = [
+    "Quelle est la seule chose qui, accomplie aujourd'hui, rendrait cette journée précieuse ?",
+    "Qu'est-ce que tu peux lâcher aujourd'hui pour gagner en légèreté ?",
+    "À quel moment t'es-tu senti pleinement aligné récemment — et comment le recréer ?",
+    "Quelle pensée limitante revient souvent ? Réécris-la en une vérité qui te soutient.",
+    "Pour quoi ressens-tu de la gratitude en cet instant précis ?",
+    "Quelle qualité veux-tu incarner aujourd'hui, et à quoi la reconnaîtras-tu ?",
+    "Quel petit courage peux-tu offrir à la personne que tu deviens ?",
+    "Si la peur ne dictait rien aujourd'hui, quel premier pas ferais-tu ?"
+  ];
+  var GOAL_POOL = [
+    {t:"Trois respirations conscientes", d:"Avant ta première tâche, ancre-toi en trois souffles lents.", tag:"Clarté"},
+    {t:"Un acte de gratitude", d:"Exprime une reconnaissance, à voix haute ou par écrit.", tag:"Confiance"},
+    {t:"Cinq minutes de mouvement", d:"Étirements, marche ou Tai Chi — réveille ton corps.", tag:"Énergie"},
+    {t:"Une frontière honorée", d:"Dis non à une chose qui te disperse aujourd'hui.", tag:"Intention"},
+    {t:"Un instant sans écran", d:"Offre-toi 10 minutes de silence, sans notification.", tag:"Clarté"},
+    {t:"Un pas vers un objectif", d:"Avance d'un seul geste concret sur ce qui compte vraiment.", tag:"Intention"},
+    {t:"Une parole bienveillante envers toi", d:"Remplace une auto-critique par un encouragement sincère.", tag:"Confiance"},
+    {t:"Boire un grand verre d'eau en pleine conscience", d:"Hydrate-toi en étant pleinement présent au geste.", tag:"Énergie"},
+    {t:"Noter une victoire du jour", d:"Aussi petite soit-elle, reconnais un progrès accompli.", tag:"Confiance"}
+  ];
+  var INTENTIONS = [
+    {ic:"🌿", k:"serenite", b:"Sérénité"},
+    {ic:"🔥", k:"energie", b:"Énergie"},
+    {ic:"🎯", k:"focus", b:"Focus"},
+    {ic:"💛", k:"gratitude", b:"Gratitude"},
+    {ic:"🦋", k:"lacher", b:"Lâcher-prise"},
+    {ic:"✨", k:"audace", b:"Audace"}
+  ];
+
+  // ---------- Utilitaires ----------
+  function pad(n){ return n<10? '0'+n : ''+n; }
+  function todayKey(d){ d=d||new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function startOfWeek(d){ d=new Date(d); var day=(d.getDay()+6)%7; d.setDate(d.getDate()-day); d.setHours(0,0,0,0); return d; }
+  function weekKey(d){ return todayKey(startOfWeek(d||new Date())); }
+  function hashStr(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return Math.abs(h); }
+  function load(k,f){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): f; }catch(e){ return f; } }
+  function save(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function fmtDate(d){ return d.toLocaleDateString('fr-FR',{weekday:'long', day:'numeric', month:'long'}); }
+
+  var LS = 'harmonia_ritual_';
+  var TODAY = new Date();
+  var TKEY = todayKey(TODAY);
+  var WKEY = weekKey(TODAY);
+
+  // Etat du jour
+  var state = load(LS+TKEY, { affirmIndex:null, affirmDone:false, reflection:'', intention:null, goals:null, goalsDone:[false,false,false], date:TKEY });
+
+  // ---------- Sélection déterministe du contenu ----------
+  function dailyAffirmIndex(){ return hashStr(TKEY+'aff') % AFFIRMATIONS.length; }
+  function dailyPrompt(){ return PROMPTS[ hashStr(TKEY+'p') % PROMPTS.length ]; }
+  function dailyGoals(){
+    // Difficulté ajustée selon la régularité de la semaine précédente
+    var diff = getDifficulty();
+    var pool = GOAL_POOL.slice();
+    var seed = hashStr(TKEY+'g'+diff);
+    var picks=[]; var used={};
+    var count = 3;
+    for(var i=0;i<count;i++){
+      var idx = (seed + i*7 + diff*3) % pool.length;
+      while(used[idx]){ idx=(idx+1)%pool.length; }
+      used[idx]=true; picks.push(pool[idx]);
+    }
+    return picks;
+  }
+  // ---------- Bilan hebdomadaire & adaptation ----------
+  function weekDates(ref){ var s=startOfWeek(ref||TODAY); var arr=[]; for(var i=0;i<7;i++){ var d=new Date(s); d.setDate(s.getDate()+i); arr.push(d); } return arr; }
+  function dayData(d){ return load(LS+todayKey(d), null); }
+  function computeWeek(ref){
+    var days=weekDates(ref); var active=0, goalsDone=0, reflections=0, completeDays=0;
+    days.forEach(function(d){
+      var dd=dayData(d); if(!dd) return;
+      var did = dd.affirmDone || (dd.reflection&&dd.reflection.length>0) || (dd.goalsDone&&dd.goalsDone.indexOf(true)>=0);
+      if(did) active++;
+      if(dd.goalsDone){ goalsDone += dd.goalsDone.filter(Boolean).length; }
+      if(dd.reflection && dd.reflection.trim().length>0) reflections++;
+      var full = dd.affirmDone && dd.reflection && dd.reflection.trim().length>0 && dd.goalsDone && dd.goalsDone.every(Boolean);
+      if(full) completeDays++;
+    });
+    var rate = Math.round((active/7)*100);
+    return { days:days, active:active, goalsDone:goalsDone, reflections:reflections, completeDays:completeDays, rate:rate };
+  }
+  function getDifficulty(){
+    // Basé sur la semaine PRÉCÉDENTE : plus on est régulier, plus on monte
+    var prev = new Date(startOfWeek(TODAY)); prev.setDate(prev.getDate()-1);
+    var w = computeWeek(prev);
+    var stored = load(LS+'difficulty', 0);
+    var diff = 0;
+    if(w.rate>=70) diff = Math.min(2, stored+1);
+    else if(w.rate>0 && w.rate<40) diff = Math.max(0, stored-1);
+    else diff = stored;
+    save(LS+'difficulty', diff);
+    return diff;
+  }
+  function adjustMessage(w){
+    var diff = load(LS+'difficulty',0);
+    if(w.active===0) return ["Posez la première pierre", "Aucune donnée cette semaine encore. Commencez par une seule action aujourd'hui : tout grand rituel naît d'un premier geste."];
+    if(w.rate>=70) return ["Vos défis montent d'un cran ✦", "Belle régularité ("+w.rate+"%). La semaine prochaine, vos mini-objectifs gagnent en profondeur pour soutenir votre élan et renforcer votre confiance."];
+    if(w.rate>=40) return ["Tenez le cap", "Vous avancez ("+w.rate+"% de régularité). On garde des défis accessibles pour ancrer l'habitude avant de la faire grandir."];
+    return ["On allège pour mieux repartir", "Régularité à "+w.rate+"%. La semaine prochaine, vos objectifs seront plus simples et plus doux : l'important est de revenir, pas d'être parfait."];
+  }
+  function streak(){
+    var n=0; var d=new Date(TODAY);
+    for(var i=0;i<400;i++){
+      var dd=dayData(d);
+      var did = dd && (dd.affirmDone || (dd.reflection&&dd.reflection.length>0) || (dd.goalsDone&&dd.goalsDone.indexOf(true)>=0));
+      if(did){ n++; d.setDate(d.getDate()-1); }
+      else if(i===0){ d.setDate(d.getDate()-1); } // aujourd'hui pas encore fait : on regarde hier
+      else break;
+    }
+    return n;
+  }
+  function weekNumber(){
+    var first = load(LS+'firstWeek', null);
+    if(!first){ first = WKEY; save(LS+'firstWeek', first); }
+    var diff = (startOfWeek(TODAY) - new Date(first)) / (7*24*3600*1000);
+    return Math.max(1, Math.round(diff)+1);
+  }
+  // ---------- Rendu ----------
+  var $ = function(id){ return document.getElementById(id); };
+
+  function persist(){ state.date=TKEY; save(LS+TKEY, state); }
+
+  function renderAffirmation(){
+    if(state.affirmIndex===null) state.affirmIndex = dailyAffirmIndex();
+    var a = AFFIRMATIONS[state.affirmIndex];
+    $('affirmationText').innerHTML = a[0]+' <span class="accent">'+a[1]+'</span> '+a[2];
+    $('affirmReadBtn').textContent = state.affirmDone? '✓ Affirmation ancrée' : "J'ai ancré cette affirmation";
+    $('affirmReadBtn').style.opacity = state.affirmDone? '.7':'1';
+  }
+  function renderPrompt(){ $('reflectPrompt').textContent = dailyPrompt(); }
+  function renderReflection(){
+    $('reflectArea').value = state.reflection||'';
+    updateWordCount();
+  }
+  function updateWordCount(){
+    var t=$('reflectArea').value.trim();
+    var w = t? t.split(/\s+/).length : 0;
+    $('reflectCount').textContent = w+' mot'+(w>1?'s':'');
+  }
+  function renderIntentions(){
+    var g=$('intentionGrid'); g.innerHTML='';
+    INTENTIONS.forEach(function(it){
+      var el=document.createElement('div');
+      el.className='intent-pill'+(state.intention===it.k?' active':'');
+      el.innerHTML='<span class="ic">'+it.ic+'</span><b>'+it.b+'</b>';
+      el.onclick=function(){ state.intention=it.k; persist(); renderIntentions(); updateComplete(); };
+      g.appendChild(el);
+    });
+  }
+  function renderGoals(){
+    if(!state.goals){ state.goals = dailyGoals(); }
+    if(!state.goalsDone || state.goalsDone.length!==state.goals.length){ state.goalsDone = state.goals.map(function(){return false;}); }
+    var list=$('goalsList'); list.innerHTML='';
+    state.goals.forEach(function(go,i){
+      var el=document.createElement('div');
+      el.className='goal'+(state.goalsDone[i]?' done':'');
+      el.innerHTML='<div class="goal-check">✓</div><div class="goal-body"><h4>'+go.t+'</h4><p>'+go.d+'</p></div><span class="goal-tag">'+go.tag+'</span>';
+      el.onclick=function(){ state.goalsDone[i]=!state.goalsDone[i]; persist(); renderGoals(); updateComplete(); };
+      list.appendChild(el);
+    });
+    var done=state.goalsDone.filter(Boolean).length, total=state.goals.length;
+    var pct=Math.round(done/total*100);
+    $('goalsBar').style.width=pct+'%';
+    $('goalsCount').textContent=done+' / '+total+' accompli'+(done>1?'s':'');
+    $('goalsPct').textContent=pct+'%';
+  }
+  function renderWeek(){
+    var w=computeWeek(TODAY);
+    var s=startOfWeek(TODAY), e=new Date(s); e.setDate(s.getDate()+6);
+    $('weekRange').textContent = s.getDate()+' – '+e.getDate()+' '+e.toLocaleDateString('fr-FR',{month:'short'});
+    var dots=$('weekDots'); dots.innerHTML=''; var labs=['L','M','M','J','V','S','D'];
+    w.days.forEach(function(d,i){
+      var dd=dayData(d);
+      var did = dd && (dd.affirmDone || (dd.reflection&&dd.reflection.length>0) || (dd.goalsDone&&dd.goalsDone.indexOf(true)>=0));
+      var el=document.createElement('div');
+      el.className='wday'+(did?' filled':'')+(todayKey(d)===TKEY?' today':'');
+      el.textContent=labs[i]; el.title=fmtDate(d);
+      dots.appendChild(el);
+    });
+    $('wsDays').textContent=w.active;
+    $('wsGoals').textContent=w.goalsDone;
+    $('wsReflect').textContent=w.reflections;
+    $('wsRate').textContent=w.rate+'%';
+    var msg=adjustMessage(w);
+    $('adjustTitle').textContent=msg[0];
+    $('adjustText').textContent=msg[1];
+  }
+  function updateComplete(){
+    var full = state.affirmDone && state.reflection && state.reflection.trim().length>0 && state.goalsDone && state.goalsDone.every(Boolean) && state.intention;
+    $('completeBanner').style.display = full? 'block':'none';
+  }
+  // ---------- Évènements ----------
+  function wire(){
+    $('todayDate').textContent = fmtDate(TODAY);
+    $('streakNum').textContent = streak();
+    $('streakWord').textContent = streak()>1? 'jours':'jour';
+    $('weekNum').textContent = weekNumber();
+
+    renderAffirmation(); renderPrompt(); renderReflection();
+    renderIntentions(); renderGoals(); renderWeek(); updateComplete();
+
+    $('affirmReadBtn').onclick=function(){ state.affirmDone=!state.affirmDone; persist(); renderAffirmation(); renderWeek(); updateComplete(); };
+    $('affirmNewBtn').onclick=function(){ state.affirmIndex=(state.affirmIndex+1)%AFFIRMATIONS.length; state.affirmDone=false; persist(); renderAffirmation(); };
+
+    var ta=$('reflectArea'); var t;
+    ta.addEventListener('input', function(){
+      updateWordCount();
+      clearTimeout(t);
+      t=setTimeout(function(){
+        state.reflection=ta.value; persist(); renderWeek(); updateComplete();
+        var f=$('reflectSaved'); f.classList.add('show'); setTimeout(function(){ f.classList.remove('show'); },1400);
+      }, 800);
+    });
+
+    var ham=$('hamburgerBtn'), links=document.querySelector('.nav-links');
+    if(ham&&links){ ham.onclick=function(){ links.classList.toggle('active'); }; }
+  }
+
+  // ---------- Auth (cohérent avec les autres pages) ----------
+  function startAuth(){
+    try{
+      var logout=$('logoutBtn');
+      if(logout && window._supabase){
+        logout.onclick=async function(){ try{ await window._supabase.auth.signOut(); }catch(e){} location.href='login.html'; };
+      }
+      if(typeof window.initAuth==='function'){ window.initAuth(); }
+    }catch(e){}
+  }
+
+  function boot(){
+    wire();
+    if(typeof window.waitForSupabase==='function'){ window.waitForSupabase().then(startAuth).catch(startAuth); }
+    else { startAuth(); }
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+
+})();
+</script>
+</body>
+</html>
