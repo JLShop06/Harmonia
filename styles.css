@@ -219,3 +219,14 @@ footer a:hover{color:var(--cream);}
 .dash-page .seance-card,.dash-page .stats-card,.dash-page .streak-card,.dash-page .prog-card{background:var(--surface);border:1px solid #ece6db;border-radius:20px;box-shadow:0 4px 24px rgba(120,110,90,.06);}
 .dash-page .seance-card:hover,.dash-page .prog-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(120,110,90,.10);border-color:#ddd6c8;}
 .dash-page .seance-card h3
+
+
+/* ============================================================
+   CORRECTIF — Section « Notre Philosophie » (#manifesto)
+   Cette section a un fond CLAIR (défini en inline dans index.html),
+   mais héritait de la couleur de texte claire du thème sombre,
+   rendant le texte illisible. On force ici un texte foncé lisible.
+   ============================================================ */
+#manifesto h2{color:var(--ink)!important;-webkit-text-fill-color:var(--ink)!important;}
+#manifesto p{color:#3a2f1c!important;}
+#manifesto .text-gold{color:var(--gold-dark)!important;}
