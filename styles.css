@@ -218,7 +218,7 @@ footer a:hover{color:var(--cream);}
 .dash-page .week-day span{color:#b3a99a;}
 .dash-page .seance-card,.dash-page .stats-card,.dash-page .streak-card,.dash-page .prog-card{background:var(--surface);border:1px solid #ece6db;border-radius:20px;box-shadow:0 4px 24px rgba(120,110,90,.06);}
 .dash-page .seance-card:hover,.dash-page .prog-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(120,110,90,.10);border-color:#ddd6c8;}
-.dash-page .seance-card h3
+.dash-page .seance-card h3{display:block;}
 
 
 /* ============================================================
