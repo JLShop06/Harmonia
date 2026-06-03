@@ -1,311 +1,298 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel="icon" type="image/png" href="logo-harmonia-gold.png">
-  <link rel="apple-touch-icon" href="logo-harmonia-gold.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harmonia — Tai Chi & Développement Personnel Premium</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta property="og:title" content="Harmonia — Harmonie Intérieure par le Tai Chi">
-  <meta property="og:description" content="Pratique du Tai Chi guidée + 12 Lois de l'Attraction pour transformation personnelle.">
-  <meta property="og:image" content="logo-harmonia.png">
-  <style>
-    /* ===== AMELIORATION SECTIONS TAI CHI GUIDE + 12 LOIS (luxe, lisible) ===== */
-    #tai-chi, #teachings { background: linear-gradient(160deg,#1e160d 0%,#241a10 55%,#1a130b 100%) !important; position: relative; overflow: hidden; }
-    #tai-chi::after, #teachings::after { content:''; position:absolute; top:-30%; left:-10%; width:480px; height:480px; background:radial-gradient(circle, rgba(201,162,75,.14), transparent 70%); pointer-events:none; }
-    #tai-chi > h2, #teachings > h2 { font-family:'Cormorant Garamond','Playfair Display',serif !important; background:linear-gradient(90deg,#C9A24B,#F3DFA2,#C9A24B); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent !important; color:transparent !important; }
-    #tai-chi > p, #teachings > p { color:#d8cbb0 !important; font-weight:300 !important; }
-    #tai-chi .feature-card { background:rgba(255,238,200,.06) !important; border:1px solid rgba(201,162,75,.28) !important; border-radius:18px !important; box-shadow:0 18px 48px rgba(0,0,0,.35) !important; transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s, border-color .5s; backdrop-filter:blur(6px); }
-    #tai-chi .feature-card:hover { transform:translateY(-6px); border-color:rgba(201,162,75,.55) !important; box-shadow:0 28px 60px rgba(0,0,0,.45) !important; }
-    #tai-chi .feature-card h3 { color:#f3e7d0 !important; -webkit-text-fill-color:#f3e7d0 !important; font-family:'Cormorant Garamond',serif !important; font-size:1.7rem !important; }
-    #tai-chi .feature-card > p { color:#cdbf9f !important; line-height:1.8 !important; }
-    #tai-chi .feature-card > div { border-top:1px solid rgba(201,162,75,.25) !important; }
-    #tai-chi .feature-card span { color:#C9A24B !important; font-weight:500 !important; }
-    #tai-chi .feature-icon { background:linear-gradient(135deg,#C9A24B,#8A6D2F) !important; box-shadow:0 8px 22px rgba(201,162,75,.35); }
-    #tai-chi .feature-icon svg { color:#1a1208 !important; stroke:#1a1208 !important; }
-    #teachings div[style*="grid"] > div { background:rgba(255,238,200,.05) !important; border:1px solid rgba(201,162,75,.25) !important; border-radius:16px !important; box-shadow:0 14px 38px rgba(0,0,0,.30) !important; transition:transform .45s cubic-bezier(.16,1,.3,1), border-color .45s, box-shadow .45s; }
-    #teachings div[style*="grid"] > div:hover { transform:translateY(-5px); border-color:rgba(201,162,75,.5) !important; box-shadow:0 24px 52px rgba(0,0,0,.42) !important; }
-    #teachings div[style*="grid"] h4 { color:#f3e7d0 !important; -webkit-text-fill-color:#f3e7d0 !important; font-family:'Cormorant Garamond',serif !important; font-size:1.25rem !important; }
-    #teachings div[style*="grid"] > div > div:first-child { color:#C9A24B !important; }
-    #teachings div[style*="grid"] p { color:#cdbf9f !important; }
-    
-  </style>
+<link rel="icon" type="image/png" href="logo-harmonia-gold.png">
+<link rel="apple-touch-icon" href="logo-harmonia-gold.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmonia — Tai Chi & Développement Personnel Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:title" content="Harmonia — Harmonie Intérieure par le Tai Chi">
+<meta property="og:description" content="Pratique du Tai Chi guidée + 12 Lois de l'Attraction pour transformation personnelle.">
+<meta property="og:image" content="logo-harmonia.png">
+<style>
+/* ===== AMELIORATION SECTIONS TAI CHI GUIDE + 12 LOIS (luxe, lisible) ===== */
+#tai-chi, #teachings { background: linear-gradient(160deg,#1e160d 0%,#241a10 55%,#1a130b 100%) !important; position: relative; overflow: hidden; }
+#tai-chi::after, #teachings::after { content:''; position:absolute; top:-30%; left:-10%; width:480px; height:480px; background:radial-gradient(circle, rgba(201,162,75,.14), transparent 70%); pointer-events:none; }
+#tai-chi > h2, #teachings > h2 { font-family:'Cormorant Garamond','Playfair Display',serif !important; background:linear-gradient(90deg,#C9A24B,#F3DFA2,#C9A24B); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent !important; color:transparent !important; }
+#tai-chi > p, #teachings > p { color:#d8cbb0 !important; font-weight:300 !important; }
+#tai-chi .feature-card { background:rgba(255,238,200,.06) !important; border:1px solid rgba(201,162,75,.28) !important; border-radius:18px !important; box-shadow:0 18px 48px rgba(0,0,0,.35) !important; transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s, border-color .5s; backdrop-filter:blur(6px); }
+#tai-chi .feature-card:hover { transform:translateY(-6px); border-color:rgba(201,162,75,.55) !important; box-shadow:0 28px 60px rgba(0,0,0,.45) !important; }
+#tai-chi .feature-card h3 { color:#f3e7d0 !important; -webkit-text-fill-color:#f3e7d0 !important; font-family:'Cormorant Garamond',serif !important; font-size:1.7rem !important; }
+#tai-chi .feature-card > p { color:#cdbf9f !important; line-height:1.8 !important; }
+#tai-chi .feature-card > div { border-top:1px solid rgba(201,162,75,.25) !important; }
+#tai-chi .feature-card span { color:#C9A24B !important; font-weight:500 !important; }
+#tai-chi .feature-icon { background:linear-gradient(135deg,#C9A24B,#8A6D2F) !important; box-shadow:0 8px 22px rgba(201,162,75,.35); }
+#tai-chi .feature-icon svg { color:#1a1208 !important; stroke:#1a1208 !important; }
+#teachings div[style*="grid"] > div { background:rgba(255,238,200,.05) !important; border:1px solid rgba(201,162,75,.25) !important; border-radius:16px !important; box-shadow:0 14px 38px rgba(0,0,0,.30) !important; transition:transform .45s cubic-bezier(.16,1,.3,1), border-color .45s, box-shadow .45s; }
+#teachings div[style*="grid"] > div:hover { transform:translateY(-5px); border-color:rgba(201,162,75,.5) !important; box-shadow:0 24px 52px rgba(0,0,0,.42) !important; }
+#teachings div[style*="grid"] h4 { color:#f3e7d0 !important; -webkit-text-fill-color:#f3e7d0 !important; font-family:'Cormorant Garamond',serif !important; font-size:1.25rem !important; }
+#teachings div[style*="grid"] > div > div:first-child { color:#C9A24B !important; }
+#teachings div[style*="grid"] p { color:#cdbf9f !important; }
+
+</style>
 </head>
 <body>
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="nav-brand">Harmonia</div>
-    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="nav-links" id="navLinks">
-      <a href="#manifesto">Philosophie</a>
-      <a href="#tai-chi">Tai Chi</a>
-      <a href="#teachings">Enseignements</a>
-      <a href="login.html" class="active">Connexion</a>
-    </div>
-  </nav>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+<div class="nav-brand">Harmonia</div>
+<button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-links" id="navLinks">
+<a href="#manifesto">Philosophie</a>
+<a href="#tai-chi">Tai Chi</a>
+<a href="#teachings">Enseignements</a>
+<a href="login.html" class="active">Connexion</a>
+</div>
+</nav>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="home">
-    <div class="hero-bg" style="background-image:url('banner-taichi-sunrise.jpg')"></div>
-    <div class="hero-content">
-      <img src="logo-harmonia-transparent.png" alt="Harmonia" class="hero-logo">
-      <h1>Retrouvez votre Harmonie Intérieure</h1>
-      <p>Une approche exclusive du développement personnel, fusionnant le Tai Chi ancestral et les 12 Lois de l'Attraction pour révéler l'harmonie ultime entre votre corps et votre esprit.</p>
-      <div class="hero-buttons">
-        <a href="signup.html" class="btn">Commencer Aujourd'hui</a>
-        <a href="#manifesto" class="btn btn-outline">Découvrir</a>
-      </div>
-    </div>
-  </section>
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+<div class="hero-bg" style="background-image:url('banner-taichi-sunrise.jpg')"></div>
+<div class="hero-content">
+<img src="logo-harmonia-transparent.png" alt="Harmonia" class="hero-logo">
+<h1>Retrouvez votre Harmonie Intérieure</h1>
+<p>Une approche exclusive du développement personnel, fusionnant le Tai Chi ancestral et les 12 Lois de l'Attraction pour révéler l'harmonie ultime entre votre corps et votre esprit.</p>
+<div class="hero-buttons">
+<a href="signup.html" class="btn">Commencer Aujourd'hui</a>
+<a href="#manifesto" class="btn btn-outline">Découvrir</a>
+</div>
+</div>
+</section>
 
-  <!-- ===== MANIFESTO ===== -->
-  <section id="manifesto" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
-    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-      <h2>Notre Philosophie</h2>
-      <p>
-        Harmonia va bien au-delà d'une simple application. C'est un véritable compagnon de transformation dédié au développement personnel, au bien-être global et à la santé du corps et de l'esprit.
-      </p>
-      <p>
-        Notre approche repose sur deux piliers millénaires et complémentaires : le <span class="text-gold">Tai Chi</span>, art interne chinois favorisant l'équilibre, la mobilité et la force intérieure, et les <span class="text-gold">12 Lois de l'Attraction</span>, principes universels qui guident la création consciente et l'alignement personnel.
-      </p>
-      <p>
-        Chaque jour, Harmonia vous accompagne à travers des pratiques de mouvement conscient, améliorant votre mobilité et votre énergie, tout en vous aidant à intégrer des principes puissants pour transformer votre état d'esprit et votre réalité.
-      </p>
-      <p>
-        En seulement <span class="text-gold">30 jours</span>, vous amorcez un changement profond : plus d'équilibre, plus de clarté, et une harmonie durable entre votre corps, votre mental et votre environnement.
-      </p>
-    </div>
-  </section>
+<!-- ===== MANIFESTO ===== -->
+<section id="manifesto" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
+<div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+<img src="Notre%20Philosophie.webp" alt="Notre Philosophie" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+</div>
+</section>
 
-  <!-- ===== TAI CHI ===== -->
-  <section id="tai-chi" style="padding: 80px 32px;">
-    <h2>Tai Chi Guidé</h2>
-    <p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
-      Deux séquences de mouvement conscient, guidées et progressives, adaptées à tous les niveaux et toutes les mobilités pour éveiller votre énergie intérieure.
-    </p>
-    <div class="features-grid" style="margin-top: 50px;">
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v6"/><path d="M7 9l5 2 5-2"/><path d="M9 21l3-8 3 8"/></svg></div>
-        <h3>Tai Chi Debout</h3>
-        <p>Séquence complète de 15 minutes guidée pas à pas. Renforce les jambes, améliore la posture et l'équilibre, élève le chi à travers tout le corps. Idéale pour une pratique quotidienne structurante.</p>
-        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
-          <span style="font-size: 0.9rem; color: #888880;">✓ 6 mouvements fluides</span><br>
-          <span style="font-size: 0.9rem; color: #888880;">✓ Instructions précises</span><br>
-          <span style="font-size: 0.9rem; color: #888880;">✓ Bénéfices énergétiques</span>
-        </div>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M9 7v5h6"/><path d="M9 12v6"/><path d="M15 12v6"/><path d="M9 18h6"/></svg></div>
-        <h3>Tai Chi Assis</h3>
-        <p>Séquence douce de 10 minutes, spécialement adaptée pour les mobilités réduites. Accessible à tous, elle cultive le chi, la sérénité et le bien-être profond sans effort physique.</p>
-        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
-          <span style="font-size: 0.9rem; color: #888880;">✓ Accessible à tous</span><br>
-          <span style="font-size: 0.9rem; color: #888880;">✓ Sécurisé et confortable</span><br>
-          <span style="font-size: 0.9rem; color: #888880;">✓ Résultats prouvés</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ===== TAI CHI ===== -->
+<section id="tai-chi" style="padding: 80px 32px;">
+<h2>Tai Chi Guidé</h2>
+<p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+Deux séquences de mouvement conscient, guidées et progressives, adaptées à tous les niveaux et toutes les mobilités pour éveiller votre énergie intérieure.
+</p>
+<div class="features-grid" style="margin-top: 50px;">
+<div class="feature-card">
+<div class="feature-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v6"/><path d="M7 9l5 2 5-2"/><path d="M9 21l3-8 3 8"/></svg></div>
+<h3>Tai Chi Debout</h3>
+<p>Séquence complète de 15 minutes guidée pas à pas. Renforce les jambes, améliore la posture et l'équilibre, élève le chi à travers tout le corps. Idéale pour une pratique quotidienne structurante.</p>
+<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
+<span style="font-size: 0.9rem; color: #888880;">✓ 6 mouvements fluides</span><br>
+<span style="font-size: 0.9rem; color: #888880;">✓ Instructions précises</span><br>
+<span style="font-size: 0.9rem; color: #888880;">✓ Bénéfices énergétiques</span>
+</div>
+</div>
 
-  <!-- ===== TEACHINGS ===== -->
-  <section id="teachings" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
-    <h2>Les 12 Lois de l'Attraction</h2>
-    <p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
-      Douze principes universels qui façonnent votre réalité et guident votre évolution. Chaque loi inclut une pratique quotidienne, une affirmation puissante et un enseignement approfondi.
-    </p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 50px;">
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a4 4 0 0 1 8 0a4 4 0 0 0 8 0"/><path d="M3 12a4 4 0 0 0 8 0a4 4 0 0 1 8 0"/></svg></div>
-        <h4>Loi de l'Attraction</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Semblable attire semblable</p>
-      </div>
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
-        <h4>Création Intentionnelle</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tu crées consciemment</p>
-      </div>
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/></svg></div>
-        <h4>La Vibration</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tout vibre à une fréquence</p>
-      </div>
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-2-7-5-7-9 2 0 3.5 1 5 3"/><path d="M12 21c4-2 7-5 7-9-2 0-3.5 1-5 3"/><path d="M12 21V8a4 4 0 0 1 0 0a4 4 0 0 1 0 13z"/><path d="M12 8c-1.5 0-3 1.5-3 4 1.5 0 3-1 3-1s1.5 1 3 1c0-2.5-1.5-4-3-4z"/></svg></div>
-        <h4>La Gratitude</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Remercier amplifie</p>
-      </div>
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="M12 9c-1-3-4-4-6-3 0 3 2 5 6 5"/><path d="M12 9c1-3 4-4 6-3 0 3-2 5-6 5"/></svg></div>
-        <h4>Le Détachement</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Lâcher prise libère</p>
-      </div>
-      <div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
-        <div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.5 5L19 9.5 13.5 11 12 16l-1.5-5L5 9.5 10.5 8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></div>
-        <h4>Et 7 Lois Plus</h4>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">À découvrir en détail</p>
-      </div>
-    </div>
-  </section>
+<div class="feature-card">
+<div class="feature-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M9 7v5h6"/><path d="M9 12v6"/><path d="M15 12v6"/><path d="M9 18h6"/></svg></div>
+<h3>Tai Chi Assis</h3>
+<p>Séquence douce de 10 minutes, spécialement adaptée pour les mobilités réduites. Accessible à tous, elle cultive le chi, la sérénité et le bien-être profond sans effort physique.</p>
+<div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0dcd6;">
+<span style="font-size: 0.9rem; color: #888880;">✓ Accessible à tous</span><br>
+<span style="font-size: 0.9rem; color: #888880;">✓ Sécurisé et confortable</span><br>
+<span style="font-size: 0.9rem; color: #888880;">✓ Résultats prouvés</span>
+</div>
+</div>
+</div>
+</section>
 
-  <!-- ===== BENEFITS ===== -->
-  <section style="padding: 80px 32px;">
-    <h2>Transformez Votre Vie en 30 Jours</h2>
-    <div class="features-grid" style="margin-top: 50px;">
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Équilibre Physique</h3>
-        <p>Retrouvez une posture naturelle, une flexibilité accrue et un équilibre durable. La force interne se développe progressivement à chaque séance.</p>
-      </div>
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Clarté Mentale</h3>
-        <p>Un esprit apaisé et concentré, une gestion du stress transformée. La pratique régulière installe une sérénité profonde et durable au quotidien.</p>
-      </div>
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Alignement Énergétique</h3>
-        <p>Votre énergie vitale harmonisée, votre intention clarifiée et amplifiée. La création consciente devient une force naturelle dans votre vie.</p>
-      </div>
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Transformation Personnelle</h3>
-        <p>Une confiance en soi restaurée, des relations enrichies, l'abondance naturellement attirée. Une nouvelle vie s'ouvre à vous, alignée avec qui vous êtes vraiment.</p>
-      </div>
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Journal Quotidien</h3>
-        <p>Consignez vos ressentis, vos observations et votre progression. Un outil précieux pour ancrer les lois dans votre quotidien et mesurer votre évolution.</p>
-      </div>
-      <div class="feature-card">
-        <h3 style="color: #d4af37;">Statistiques Détaillées</h3>
-        <p>Visualisez votre parcours : graphiques de progression, séries de discipline et analyses personnalisées pour rester motivé et conscient de vos avancées.</p>
-      </div>
-    </div>
-  </section>
+<!-- ===== TEACHINGS ===== -->
+<section id="teachings" style="background: linear-gradient(135deg, #f5f3f0 0%, #ffffff 100%); padding: 80px 32px;">
+<h2>Les 12 Lois de l'Attraction</h2>
+<p style="text-align: center; font-size: 1.1rem; color: #666660; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+Douze principes universels qui façonnent votre réalité et guident votre évolution. Chaque loi inclut une pratique quotidienne, une affirmation puissante et un enseignement approfondi.
+</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 50px;">
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a4 4 0 0 1 8 0a4 4 0 0 0 8 0"/><path d="M3 12a4 4 0 0 0 8 0a4 4 0 0 1 8 0"/></svg></div>
+<h4>Loi de l'Attraction</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Semblable attire semblable</p>
+</div>
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></div>
+<h4>Création Intentionnelle</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tu crées consciemment</p>
+</div>
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/></svg></div>
+<h4>La Vibration</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Tout vibre à une fréquence</p>
+</div>
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-2-7-5-7-9 2 0 3.5 1 5 3"/><path d="M12 21c4-2 7-5 7-9-2 0-3.5 1-5 3"/><path d="M12 21V8a4 4 0 0 1 0 0a4 4 0 0 1 0 13z"/><path d="M12 8c-1.5 0-3 1.5-3 4 1.5 0 3-1 3-1s1.5 1 3 1c0-2.5-1.5-4-3-4z"/></svg></div>
+<h4>La Gratitude</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Remercier amplifie</p>
+</div>
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="M12 9c-1-3-4-4-6-3 0 3 2 5 6 5"/><path d="M12 9c1-3 4-4 6-3 0 3-2 5-6 5"/></svg></div>
+<h4>Le Détachement</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">Lâcher prise libère</p>
+</div>
+<div style="text-align: center; padding: 32px; background: white; border: 1px solid #e0dcd6; border-radius: 8px;">
+<div style="font-size: 2.5rem; margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.5 5L19 9.5 13.5 11 12 16l-1.5-5L5 9.5 10.5 8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></div>
+<h4>Et 7 Lois Plus</h4>
+<p style="font-size: 0.95rem; margin-top: 8px; color: #666660;">À découvrir en détail</p>
+</div>
+</div>
+</section>
 
-  <!-- ===== PRICING ===== -->
-  <section class="pricing reveal" id="pricing">
-    <h2>Accès Premium</h2>
-    <p style="text-align: center; font-size: 1.1rem; color: #ccc; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
-      Accès illimité à l'ensemble des séquences de Tai Chi, des 12 Lois de l'Attraction, du journal de bien-être et de toutes les fonctionnalités premium. Facturé mensuellement, sans engagement.
-    </p>
-    <div class="pricing-card">
-      <div class="badge">Accès Complet</div>
-      <h2 style="color: #d4af37;">14,90€</h2>
-      <p style="color: #ccc; font-size: 0.95rem;">par mois</p>
-      <ul class="pricing-features">
-        <li>Tai Chi debout et assis illimité</li>
-        <li>12 Lois de l'Attraction détaillées</li>
-        <li>Journal quotidien de bien-être</li>
-        <li>Statistiques et progrès en temps réel</li>
-        <li>Affirmations quotidiennes personnalisées</li>
-        <li>Accès mobile (PWA offline)</li>
-        <li>Support par email</li>
-        <li>Annulation possible à tout moment</li>
-      </ul>
-      <a href="signup.html" class="btn" style="margin-top: 32px; width: 100%;">Commencer Maintenant</a>
-    </div>
-    <p style="text-align: center; margin-top: 48px; color: #ccc; font-size: 0.9rem;">
-      Pas de contrat long terme. Annulez quand vous voulez. <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg> Paiement sécurisé par Stripe.
-    </p>
-  </section>
+<!-- ===== BENEFITS ===== -->
+<section style="padding: 80px 32px;">
+<h2>Transformez Votre Vie en 30 Jours</h2>
+<div class="features-grid" style="margin-top: 50px;">
+<div class="feature-card">
+<h3 style="color: #d4af37;">Équilibre Physique</h3>
+<p>Retrouvez une posture naturelle, une flexibilité accrue et un équilibre durable. La force interne se développe progressivement à chaque séance.</p>
+</div>
+<div class="feature-card">
+<h3 style="color: #d4af37;">Clarté Mentale</h3>
+<p>Un esprit apaisé et concentré, une gestion du stress transformée. La pratique régulière installe une sérénité profonde et durable au quotidien.</p>
+</div>
+<div class="feature-card">
+<h3 style="color: #d4af37;">Alignement Énergétique</h3>
+<p>Votre énergie vitale harmonisée, votre intention clarifiée et amplifiée. La création consciente devient une force naturelle dans votre vie.</p>
+</div>
+<div class="feature-card">
+<h3 style="color: #d4af37;">Transformation Personnelle</h3>
+<p>Une confiance en soi restaurée, des relations enrichies, l'abondance naturellement attirée. Une nouvelle vie s'ouvre à vous, alignée avec qui vous êtes vraiment.</p>
+</div>
+<div class="feature-card">
+<h3 style="color: #d4af37;">Journal Quotidien</h3>
+<p>Consignez vos ressentis, vos observations et votre progression. Un outil précieux pour ancrer les lois dans votre quotidien et mesurer votre évolution.</p>
+</div>
+<div class="feature-card">
+<h3 style="color: #d4af37;">Statistiques Détaillées</h3>
+<p>Visualisez votre parcours : graphiques de progression, séries de discipline et analyses personnalisées pour rester motivé et conscient de vos avancées.</p>
+</div>
+</div>
+</section>
 
-  <!-- ===== CTA FINAL ===== -->
-  <section style="background: linear-gradient(135deg, #c2a87e 0%, #b8996a 100%); padding: 80px 32px; text-align: center;">
-    <h2 style="color: white;">Commencez votre Transformation Aujourd'hui</h2>
-    <p style="color: #ccc; font-size: 1.1rem; margin-top: 24px; margin-bottom: 40px;">
-      30 jours pour initier une transformation profonde : retrouvez l'équilibre, l'énergie et une harmonie durable entre votre corps, votre mental et votre environnement.
-    </p>
-    <a href="signup.html" class="btn btn-gold">S'Inscrire Gratuitement</a>
-  </section>
+<!-- ===== PRICING ===== -->
+<section class="pricing reveal" id="pricing">
+<h2>Accès Premium</h2>
+<p style="text-align: center; font-size: 1.1rem; color: #ccc; max-width: 700px; margin: -40px auto 60px; font-weight: 300;">
+Accès illimité à l'ensemble des séquences de Tai Chi, des 12 Lois de l'Attraction, du journal de bien-être et de toutes les fonctionnalités premium. Facturé mensuellement, sans engagement.
+</p>
+<div class="pricing-card">
+<div class="badge">Accès Complet</div>
+<h2 style="color: #d4af37;">14,90€</h2>
+<p style="color: #ccc; font-size: 0.95rem;">par mois</p>
+<ul class="pricing-features">
+<li>Tai Chi debout et assis illimité</li>
+<li>12 Lois de l'Attraction détaillées</li>
+<li>Journal quotidien de bien-être</li>
+<li>Statistiques et progrès en temps réel</li>
+<li>Affirmations quotidiennes personnalisées</li>
+<li>Accès mobile (PWA offline)</li>
+<li>Support par email</li>
+<li>Annulation possible à tout moment</li>
+</ul>
+<a href="signup.html" class="btn" style="margin-top: 32px; width: 100%;">Commencer Maintenant</a>
+</div>
+<p style="text-align: center; margin-top: 48px; color: #ccc; font-size: 0.9rem;">
+Pas de contrat long terme. Annulez quand vous voulez. <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg> Paiement sécurisé par Stripe.
+</p>
+</section>
 
-  <!-- ===== FOOTER ===== -->
-  
+<!-- ===== CTA FINAL ===== -->
+<section style="background: linear-gradient(135deg, #c2a87e 0%, #b8996a 100%); padding: 80px 32px; text-align: center;">
+<h2 style="color: white;">Commencez votre Transformation Aujourd'hui</h2>
+<p style="color: #ccc; font-size: 1.1rem; margin-top: 24px; margin-bottom: 40px;">
+30 jours pour initier une transformation profonde : retrouvez l'équilibre, l'énergie et une harmonie durable entre votre corps, votre mental et votre environnement.
+</p>
+<a href="signup.html" class="btn btn-gold">S'Inscrire Gratuitement</a>
+</section>
 
-  <!-- ===== TEMOIGNAGES ===== -->
-  <section class="testimonials reveal" id="temoignages">
-    <div class="container">
-      <h2 style="text-align:center">Ils ont transformé leur vie</h2>
-      <hr class="divider-gold">
-      <div class="testimonial-grid">
-        <div class="testimonial reveal">
-          <div class="stars">★★★★★</div>
-          <p>Les séances de Tai Chi assis m'ont reconnectée à mon corps après des années de stress. Les Lois de l'Attraction ont fait le reste. Un véritable art de vivre.</p>
-          <div class="author">Isabelle M.</div><div class="role">Membre depuis 8 mois</div>
-        </div>
-        <div class="testimonial reveal reveal-delay-1">
-          <div class="stars">★★★★★</div>
-          <p>Le message quotidien sur le développement personnel est devenu mon rituel du matin. Élégant, profond, jamais superflu. Exactement ce que je cherchais.</p>
-          <div class="author">Laurent D.</div><div class="role">Membre depuis 1 an</div>
-        </div>
-        <div class="testimonial reveal reveal-delay-2">
-          <div class="stars">★★★★★</div>
-          <p>Une application d'une rare élégance. La pratique du Tai Chi debout, guidée pas à pas, m'apporte une sérénité que je n'avais jamais connue.</p>
-          <div class="author">Sophie R.</div><div class="role">Membre depuis 6 mois</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ===== FOOTER ===== -->
+
+<!-- ===== TEMOIGNAGES ===== -->
+<section class="testimonials reveal" id="temoignages">
+<div class="container">
+<h2 style="text-align:center">Ils ont transformé leur vie</h2>
+<hr class="divider-gold">
+<div class="testimonial-grid">
+<div class="testimonial reveal">
+<div class="stars">★★★★★</div>
+<p>Les séances de Tai Chi assis m'ont reconnectée à mon corps après des années de stress. Les Lois de l'Attraction ont fait le reste. Un véritable art de vivre.</p>
+<div class="author">Isabelle M.</div><div class="role">Membre depuis 8 mois</div>
+</div>
+<div class="testimonial reveal reveal-delay-1">
+<div class="stars">★★★★★</div>
+<p>Le message quotidien sur le développement personnel est devenu mon rituel du matin. Élégant, profond, jamais superflu. Exactement ce que je cherchais.</p>
+<div class="author">Laurent D.</div><div class="role">Membre depuis 1 an</div>
+</div>
+<div class="testimonial reveal reveal-delay-2">
+<div class="stars">★★★★★</div>
+<p>Une application d'une rare élégance. La pratique du Tai Chi debout, guidée pas à pas, m'apporte une sérénité que je n'avais jamais connue.</p>
+<div class="author">Sophie R.</div><div class="role">Membre depuis 6 mois</div>
+</div>
+</div>
+</div>
+</section>
 <footer>
-    <p>&copy; 2026 Harmonia — Tai Chi & Développement Personnel Premium. Tous droits réservés.</p>
-    <p style="margin-top: 16px;">
-      <a href="legal.html">Mentions Légales</a> • 
-      <a href="legal.html">Politique de Confidentialité</a>
-    </p>
-  </footer>
+<p>&copy; 2026 Harmonia — Tai Chi & Développement Personnel Premium. Tous droits réservés.</p>
+<p style="margin-top: 16px;">
+<a href="legal.html">Mentions Légales</a> •
+<a href="legal.html">Politique de Confidentialité</a>
+</p>
+</footer>
 
-  <script src="auth.js"></script>
-  <script>
-    // Dark mode toggle (optional future feature)
-    // Simple PWA support
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js').catch(() => {});
-    }
-  </script>
+<script src="auth.js"></script>
+<script>
+// Dark mode toggle (optional future feature)
+// Simple PWA support
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
 
-  <script>
-    (function(){
-      var els=document.querySelectorAll('.reveal');
-      if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('visible');});return;}
-      var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target);}});},{threshold:0.12});
-      els.forEach(function(e){io.observe(e);});
-    })();
-  </script>
-  <script>
-    (function () {
-      var nav = document.querySelector(".navbar");
-      var toggle = document.querySelector(".nav-toggle");
-      var links = document.getElementById("navLinks");
-      if (nav) {
-        var onScroll = function () {
-          if (window.scrollY > 40) { nav.classList.add("scrolled"); }
-          else { nav.classList.remove("scrolled"); }
-        };
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
-      }
-      if (toggle && links) {
-        var closeMenu = function () {
-          links.classList.remove("open");
-          nav.classList.remove("menu-open");
-          toggle.classList.remove("active");
-          toggle.setAttribute("aria-expanded", "false");
-        };
-        toggle.addEventListener("click", function () {
-          var isOpen = links.classList.toggle("open");
-          nav.classList.toggle("menu-open", isOpen);
-          toggle.classList.toggle("active", isOpen);
-          toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        });
-        links.querySelectorAll("a").forEach(function (a) {
-          a.addEventListener("click", closeMenu);
-        });
-      }
-    })();
-  </script>
+<script>
+(function(){
+var els=document.querySelectorAll('.reveal');
+if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('visible');});return;}
+var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target);}});},{threshold:0.12});
+els.forEach(function(e){io.observe(e);});
+})();
+</script>
+<script>
+(function () {
+var nav = document.querySelector(".navbar");
+var toggle = document.querySelector(".nav-toggle");
+var links = document.getElementById("navLinks");
+if (nav) {
+var onScroll = function () {
+if (window.scrollY > 40) { nav.classList.add("scrolled"); }
+else { nav.classList.remove("scrolled"); }
+};
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+}
+if (toggle && links) {
+var closeMenu = function () {
+links.classList.remove("open");
+nav.classList.remove("menu-open");
+toggle.classList.remove("active");
+toggle.setAttribute("aria-expanded", "false");
+};
+toggle.addEventListener("click", function () {
+var isOpen = links.classList.toggle("open");
+nav.classList.toggle("menu-open", isOpen);
+toggle.classList.toggle("active", isOpen);
+toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+});
+links.querySelectorAll("a").forEach(function (a) {
+a.addEventListener("click", closeMenu);
+});
+}
+})();
+</script>
 </body>
 </html>
