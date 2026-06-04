@@ -16,6 +16,7 @@
     if (window.supabase) {
       window._supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: {
+          flowType: 'implicit',
           autoRefreshToken: true,
           persistSession: true,
           detectSessionInUrl: true
@@ -29,6 +30,7 @@
     script.onload = () => {
       window._supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: {
+          flowType: 'implicit',
           autoRefreshToken: true,
           persistSession: true,
           detectSessionInUrl: true
