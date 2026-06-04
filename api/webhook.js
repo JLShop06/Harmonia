@@ -37,24 +37,31 @@ module.exports = async function handler(req, res) {
 
     case 'checkout.session.completed': {
       const session = event.data.object;
-      const email = session.customer_email || (session.metadata && session.metadata.email);
+      const email = session.customer_email
+        || (session.customer_details && session.customer_details.email);
       const customerId = session.customer;
-      const firstName = session.metadata && session.metadata.first_name;
-      const lastName = session.metadata && session.metadata.last_name;
 
-      if (email) {
-        const updateData = {
-          subscribed: true,
-          subscribed_at: new Date().toISOString(),
-          stripe_customer_id: customerId
-        };
-        if (firstName) updateData.first_name = firstName;
-        if (lastName) updateData.last_name = lastName;
+      // Recupere prenom/nom depuis les custom_fields Stripe
+      const fields = session.custom_fields || [];
+      const getField = (k) => {
+        const f = fields.find(x => x.key === k);
+        return f && f.text ? f.text.value : null;
+      };
+      const firstName = getField('prenom');
+      const lastName = getField('nom');
 
-        const { error } = await supabase.from('users').update(updateData).eq('email', email);
-        if (error) console.error('Supabase update error (checkout):', error);
-        else console.log('User subscribed:', email);
-      }
+      const row = {
+        email: email,
+        subscribed: true,
+        subscribed_at: new Date().toISOString(),
+        stripe_customer_id: customerId
+      };
+      if (firstName) row.first_name = firstName;
+      if (lastName) row.last_name = lastName;
+
+      const { error } = await supabase.from('users').upsert([row], { onConflict: 'email' });
+      if (error) console.error('Supabase upsert error (checkout):', error);
+      else console.log('User subscribed (upsert):', email);
       break;
     }
 
