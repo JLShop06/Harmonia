@@ -230,3 +230,29 @@ footer a:hover{color:var(--cream);}
 #manifesto h2{color:var(--ink)!important;-webkit-text-fill-color:var(--ink)!important;}
 #manifesto p{color:#3a2f1c!important;}
 #manifesto .text-gold{color:var(--gold-dark)!important;}
+
+
+/* ============================================================
+   =============== AUTH — Connexion & Inscription ==============
+   ============================================================ */
+.auth-page .auth-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,162,75,.22);border-radius:20px;padding:32px 28px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,.45);}
+.auth-page .auth-logo{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold-light);opacity:1;}
+.auth-page .auth-logo img{width:46px;height:46px;object-fit:contain;border-radius:50%;border:2px solid rgba(201,162,75,.7);box-shadow:0 0 22px rgba(201,162,75,.35);}
+.auth-page .auth-card h1{font-family:var(--font-serif);color:#fff;letter-spacing:-.5px;}
+.auth-page .auth-card p{color:rgba(245,243,240,.75);}
+.auth-page form{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.auth-page input[type=text],.auth-page input[type=email]{width:100%;padding:15px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(231,225,214,.18);border-radius:12px;color:#f5f3f0;font-family:var(--font-sans);font-size:16px;transition:border-color .2s,background .2s,box-shadow .2s;}
+.auth-page input::placeholder{color:rgba(245,243,240,.45);}
+.auth-page input[type=text]:focus,.auth-page input[type=email]:focus{outline:none;border-color:var(--primary-gold);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(212,175,55,.15);}
+.auth-page button[type=submit]{width:100%;padding:15px;margin-top:4px;background:linear-gradient(135deg,#d4af37,#bfa06a);color:#1a1208;border:none;border-radius:999px;font-family:var(--font-sans);font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 8px 24px rgba(201,162,75,.3);}
+.auth-page button[type=submit]:hover{transform:translateY(-2px);filter:brightness(1.05);box-shadow:0 12px 32px rgba(201,162,75,.4);}
+.auth-page button[type=submit]:disabled{opacity:.6;cursor:default;transform:none;}
+.auth-page .auth-links{margin-top:24px;text-align:center;font-size:.9em;}
+.auth-page .auth-links p{color:rgba(245,243,240,.6);margin-bottom:4px;}
+.auth-page .auth-links a{color:var(--gold-light);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(201,162,75,.5);padding-bottom:1px;transition:color .2s,border-color .2s;}
+.auth-page .auth-links a:hover{color:#fff;border-color:#fff;}
+.auth-page input[type=checkbox]{accent-color:var(--primary-gold);}
+.auth-page .features-list li{color:rgba(245,243,240,.78);}
+.auth-page label{color:rgba(245,243,240,.78);}
+.auth-page label a{color:var(--gold-light)!important;}
+.auth-page .price-badge{color:var(--gold-light);}
