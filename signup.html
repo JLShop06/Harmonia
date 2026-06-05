@@ -34,16 +34,16 @@
         <li>Connexion sécurisée sans mot de passe</li>
       </ul>
 
-      <form id="signupForm">
-        <input name="firstName" type="text" placeholder="Prénom" required autocomplete="given-name">
-        <input name="lastName" type="text" placeholder="Nom" required autocomplete="family-name">
-        <input name="email" type="email" placeholder="Email" required autocomplete="email">
-        <div style="display:flex;align-items:flex-start;gap:10px;margin:12px 0;font-size:.82em;opacity:.75;">
-          <input type="checkbox" id="acceptCgu" required style="margin-top:3px;width:auto;accent-color:#52b788;">
-          <label for="acceptCgu">J'accepte les <a href="legal.html" target="_blank" style="color:#cbd5e1;text-decoration:underline;">mentions légales</a> et la politique de confidentialité d'Harmonia.</label>
-        </div>
-        <button type="submit">Créer mon compte →</button>
-      </form>
+      <!-- Flux A: l'abonnement se fait directement via Stripe Checkout, qui collecte
+           email, prenom, nom, adresse et telephone de maniere securisee. -->
+      <label class="cgu-label" style="display:flex;align-items:flex-start;gap:8px;margin:8px 0 16px;font-size:.85rem;text-align:left;">
+        <input type="checkbox" id="cguCheck" style="margin-top:3px;">
+        <span>J'accepte les <a href="mentions-legales.html">mentions legales</a> et les conditions d'utilisation.</span>
+      </label>
+
+      <button type="button" id="subscribeBtn" class="btn-primary">S'abonner — 14,90€/mois →</button>
+
+      <p id="subError" style="color:#e11d48;font-size:.85rem;margin-top:10px;display:none;"></p>
 
       <div class="auth-links">
         <p>Déjà un compte ?</p>
@@ -54,6 +54,48 @@
 </div>
 
 <script src="auth.js"></script>
+<script>
+(function () {
+  // Flux A: clic sur "S'abonner" -> creation de la session Stripe Checkout -> redirection
+  var PRICE_ID = "price_1TUn0AF9c1lWA0HyP8ZwVeBN";
+  var btn = document.getElementById("subscribeBtn");
+  var cgu = document.getElementById("cguCheck");
+  var errEl = document.getElementById("subError");
 
+  function showErr(msg) {
+    if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
+  }
+
+  btn.addEventListener("click", async function () {
+    if (errEl) errEl.style.display = "none";
+    if (cgu && !cgu.checked) {
+      showErr("Veuillez accepter les mentions legales pour continuer.");
+      return;
+    }
+    btn.disabled = true;
+    var original = btn.textContent;
+    btn.textContent = "Redirection\u2026";
+    try {
+      var r = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priceId: PRICE_ID })
+      });
+      var data = await r.json();
+      if (data && data.url) {
+        window.location.href = data.url;
+      } else {
+        showErr("Erreur : " + ((data && data.error) || "impossible de demarrer le paiement."));
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    } catch (e) {
+      showErr("Erreur de connexion. Veuillez reessayer.");
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
+})();
+</script>
 </body>
 </html>
