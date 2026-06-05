@@ -95,62 +95,87 @@
 
 <script src="auth.js"></script>
 <script>
-// Marquer l'abonnement comme actif (optimiste + vérification API)
+// success.html — flux A: paiement d'abord, puis envoi du magic link de connexion (A1)
 window.addEventListener("load", async () => {
-  const check = setInterval(async () => {
-    if (!window._supabase) return;
-    clearInterval(check);
-    const sb = window._supabase;
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
-    // Optimistic update
-    await sb.from("users").update({ subscribed: true }).eq("id", session.user.id);
-    // Verify via API with retries (webhook may be delayed)
-    let attempts = 0;
-    const verifyFn = setInterval(async () => {
-      attempts++;
-      try {
-        const res = await fetch('/api/check-subscription', {
-          headers: { 'Authorization': 'Bearer ' + session.access_token }
-        });
-        const data = await res.json();
-        if (data.subscribed) clearInterval(verifyFn);
-      } catch(e) { console.warn('sub check:', e); }
-      if (attempts >= 5) clearInterval(verifyFn);
-    }, 2000);
-  }, 100);
-  setTimeout(() => clearInterval(check), 5000);
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get("session_id");
+  const msgEl = document.querySelector(".success-page p");
+  const countdownEl = document.getElementById("countdown");
+  const btn = document.querySelector(".btn-dashboard");
+
+  // Lancer les confettis tout de suite
+  try { launchConfetti(); } catch (e) {}
+
+  // Adapter le bouton: l'accès se fait via le lien de connexion envoye par email
+  if (btn) { btn.setAttribute("href", "login.html"); btn.textContent = "Aller a la page de connexion \u2192"; }
+
+  if (!sessionId) {
+    if (countdownEl) countdownEl.textContent = "Paiement confirme. Connectez-vous depuis la page de connexion.";
+    return;
+  }
+
+  // Recuperer l'email du client depuis la session Stripe
+  let email = null;
+  try {
+    const r = await fetch("/api/get-checkout-email?session_id=" + encodeURIComponent(sessionId));
+    const data = await r.json();
+    email = data.email || null;
+  } catch (e) {}
+
+  if (!email) {
+    if (countdownEl) countdownEl.textContent = "Paiement confirme. Connectez-vous depuis la page de connexion.";
+    return;
+  }
+
+  // Attendre que le client Supabase soit pret (auth.js)
+  const waitReady = () => new Promise((resolve) => {
+    const t = setInterval(() => { if (window._supabase) { clearInterval(t); resolve(); } }, 50);
+    setTimeout(() => { clearInterval(t); resolve(); }, 5000);
+  });
+  await waitReady();
+
+  // Envoyer le magic link de connexion (un seul email, APRES paiement reussi)
+  let sent = false;
+  try {
+    if (window._supabase) {
+      const { error } = await window._supabase.auth.signInWithOtp({
+        email: email,
+        options: { emailRedirectTo: "https://harmonia-woad.vercel.app/auth-callback.html" }
+      });
+      sent = !error;
+    }
+  } catch (e) {}
+
+  if (countdownEl) {
+    countdownEl.textContent = sent
+      ? ("Un lien de connexion vient d'etre envoye a " + email + ". Cliquez dessus pour acceder a votre espace.")
+      : "Paiement reussi ! Connectez-vous depuis la page de connexion.";
+  }
 });
 
-
-function launchConfetti(){
-  var container=document.createElement('div');container.className='confetti-container';document.body.appendChild(container);
-  var colors=['#52b788','#9d7a43','#f3d08a','#74b9ff','#fd79a8','#55efc4','#ffeaa7'];
-  for(var i=0;i<80;i++){
-    var piece=document.createElement('div');piece.className='confetti-piece';
-    piece.style.left=Math.random()*100+'%';
-    piece.style.background=colors[Math.floor(Math.random()*colors.length)];
-    piece.style.width=(Math.random()*10+6)+'px';
-    piece.style.height=(Math.random()*10+6)+'px';
-    piece.style.borderRadius=Math.random()>0.5?'50%':'2px';
-    piece.style.animationDuration=(Math.random()*2+2)+'s';
-    piece.style.animationDelay=(Math.random()*2)+'s';
-    container.appendChild(piece);
+// Confettis
+function launchConfetti() {
+  const colors = ["#7c5cff", "#22d3ee", "#34d399", "#fbbf24", "#f472b6"];
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement("div");
+    c.style.position = "fixed";
+    c.style.top = "-10px";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.width = "8px";
+    c.style.height = "8px";
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.borderRadius = "50%";
+    c.style.zIndex = "9999";
+    c.style.pointerEvents = "none";
+    c.style.transition = "transform 3s ease-out, opacity 3s ease-out";
+    document.body.appendChild(c);
+    requestAnimationFrame(() => {
+      c.style.transform = "translateY(" + (window.innerHeight + 40) + "px) rotate(" + (Math.random() * 720) + "deg)";
+      c.style.opacity = "0";
+    });
+    setTimeout(() => c.remove(), 3200);
   }
-  setTimeout(function(){container.remove();},5000);
 }
-setTimeout(launchConfetti,500);
-// Countdown et redirection automatique
-let seconds = 5;
-const secEl = document.getElementById("sec");
-const timer = setInterval(() => {
-  seconds--;
-  if (secEl) secEl.textContent = seconds;
-  if (seconds <= 0) {
-    clearInterval(timer);
-    window.location.href = "dashboard.html";
-  }
-}, 1000);
 </script>
 
 </body>
