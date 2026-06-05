@@ -10,13 +10,13 @@
   "lang": "fr",
   "icons": [
     {
-      "src": "/logo-harmonia.png",
+      "src": "/logo-harmonia-gold.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logo-harmonia.png",
+      "src": "/logo-harmonia-gold.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -28,21 +28,21 @@
       "short_name": "Dashboard",
       "description": "Accéder aux séances du jour",
       "url": "/dashboard.html",
-      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/logo-harmonia-gold.png", "sizes": "192x192" }]
     },
     {
       "name": "Mon Journal",
       "short_name": "Journal",
       "description": "Écrire dans mon journal de bien-être",
       "url": "/journal.html",
-      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/logo-harmonia-gold.png", "sizes": "192x192" }]
     },
     {
       "name": "Mes Progrès",
       "short_name": "Progrès",
       "description": "Voir mes statistiques et graphiques",
       "url": "/progress.html",
-      "icons": [{ "src": "/logo-harmonia.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/logo-harmonia-gold.png", "sizes": "192x192" }]
     }
   ],
   "screenshots": [],
