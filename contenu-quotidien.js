@@ -636,6 +636,316 @@ window.HARMONIA_CONTENU = {
         ],
         intention: "Je m'abandonne au calme et je laisse l'énergie circuler."
       }
+    },
+    {
+      jour: 21,
+      taichi: {
+        titre: "Saisir la queue de l'oiseau",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-21.webp",
+        etapes: [
+          "Debout, pieds écartés, mains tenant un ballon imaginaire devant la poitrine.",
+          "Avancez le poids sur la jambe avant en poussant les paumes vers l'avant (parade).",
+          "Reculez le poids en ramenant les mains vers vous, paumes vers le bas (rappel).",
+          "Tournez le buste et balayez sur le côté en cercle lent (refoulement).",
+          "Poussez à nouveau vers l'avant pour clôturer. Répétez 5 fois par côté."
+        ],
+        intention: "Je saisis chaque opportunité avec souplesse et précision."
+      },
+      yoga: {
+        titre: "Le chien tête en bas (Adho Mukha Svanasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-21.webp",
+        etapes: [
+          "À quatre pattes, mains écartées largeur d'épaules, genoux largeur de hanches.",
+          "Rentrez les orteils et poussez les hanches vers le haut et l'arrière.",
+          "Tendez les jambes autant que possible, talons vers le sol sans forcer.",
+          "Formez un V inversé, tête relâchée entre les bras, dos bien droit.",
+          "Tenez 6 respirations profondes en poussant la poitrine vers les cuisses."
+        ],
+        intention: "Je m'étire vers l'équilibre entre effort et lâcher-prise."
+      }
+    },
+    {
+      jour: 22,
+      taichi: {
+        titre: "Le simple fouet",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-22.webp",
+        etapes: [
+          "Depuis 'saisir la queue de l'oiseau', tournez le buste vers la gauche.",
+          "Formez un crochet avec la main droite (doigts joints pointant vers le bas) tendue sur le côté.",
+          "Étirez la main gauche ouverte, paume vers l'avant, en ouvrant largement les bras.",
+          "Fléchissez le genou gauche, transférez le poids dessus, regard vers la main gauche.",
+          "Maintenez 3 respirations, revenez, et répétez 4 fois."
+        ],
+        intention: "Je déploie mon énergie dans toutes les directions avec maîtrise."
+      },
+      yoga: {
+        titre: "La posture de la déesse (Utkata Konasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-22.webp",
+        etapes: [
+          "Pieds largement écartés, pointes tournées vers l'extérieur à 45 degrés.",
+          "Fléchissez les genoux en les dirigeant vers l'extérieur, dans l'axe des pieds.",
+          "Descendez le bassin jusqu'à ce que les cuisses tendent vers la parallèle au sol.",
+          "Levez les bras, coudes pliés à 90 degrés, paumes vers l'avant.",
+          "Tenez 6 respirations en gardant le dos droit et le bassin engagé."
+        ],
+        intention: "Je puise dans ma force intérieure et je rayonne."
+      }
+    },
+    {
+      jour: 23,
+      taichi: {
+        titre: "Coup de talon à gauche et à droite",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-23.webp",
+        etapes: [
+          "Debout, équilibre stable sur la jambe droite, bras croisés devant la poitrine.",
+          "Levez le genou gauche puis tendez la jambe en poussant le talon vers la gauche.",
+          "Ouvrez simultanément les bras sur les côtés, paumes vers l'extérieur.",
+          "Reposez le pied, recentrez, puis répétez du côté droit.",
+          "Enchaînez 5 répétitions par côté avec lenteur et contrôle de l'équilibre."
+        ],
+        intention: "J'affirme mes limites avec calme et fermeté."
+      },
+      yoga: {
+        titre: "La planche (Phalakasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-23.webp",
+        etapes: [
+          "Placez-vous en position de pompe : mains sous les épaules, corps aligné.",
+          "Tendez les jambes en arrière, orteils au sol, talons poussés vers l'arrière.",
+          "Gardez le corps en ligne droite, du sommet du crâne aux talons, sans creuser le dos.",
+          "Engagez le ventre et serrez les fessiers pour stabiliser.",
+          "Tenez 20 à 30 secondes en respirant régulièrement, puis relâchez."
+        ],
+        intention: "Je tiens ma posture avec force et stabilité."
+      }
+    },
+    {
+      jour: 24,
+      taichi: {
+        titre: "La fille de jade travaille la navette",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-24.webp",
+        etapes: [
+          "Position debout détendue, mains tenant un ballon imaginaire.",
+          "Pivotez le buste à 45 degrés, levez une main pour 'protéger' au niveau du front.",
+          "Poussez l'autre main vers l'avant en diagonale, comme à travers une navette.",
+          "Changez de diagonale en pivotant de l'autre côté, mains inversées.",
+          "Enchaînez les 4 diagonales (4 coins) lentement, 2 fois le cycle complet."
+        ],
+        intention: "Je tisse mon chemin avec patience et précision."
+      },
+      yoga: {
+        titre: "Le pigeon (Eka Pada Rajakapotasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-24.webp",
+        etapes: [
+          "Depuis le chien tête en bas, ramenez le genou droit vers le poignet droit.",
+          "Posez le tibia droit au sol, en diagonale, jambe gauche tendue vers l'arrière.",
+          "Gardez les hanches alignées et carrées vers l'avant.",
+          "Inspirez en grandissant le buste, expirez en vous penchant doucement vers l'avant.",
+          "Tenez 6 respirations, puis changez de côté."
+        ],
+        intention: "J'ouvre mes hanches et je libère les tensions accumulées."
+      }
+    },
+    {
+      jour: 25,
+      taichi: {
+        titre: "Brosser le genou en position basse",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-25.webp",
+        etapes: [
+          "Pieds largement écartés, fléchissez profondément les jambes (posture du cavalier).",
+          "Une main près de l'oreille, l'autre devant le bas-ventre.",
+          "Restez bas et poussez la main de l'oreille vers l'avant tout en tournant le buste.",
+          "L'autre main brosse au-dessus du genou et se pose sur la cuisse.",
+          "Alternez les côtés en restant en position basse. 4 fois par côté."
+        ],
+        intention: "Je reste ancré et je garde ma force même dans l'effort."
+      },
+      yoga: {
+        titre: "Le bateau (Navasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-25.webp",
+        etapes: [
+          "Asseyez-vous, genoux pliés, pieds au sol, mains derrière les cuisses.",
+          "Penchez légèrement le buste en arrière en gardant le dos droit.",
+          "Soulevez les pieds du sol, tibias parallèles au sol (genoux pliés).",
+          "Tendez les bras vers l'avant, parallèles au sol, paumes face à face.",
+          "Tenez 5 respirations en engageant le ventre. Pour aller plus loin, tendez les jambes."
+        ],
+        intention: "Je trouve mon centre et j'équilibre mon énergie."
+      }
+    },
+    {
+      jour: 26,
+      taichi: {
+        titre: "Frapper le tigre",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-26.webp",
+        etapes: [
+          "Position debout, transférez le poids sur une jambe en reculant l'autre.",
+          "Descendez en pliant les jambes, un poing monte vers la tempe.",
+          "L'autre poing descend au niveau de la hanche opposée, buste légèrement penché.",
+          "Le regard suit la diagonale formée par les deux poings.",
+          "Remontez et changez de côté. 4 répétitions par côté avec respiration ample."
+        ],
+        intention: "Je maîtrise ma force et je l'utilise avec sagesse."
+      },
+      yoga: {
+        titre: "Le cobra (Bhujangasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-26.webp",
+        etapes: [
+          "Allongez-vous sur le ventre, mains à plat sous les épaules, coudes près du corps.",
+          "Pointes de pieds tendues vers l'arrière, front au sol.",
+          "Inspirez et soulevez doucement la poitrine en poussant légèrement sur les mains.",
+          "Gardez les coudes fléchis, épaules basses, regard vers l'avant.",
+          "Tenez 5 respirations sans forcer le bas du dos, puis redescendez. Répétez 3 fois."
+        ],
+        intention: "J'ouvre mon cœur et je m'élève avec confiance."
+      }
+    },
+    {
+      jour: 27,
+      taichi: {
+        titre: "Le coq d'or sur une patte",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-27.webp",
+        etapes: [
+          "Debout, transférez tout le poids sur la jambe droite.",
+          "Levez lentement le genou gauche aussi haut que possible, équilibre stable.",
+          "Levez simultanément la main gauche, paume vers l'avant, doigts vers le haut.",
+          "La main droite reste basse près de la hanche, paume vers le sol.",
+          "Tenez 4 respirations en équilibre, puis changez de côté. 3 fois par côté."
+        ],
+        intention: "Je me tiens fier et stable sur mes appuis."
+      },
+      yoga: {
+        titre: "Le danseur (Natarajasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-27.webp",
+        etapes: [
+          "Debout, équilibre sur la jambe gauche, regard fixé sur un point devant vous.",
+          "Pliez le genou droit et attrapez la cheville droite avec la main droite.",
+          "Inspirez et tendez le bras gauche vers l'avant, vers le haut.",
+          "Penchez doucement le buste en avant en poussant le pied dans la main vers l'arrière.",
+          "Tenez 4 respirations, puis changez de côté."
+        ],
+        intention: "Je danse avec la vie en gardant mon équilibre."
+      }
+    },
+    {
+      jour: 28,
+      taichi: {
+        titre: "Séparer la crinière du cheval (avancé)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-28.webp",
+        etapes: [
+          "Position basse, mains tenant un ballon, jambe avant fléchie.",
+          "Avancez en transférant le poids et ouvrez les bras en grande diagonale.",
+          "Enchaînez immédiatement un pas avant avec l'autre jambe, sans pause.",
+          "Continuez à 'séparer la crinière' en avançant sur 4 pas fluides.",
+          "Revenez en arrière sur 4 pas en inversant le mouvement."
+        ],
+        intention: "J'avance avec fluidité et constance vers mes objectifs."
+      },
+      yoga: {
+        titre: "La posture du corbeau (Bakasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-28.webp",
+        etapes: [
+          "Accroupissez-vous, mains à plat au sol écartées largeur d'épaules.",
+          "Placez les genoux contre l'arrière des bras, le plus haut possible vers les aisselles.",
+          "Penchez le poids vers l'avant, regard quelques centimètres devant les mains.",
+          "Décollez progressivement un pied puis l'autre, en équilibre sur les mains.",
+          "Tenez quelques secondes (ou travaillez l'amorce). Redescendez en douceur."
+        ],
+        intention: "J'ose me dépasser et je fais confiance à ma force."
+      }
+    },
+    {
+      jour: 29,
+      taichi: {
+        titre: "Forme complète enchaînée",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-29.webp",
+        etapes: [
+          "Reliez 3 mouvements appris : 'caresser la crinière', 'mains nuages', 'simple fouet'.",
+          "Passez de l'un à l'autre sans interruption, en gardant le poids fluide.",
+          "Respirez de manière continue, une inspiration et expiration par transition.",
+          "Gardez le regard suivant les mains, le buste souple, les genoux fléchis.",
+          "Réalisez l'enchaînement complet 3 fois, de plus en plus lentement."
+        ],
+        intention: "J'unifie tous mes acquis dans un mouvement harmonieux."
+      },
+      yoga: {
+        titre: "Salutation au soleil complète (Surya Namaskar)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-29.webp",
+        etapes: [
+          "Debout, mains au cœur. Inspirez, bras au ciel. Expirez, penchez-vous en avant.",
+          "Inspirez, demi-redressement dos plat. Expirez, reculez en planche.",
+          "Descendez en chaturanga, inspirez en cobra ou chien tête en haut.",
+          "Expirez en chien tête en bas, tenez 3 respirations.",
+          "Avancez les pieds, redressez-vous, revenez mains au cœur. Répétez 3 cycles."
+        ],
+        intention: "Je salue la vie dans toute sa plénitude."
+      }
+    },
+    {
+      jour: 30,
+      taichi: {
+        titre: "Clôture du voyage (méditation en mouvement)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/taichi-jour-30.webp",
+        etapes: [
+          "Debout, pieds écartés, fermez les yeux un instant pour vous recentrer.",
+          "Inspirez en levant lentement les bras sur les côtés, paumes vers le ciel.",
+          "Au sommet, tournez les paumes vers le bas et descendez les mains devant le corps.",
+          "Visualisez 30 jours de pratique qui se rassemblent dans votre centre.",
+          "Posez les mains sur le bas-ventre, respirez 5 fois, et remerciez-vous."
+        ],
+        intention: "Je célèbre mon chemin parcouru et j'honore ma transformation."
+      },
+      yoga: {
+        titre: "Relaxation profonde et gratitude (Savasana)",
+        duree: "20 min",
+        niveau: "Intermédiaire",
+        image: "images/yoga-jour-30.webp",
+        etapes: [
+          "Allongez-vous confortablement sur le dos, corps totalement relâché.",
+          "Fermez les yeux et balayez mentalement chaque partie du corps en la relâchant.",
+          "Repensez à votre évolution durant ces 30 jours, sans jugement.",
+          "Laissez monter un sentiment de gratitude pour vous-même et votre engagement.",
+          "Restez 8 à 10 minutes dans ce calme, puis revenez doucement, en pleine conscience."
+        ],
+        intention: "Je suis reconnaissant pour ce voyage et serein face à demain."
+      }
     }
   ]
 };
