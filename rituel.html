@@ -144,6 +144,44 @@ body{ background:#15100a; }
     </div>
   </section>
 
+  <!-- SEANCES DU JOUR (TAI-CHI + YOGA + LOI) -->
+  <section class="glass" id="seancesJour">
+    <div class="card-label"><span class="dot"></span>Tes séances du jour <span id="progJourBadge" style="margin-left:auto;font-size:.8em;opacity:.8;"></span></div>
+
+    <div id="loiDuJour" style="margin:10px 0 18px;padding:14px 16px;border-radius:14px;background:rgba(212,175,55,.10);border:1px solid rgba(212,175,55,.25);">
+      <div style="font-size:.78em;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px;">Loi de l'attraction du jour</div>
+      <div id="loiTitre" style="font-weight:600;margin-bottom:4px;"></div>
+      <div id="loiTexte" style="line-height:1.5;opacity:.95;"></div>
+    </div>
+
+    <div class="seances-grid" style="display:grid;gap:16px;grid-template-columns:1fr;">
+      <article class="seance-card" data-type="taichi" style="border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);">
+        <img id="taichiImg" alt="Séance de tai-chi du jour" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.05);" />
+        <div style="padding:14px 16px;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+            <strong id="taichiTitre" style="font-size:1.05em;"></strong>
+            <span id="taichiMeta" style="font-size:.78em;opacity:.7;"></span>
+          </div>
+          <ol id="taichiEtapes" style="margin:8px 0 10px;padding-left:20px;line-height:1.55;"></ol>
+          <div id="taichiIntention" style="font-style:italic;opacity:.85;"></div>
+        </div>
+      </article>
+
+      <article class="seance-card" data-type="yoga" style="border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);">
+        <img id="yogaImg" alt="Séance de yoga du jour" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.05);" />
+        <div style="padding:14px 16px;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+            <strong id="yogaTitre" style="font-size:1.05em;"></strong>
+            <span id="yogaMeta" style="font-size:.78em;opacity:.7;"></span>
+          </div>
+          <ol id="yogaEtapes" style="margin:8px 0 10px;padding-left:20px;line-height:1.55;"></ol>
+          <div id="yogaIntention" style="font-style:italic;opacity:.85;"></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  
   <!-- REFLEXION GUIDEE -->
   <section class="glass">
     <div class="card-label"><span class="dot"></span>Réflexion guidée</div>
@@ -197,6 +235,7 @@ body{ background:#15100a; }
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
+  <script src="contenu-quotidien.js" defer></script>
 <script>
 /* ===== RITUEL QUOTIDIEN — MOTEUR ===== */
 (function(){
@@ -453,6 +492,73 @@ body{ background:#15100a; }
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
 
 })();
-</script>
+
+  /* ===== SEANCES DU JOUR : tai-chi + yoga + loi de l'attraction (option B : jour 1 = inscription) ===== */
+  (function(){
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+    function calcJourProgramme(createdAtISO){
+      // nombre de jours entiers ecoules depuis l'inscription (>=0)
+      var debut = createdAtISO ? new Date(createdAtISO) : new Date();
+      var d0 = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
+      var now = new Date();
+      var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var diffJours = Math.floor((d1 - d0) / 86400000);
+      if (diffJours < 0) diffJours = 0;
+      var jour = diffJours + 1;          // jour 1 le jour de l'inscription
+      if (jour > 30) jour = 30;          // une fois le programme fini, on reste au jour 30
+      return jour;
+    }
+
+    function remplirSeance(prefix, s){
+      var img = document.getElementById(prefix+'Img');
+      if (img){ img.src = s.image; img.onerror = function(){ this.style.display='none'; }; }
+      document.getElementById(prefix+'Titre').textContent = s.titre;
+      document.getElementById(prefix+'Meta').textContent = '· ' + s.duree + ' · ' + s.niveau;
+      var ol = document.getElementById(prefix+'Etapes');
+      ol.innerHTML = s.etapes.map(function(e){ return '<li>' + escapeHtml(e) + '</li>'; }).join('');
+      document.getElementById(prefix+'Intention').textContent = '✦ ' + s.intention;
+    }
+
+    function afficher(jour){
+      var data = window.HARMONIA_CONTENU;
+      if (!data) return;
+      var badge = document.getElementById('progJourBadge');
+      if (badge) badge.textContent = 'Jour ' + jour + ' / 30';
+
+      var jourData = (data.jours || []).find(function(j){ return j.jour === jour; });
+      if (jourData){
+        remplirSeance('taichi', jourData.taichi);
+        remplirSeance('yoga', jourData.yoga);
+      }
+      var lois = data.lois || [];
+      if (lois.length){
+        var loi = lois[(jour - 1) % lois.length];   // cycle de 12 lois
+        document.getElementById('loiTitre').textContent = loi.titre;
+        document.getElementById('loiTexte').textContent = loi.texte;
+      }
+    }
+
+    function boot(){
+      // attendre que le contenu soit charge (script defer)
+      if (!window.HARMONIA_CONTENU){ return setTimeout(boot, 120); }
+      // recuperer la date d'inscription via Supabase
+      function go(createdAt){ afficher(calcJourProgramme(createdAt)); }
+      try {
+        if (window.waitForSupabase){
+          window.waitForSupabase().then(function(){
+            window._supabase.auth.getUser().then(function(res){
+              var u = res && res.data && res.data.user;
+              go(u ? u.created_at : null);
+            }).catch(function(){ go(null); });
+          }).catch(function(){ go(null); });
+        } else { go(null); }
+      } catch(e){ go(null); }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
+  })();
+
+  </script>
 </body>
 </html>
