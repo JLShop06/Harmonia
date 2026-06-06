@@ -326,6 +326,316 @@ window.HARMONIA_CONTENU = {
         ],
         intention: "Je salue le jour avec gratitude et énergie."
       }
+    },
+    {
+      jour: 11,
+      taichi: {
+        titre: "Repousser le singe (Tai-chi)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-11.webp",
+        etapes: [
+          "Tenez-vous droit, pieds écartés à la largeur des hanches, bras détendus le long du corps.",
+          "Reculez lentement la main droite ouverte vers l'arrière, paume vers le haut, le regard la suit.",
+          "Ramenez cette main près de l'oreille, puis poussez-la doucement vers l'avant, paume en avant.",
+          "Pendant ce temps, l'autre main recule vers la hanche, paume vers le haut. Alternez les côtés.",
+          "Enchaînez 6 répétitions lentes par côté en gardant la respiration calme et continue."
+        ],
+        intention: "Je laisse partir ce qui m'encombre et j'avance avec légèreté."
+      },
+      yoga: {
+        titre: "Posture de l'enfant (Yoga)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-11.webp",
+        etapes: [
+          "Mettez-vous à genoux sur le tapis, gros orteils joints, genoux légèrement écartés.",
+          "Asseyez les fesses sur les talons et inspirez profondément en grandissant le dos.",
+          "Sur l'expiration, penchez le buste vers l'avant et posez le front au sol.",
+          "Étirez les bras devant vous, paumes au sol, ou laissez-les le long du corps.",
+          "Respirez lentement dans cette posture pendant 8 à 10 respirations profondes."
+        ],
+        intention: "Je m'accorde le repos et je relâche toute tension."
+      }
+    },
+    {
+      jour: 12,
+      taichi: {
+        titre: "La grue blanche déploie ses ailes",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-12.webp",
+        etapes: [
+          "Debout, pieds joints, transférez le poids sur la jambe droite.",
+          "Levez lentement le bras droit au-dessus de la tête, paume vers l'extérieur.",
+          "Abaissez le bras gauche le long de la cuisse, paume vers le sol, doigts pointés vers le bas.",
+          "Effleurez le sol de la pointe du pied gauche pour l'équilibre, regard à l'horizon.",
+          "Tenez 3 respirations puis revenez et changez de côté. Répétez 4 fois par côté."
+        ],
+        intention: "Je m'élève avec calme et je garde mon équilibre intérieur."
+      },
+      yoga: {
+        titre: "La pince debout (Uttanasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-12.webp",
+        etapes: [
+          "Debout, pieds écartés à la largeur des hanches, inspirez en levant les bras au ciel.",
+          "Sur l'expiration, penchez-vous vers l'avant depuis les hanches, genoux légèrement fléchis.",
+          "Laissez tomber la tête et les bras vers le sol, relâchez la nuque complètement.",
+          "Attrapez vos coudes opposés et laissez le poids du buste étirer le dos des jambes.",
+          "Respirez 6 fois, puis remontez lentement en déroulant la colonne vertèbre par vertèbre."
+        ],
+        intention: "Je me plie sans me briser, je reste souple face à la vie."
+      }
+    },
+    {
+      jour: 13,
+      taichi: {
+        titre: "Caresser la crinière du cheval sauvage",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-13.webp",
+        etapes: [
+          "Position debout, pieds écartés, mains comme si vous teniez un ballon devant le ventre.",
+          "Avancez d'un pas la jambe gauche en pliant le genou, transférez le poids devant.",
+          "Ouvrez les bras en diagonale : main gauche monte au niveau des yeux, main droite descend à la hanche.",
+          "Le regard suit la main qui monte. Le mouvement est lent, fluide, continu.",
+          "Ramenez le ballon au centre et changez de côté. 5 répétitions par côté."
+        ],
+        intention: "J'avance avec douceur et je dompte mes énergies."
+      },
+      yoga: {
+        titre: "Le chat-vache (Marjaryasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-13.webp",
+        etapes: [
+          "Placez-vous à quatre pattes, mains sous les épaules, genoux sous les hanches.",
+          "Inspirez en creusant le dos : ventre vers le sol, regard vers le haut (posture de la vache).",
+          "Expirez en arrondissant le dos : menton vers la poitrine, nombril vers le ciel (posture du chat).",
+          "Synchronisez chaque mouvement avec votre respiration, fluide et sans à-coups.",
+          "Répétez ce va-et-vient 10 fois en écoutant chaque vertèbre se mobiliser."
+        ],
+        intention: "J'ondule avec la vie et je libère ma colonne."
+      }
+    },
+    {
+      jour: 14,
+      taichi: {
+        titre: "Mains tournant comme des nuages",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-14.webp",
+        etapes: [
+          "Debout, pieds écartés, genoux légèrement fléchis, dos droit et détendu.",
+          "Levez la main droite à hauteur des yeux, paume vers vous, main gauche au niveau du ventre.",
+          "Déplacez doucement le poids d'une jambe à l'autre en faisant tourner les mains comme des nuages.",
+          "Les mains se croisent au centre puis s'écartent, le buste pivote légèrement.",
+          "Continuez ce mouvement lent et hypnotique pendant 2 minutes."
+        ],
+        intention: "Mes pensées passent comme des nuages, je reste serein."
+      },
+      yoga: {
+        titre: "La torsion assise (Ardha Matsyendrasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-14.webp",
+        etapes: [
+          "Asseyez-vous jambes tendues, puis pliez la jambe droite et posez le pied à l'extérieur du genou gauche.",
+          "Inspirez en grandissant la colonne, bras gauche levé vers le ciel.",
+          "Expirez en tournant le buste vers la droite, coude gauche contre le genou droit.",
+          "Posez la main droite derrière vous et regardez par-dessus l'épaule droite.",
+          "Tenez 5 respirations, revenez au centre, puis changez de côté."
+        ],
+        intention: "Je me tourne vers de nouvelles perspectives avec ouverture."
+      }
+    },
+    {
+      jour: 15,
+      taichi: {
+        titre: "Le serpent qui rampe (Tai-chi bas)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-15.webp",
+        etapes: [
+          "Pieds largement écartés, fléchissez profondément la jambe droite, jambe gauche tendue.",
+          "Posez les mains ouvertes devant vous et glissez le poids du corps vers la gauche.",
+          "Descendez bas en gardant le dos droit, comme si vous glissiez au ras du sol.",
+          "Remontez en transférant le poids sur la jambe gauche désormais fléchie.",
+          "Alternez de gauche à droite 6 fois, lentement, en contrôlant l'équilibre."
+        ],
+        intention: "Je m'ancre profondément et je puise ma force dans la terre."
+      },
+      yoga: {
+        titre: "Le guerrier I (Virabhadrasana I)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-15.webp",
+        etapes: [
+          "Debout, faites un grand pas en arrière avec le pied droit, pied avant pointé devant.",
+          "Tournez légèrement le pied arrière à 45 degrés et alignez le talon avant avec la voûte arrière.",
+          "Fléchissez le genou avant au-dessus de la cheville, cuisse parallèle au sol si possible.",
+          "Levez les bras au ciel, paumes face à face, regard vers le haut, épaules basses.",
+          "Tenez 5 respirations puis changez de jambe."
+        ],
+        intention: "Je me tiens debout dans ma force avec courage."
+      }
+    },
+    {
+      jour: 16,
+      taichi: {
+        titre: "Frapper avec les deux poings (Tai-chi)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-16.webp",
+        etapes: [
+          "Position stable, pieds écartés, poings fermés détendus au niveau des hanches.",
+          "Avancez le poids sur la jambe avant en pliant le genou.",
+          "Décrivez un grand cercle vers l'extérieur avec les deux poings, comme pour encercler.",
+          "Ramenez les poings vers l'avant à hauteur des tempes, comme un coup doux et contrôlé.",
+          "Revenez à la position de départ. Répétez 6 fois avec respiration ample."
+        ],
+        intention: "Je rassemble mon énergie et j'agis avec détermination."
+      },
+      yoga: {
+        titre: "Le guerrier II (Virabhadrasana II)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-16.webp",
+        etapes: [
+          "Pieds largement écartés, tournez le pied droit à 90 degrés vers l'extérieur.",
+          "Fléchissez le genou droit au-dessus de la cheville, cuisse vers la parallèle au sol.",
+          "Ouvrez les bras à l'horizontale, parallèles au sol, paumes vers le bas.",
+          "Tournez la tête vers la main droite, regard fixé au loin au-delà des doigts.",
+          "Tenez 5 respirations, puis changez de côté."
+        ],
+        intention: "Je regarde droit devant et je tiens ma position avec assurance."
+      }
+    },
+    {
+      jour: 17,
+      taichi: {
+        titre: "Brosser le genou et avancer",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-17.webp",
+        etapes: [
+          "Debout, pieds écartés, une main près de l'oreille, l'autre devant le ventre.",
+          "Avancez la jambe opposée en pliant le genou, transférez le poids devant.",
+          "Poussez la main de l'oreille vers l'avant, paume en avant, à hauteur de poitrine.",
+          "L'autre main 'brosse' au-dessus du genou avant et se pose à la hanche.",
+          "Changez de côté en avançant l'autre jambe. 5 répétitions par côté."
+        ],
+        intention: "Je balaie les obstacles et j'avance pas à pas."
+      },
+      yoga: {
+        titre: "Le triangle (Trikonasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-17.webp",
+        etapes: [
+          "Pieds largement écartés, pied droit tourné à 90 degrés vers l'extérieur.",
+          "Inspirez en ouvrant les bras à l'horizontale.",
+          "Expirez en penchant le buste vers la droite, main droite vers la cheville ou le tibia.",
+          "Levez le bras gauche vers le ciel, alignant les deux bras, regard vers la main haute.",
+          "Tenez 5 respirations, remontez, puis changez de côté."
+        ],
+        intention: "Je m'étire vers l'équilibre entre force et souplesse."
+      }
+    },
+    {
+      jour: 18,
+      taichi: {
+        titre: "Aiguille au fond de la mer",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-18.webp",
+        etapes: [
+          "Debout, pieds joints, poids sur la jambe droite, dos droit.",
+          "Levez la main droite au-dessus, puis abaissez-la lentement devant le corps.",
+          "Penchez le buste vers l'avant en pointant les doigts vers le sol comme une aiguille.",
+          "Gardez la nuque dans le prolongement du dos, le mouvement reste lent.",
+          "Remontez en déroulant la colonne. Répétez 5 fois."
+        ],
+        intention: "Je plonge en moi pour trouver le calme profond."
+      },
+      yoga: {
+        titre: "Le demi-pont (Setu Bandhasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-18.webp",
+        etapes: [
+          "Allongez-vous sur le dos, genoux pliés, pieds à plat près des fessiers.",
+          "Posez les bras le long du corps, paumes au sol.",
+          "Inspirez et soulevez doucement le bassin vers le ciel en poussant sur les pieds.",
+          "Gardez les cuisses parallèles, serrez légèrement les omoplates sous le dos.",
+          "Tenez 5 respirations puis redescendez vertèbre par vertèbre. Répétez 3 fois."
+        ],
+        intention: "J'ouvre mon cœur et je m'élève en douceur."
+      }
+    },
+    {
+      jour: 19,
+      taichi: {
+        titre: "Tourner et frapper du talon",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-19.webp",
+        etapes: [
+          "Debout, pieds écartés, bras croisés devant la poitrine, poignets souples.",
+          "Transférez le poids sur la jambe gauche, équilibre stable.",
+          "Ouvrez les bras lentement sur les côtés tout en levant le genou droit.",
+          "Tendez doucement la jambe droite vers l'avant, talon poussé, sans forcer.",
+          "Reposez le pied et changez de côté. 4 répétitions par côté."
+        ],
+        intention: "J'ouvre mon espace et j'affirme ma présence."
+      },
+      yoga: {
+        titre: "L'arbre (Vrksasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-19.webp",
+        etapes: [
+          "Debout, transférez le poids sur la jambe gauche, regard fixé sur un point devant vous.",
+          "Posez la plante du pied droit sur la cheville, le mollet ou l'intérieur de la cuisse gauche.",
+          "Évitez de poser le pied directement sur le genou.",
+          "Joignez les mains devant la poitrine, puis montez-les au-dessus de la tête si l'équilibre tient.",
+          "Tenez 5 respirations puis changez de jambe."
+        ],
+        intention: "Je m'enracine et je grandis vers la lumière."
+      }
+    },
+    {
+      jour: 20,
+      taichi: {
+        titre: "Clôturer en ramenant le qi",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/taichi-jour-20.webp",
+        etapes: [
+          "Debout, pieds écartés à la largeur des hanches, bras le long du corps.",
+          "Inspirez en levant lentement les bras sur les côtés jusqu'au-dessus de la tête.",
+          "Tournez les paumes vers le bas au sommet du mouvement.",
+          "Expirez en descendant les mains devant le visage et le buste, comme pour ramener l'énergie.",
+          "Posez les mains l'une sur l'autre sur le bas-ventre. Répétez 6 fois lentement."
+        ],
+        intention: "Je rassemble mon énergie et je l'ancre en moi."
+      },
+      yoga: {
+        titre: "Relaxation finale (Savasana)",
+        duree: "15 min",
+        niveau: "Débutant",
+        image: "images/yoga-jour-20.webp",
+        etapes: [
+          "Allongez-vous sur le dos, jambes légèrement écartées, bras le long du corps paumes vers le ciel.",
+          "Fermez les yeux et laissez tout le poids du corps se déposer dans le sol.",
+          "Relâchez consciemment chaque partie du corps, des pieds jusqu'au visage.",
+          "Laissez la respiration devenir naturelle, sans la contrôler.",
+          "Restez ainsi 5 minutes, dans un lâcher-prise complet."
+        ],
+        intention: "Je m'abandonne au calme et je laisse l'énergie circuler."
+      }
     }
   ]
 };
