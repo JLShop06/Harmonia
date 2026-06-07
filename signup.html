@@ -1,126 +1,141 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inscription — Harmonia</title>
-  <meta name="description" content="Créez votre compte Harmonia et accédez en illimité au Tai Chi guidé, aux 12 Lois de l'Attraction, au journal de bien-être et au suivi de progression. Abonnement à 14,90€/mois, sans engagement.">
-  <meta name="keywords" content="inscription harmonia, tai chi, taichi, bien-être, développement personnel, loi d'attraction">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://harmonia-woad.vercel.app/signup.html">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://harmonia-woad.vercel.app/signup.html">
-  <meta property="og:site_name" content="Harmonia">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Inscription — Harmonia">
-  <meta property="og:description" content="Rejoignez Harmonia : Tai Chi guidé et 12 Lois de l'Attraction pour votre bien-être et votre développement personnel.">
-  <meta property="og:image" content="https://harmonia-woad.vercel.app/logo-harmonia-gold.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Inscription — Harmonia">
-  <meta name="twitter:description" content="Rejoignez Harmonia : Tai Chi guidé et 12 Lois de l'Attraction pour votre bien-être.">
-  <meta name="twitter:image" content="https://harmonia-woad.vercel.app/logo-harmonia-gold.png">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .auth-container { display:flex; align-items:center; justify-content:center; min-height:100vh; }
-    .auth-logo { font-family:"Cormorant Garamond",serif; font-size:1.6rem; color:white; opacity:.8; margin-bottom:24px; text-align:center; }
-    .auth-card { width:90%; max-width:400px; }
-    .auth-card h1 { font-size:1.8rem; margin-bottom:8px; }
-    .price-badge { display:inline-block; background:rgba(157,122,67,.25); border:1px solid rgba(157,122,67,.5); color:#f3d08a; padding:6px 16px; border-radius:999px; font-size:.82em; margin-bottom:20px; }
-    .features-list { list-style:none; padding:0; margin-bottom:20px; }
-    .features-list li { font-size:.85em; opacity:.7; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
-    .features-list li::before { content:"✓"; color:#52b788; font-weight:700; }
-        .auth-card { background: rgba(20,14,8,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(201,162,75,0.25); border-radius: 18px; padding: 40px 34px; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
-        .auth-card h1 { font-family:"Cormorant Garamond",serif; font-size:2.1rem; font-weight:700; color:#f3e7d0; letter-spacing:0.5px; }
-        .btn-primary { display:block; width:100%; margin-top:18px; padding:15px 24px; border:none; border-radius:4px; background:linear-gradient(135deg,#c9a24b,#8a6d2f); color:#1a1208; font-family:"Inter",sans-serif; font-size:0.95rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease, filter .25s ease; }
-        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(201,162,75,0.35); filter:brightness(1.06); }
-        .cgu-label { font-size:.82rem; color:rgba(243,231,208,0.75); line-height:1.6; }
-        .cgu-label a { color:#c9a24b; text-decoration:none; border-bottom:1px solid rgba(201,162,75,0.4); }
-        .cgu-label a:hover { color:#e8d5b7; }
-        #cguCheck { width:16px; height:16px; accent-color:#c9a24b; cursor:pointer; }
-        .auth-links { text-align:center; margin-top:28px; color:rgba(243,231,208,0.7); font-size:.9rem; }
-        .auth-links a { display:inline-block; margin-top:4px; color:#c9a24b; font-weight:600; text-decoration:none; letter-spacing:0.4px; border-bottom:1px solid rgba(201,162,75,0.5); transition:color .2s ease; }
-        .auth-links a:hover { color:#f3e7d0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription — Harmonia</title>
+<meta name="description" content="Créez votre compte Harmonia et accédez en illimité au Tai Chi guidé, aux 12 Lois de l'Attraction, au yoga, au journal de bien-être et au suivi de progression. Abonnement à 14,90€/mois, sans engagement.">
+<meta name="keywords" content="inscription harmonia, tai chi, taichi, yoga, bien-être, développement personnel, loi d'attraction">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://harmonia-woad.vercel.app/signup.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://harmonia-woad.vercel.app/signup.html">
+<meta property="og:site_name" content="Harmonia">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Inscription — Harmonia">
+<meta property="og:description" content="Rejoignez Harmonia : Tai Chi guidé, yoga et 12 Lois de l'Attraction pour votre bien-être et votre développement personnel.">
+<meta property="og:image" content="https://harmonia-woad.vercel.app/logo-harmonia-gold.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inscription — Harmonia">
+<meta name="twitter:description" content="Rejoignez Harmonia : Tai Chi guidé, yoga et 12 Lois de l'Attraction pour votre bien-être.">
+<meta name="twitter:image" content="https://harmonia-woad.vercel.app/logo-harmonia-gold.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+.auth-container { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:40px 20px; }
+.auth-logo { font-family:"Cormorant Garamond",serif; font-size:1.7rem; color:#f3e7d0; opacity:.9; margin-bottom:28px; text-align:center; display:flex; align-items:center; justify-content:center; gap:10px; letter-spacing:.5px; }
+.auth-logo img { height:34px; width:auto; }
+.auth-card { width:100%; max-width:430px; position:relative; background:linear-gradient(165deg, rgba(28,20,11,0.92) 0%, rgba(18,12,7,0.96) 100%); backdrop-filter:blur(14px); border:1px solid rgba(201,162,75,0.28); border-radius:20px; padding:48px 44px; box-shadow:0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(201,162,75,0.12); overflow:hidden; animation:cardRise .9s cubic-bezier(.16,1,.3,1) both; }
+.auth-card::before { content:""; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, rgba(201,162,75,0.7), transparent); }
+@keyframes cardRise { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.auth-eyebrow { text-align:center; font-size:.72rem; letter-spacing:3px; text-transform:uppercase; color:#c9a24b; margin-bottom:14px; font-weight:600; }
+.auth-card h1 { font-family:"Cormorant Garamond",serif; font-size:2.4rem; font-weight:700; line-height:1.1; text-align:center; margin:0 0 10px; background:linear-gradient(135deg, #f6ecd6, #c9a24b); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.auth-sub { text-align:center; font-size:.95rem; color:rgba(243,231,208,0.7); line-height:1.6; margin:0 0 22px; }
+.divider-gold { width:60px; height:1px; margin:0 auto 24px; background:linear-gradient(90deg, transparent, rgba(201,162,75,0.8), transparent); position:relative; }
+.divider-gold::after { content:"\2756"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#c9a24b; font-size:.7rem; background:rgba(18,12,7,1); padding:0 8px; }
+.price-badge { display:flex; align-items:baseline; justify-content:center; gap:6px; flex-wrap:wrap; background:rgba(201,162,75,0.10); border:1px solid rgba(201,162,75,0.35); border-radius:12px; padding:14px; margin-bottom:26px; }
+.price-badge .amount { font-family:"Cormorant Garamond",serif; font-size:1.9rem; font-weight:700; color:#f3e7d0; line-height:1; }
+.price-badge .per { font-size:.8rem; color:rgba(243,231,208,0.6); }
+.price-badge .tag { display:block; width:100%; text-align:center; font-size:.7rem; letter-spacing:1.5px; text-transform:uppercase; color:#c9a24b; margin-top:6px; }
+.features-list { list-style:none; padding:0; margin:0 0 28px; }
+.features-list li { font-size:.9rem; color:rgba(243,231,208,0.82); margin-bottom:13px; display:flex; align-items:flex-start; gap:11px; line-height:1.45; }
+.features-list li::before { content:"\2713"; flex-shrink:0; width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(201,162,75,0.15); border:1px solid rgba(201,162,75,0.4); color:#c9a24b; font-size:.7rem; font-weight:700; margin-top:1px; }
+.btn-primary { position:relative; display:block; width:100%; margin-top:4px; padding:17px 24px; border:none; border-radius:6px; background:linear-gradient(135deg,#e6c878 0%,#c9a24b 45%,#8a6d2f 100%); color:#1a1208; font-family:"Inter",sans-serif; font-size:.92rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease, filter .3s ease; box-shadow:0 8px 24px rgba(201,162,75,0.25); }
+.btn-primary::after { content:""; position:absolute; top:0; left:-120%; width:60%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent); transform:skewX(-20deg); transition:left .6s ease; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(201,162,75,0.4); filter:brightness(1.05); }
+.btn-primary:hover::after { left:130%; }
+.cgu-label { font-size:.82rem; color:rgba(243,231,208,0.72); line-height:1.6; }
+.cgu-label a { color:#c9a24b; text-decoration:none; border-bottom:1px solid rgba(201,162,75,0.4); }
+.cgu-label a:hover { color:#e8d5b7; }
+#cguCheck { width:17px; height:17px; accent-color:#c9a24b; cursor:pointer; }
+.auth-links { text-align:center; margin-top:30px; padding-top:24px; border-top:1px solid rgba(201,162,75,0.15); color:rgba(243,231,208,0.65); font-size:.9rem; }
+.auth-links p { margin:0 0 6px; }
+.auth-links a { display:inline-block; color:#c9a24b; font-weight:600; text-decoration:none; letter-spacing:.5px; border-bottom:1px solid rgba(201,162,75,0.5); transition:color .2s ease; }
+.auth-links a:hover { color:#f3e7d0; }
+</style>
 </head>
 <body class="auth-page">
 
 <div class="auth-container">
-  <div>
-      <div class="auth-logo"><img src="logo-harmonia-gold.png" alt="Harmonia logo"> Harmonia</div>   
-    <div class="auth-card">
-      <h1>Commencer</h1>
-      <p>Crée ton compte et accède à Harmonia Premium</p>
+<div class="auth-card">
+<div class="auth-logo"><img src="logo-harmonia-gold.png" alt="Harmonia logo"> Harmonia</div>
+<div class="auth-eyebrow">Harmonia Premium</div>
+<h1>Commencez votre transformation</h1>
+<p class="auth-sub">Créez votre compte et accédez à l'intégralité de l'expérience Harmonia.</p>
+<div class="divider-gold"></div>
 
-      <div class="price-badge">14,90€ / mois · Sans engagement</div>
+<div class="price-badge">
+<span class="amount">14,90€</span>
+<span class="per">/ mois</span>
+<span class="tag">Sans engagement</span>
+</div>
 
-      <ul class="features-list">
-        <li>Méditation, respiration, mobilité illimités</li>
-        <li>Journal de bien-être personnel</li>
-        <li>Suivi de progression et statistiques</li>
-        <li>Connexion sécurisée sans mot de passe</li>
-      </ul>
+<ul class="features-list">
+<li>Tai Chi guidé en illimité, à votre rythme</li>
+<li>Les 12 Lois de l'Attraction, pas à pas</li>
+<li>Journal de bien-être &amp; suivi de progression</li>
+<li>Accès sécurisé, sans mot de passe</li>
+</ul>
 
-      <!-- Flux A: l'abonnement se fait directement via Stripe Checkout, qui collecte
-           email, prenom, nom, adresse et telephone de maniere securisee. -->
-      <label class="cgu-label" style="display:flex;align-items:flex-start;gap:8px;margin:8px 0 16px;font-size:.85rem;text-align:left;">
-        <input type="checkbox" id="cguCheck" style="margin-top:3px;">
-                                      <span>J'accepte les <a href="legal.html">mentions légales</a> et les conditions d'utilisation.</span>
-      </label>
+<!-- Flux A: l'abonnement se fait directement via Stripe Checkout, qui collecte
+email, prenom, nom, adresse et telephone de maniere securisee. -->
+<label class="cgu-label" style="display:flex;align-items:flex-start;gap:8px;margin:8px 0 18px;text-align:left;">
+<input type="checkbox" id="cguCheck" style="margin-top:3px;">
+<span>J'accepte les <a href="legal.html">mentions légales</a> et les conditions d'utilisation.</span>
+</label>
 
-      <button type="button" id="subscribeBtn" class="btn-primary">S'abonner — 14,90€/mois →</button>
+<button type="button" id="subscribeBtn" class="btn-primary">S'abonner — 14,90€/mois →</button>
 
-      <p id="subError" style="color:#e11d48;font-size:.85rem;margin-top:10px;display:none;"></p>
+<p id="subError" style="color:#e11d48;font-size:.85rem;margin-top:10px;display:none;"></p>
 
-      <div class="auth-links">
-        <p>Déjà un compte ?</p>
-        <a href="login.html">Se connecter</a>
-      </div>
-    </div>
-  </div>
+<div class="auth-links">
+<p>Déjà un compte ?</p>
+<a href="login.html">Se connecter</a>
+</div>
+</div>
 </div>
 
 <script src="auth.js"></script>
 <script>
 (function () {
-  // Flux A: clic sur "S'abonner" -> creation de la session Stripe Checkout -> redirection
-  var PRICE_ID = "price_1TUn0AF9c1lWA0HyP8ZwVeBN";
-  var btn = document.getElementById("subscribeBtn");
-  var cgu = document.getElementById("cguCheck");
-  var errEl = document.getElementById("subError");
+// Flux A: clic sur "S'abonner" -> creation de la session Stripe Checkout -> redirection
+var PRICE_ID = "price_1TUn0AF9c1lWA0HyP8ZwVeBN";
+var btn = document.getElementById("subscribeBtn");
+var cgu = document.getElementById("cguCheck");
+var errEl = document.getElementById("subError");
 
-  function showErr(msg) {
-    if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
-  }
+function showErr(msg) {
+if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
+}
 
-  btn.addEventListener("click", async function () {
-    if (errEl) errEl.style.display = "none";
-    if (cgu && !cgu.checked) {
-      showErr("Veuillez accepter les mentions legales pour continuer.");
-      return;
-    }
-    btn.disabled = true;
-    var original = btn.textContent;
-    btn.textContent = "Redirection\u2026";
-    try {
-      var r = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId: PRICE_ID })
-      });
-      var data = await r.json();
-      if (data && data.url) {
-        window.location.href = data.url;
-      } else {
-        showErr("Erreur : " + ((data && data.error) || "impossible de demarrer le paiement."));
-        btn.disabled = false;
-        btn.textContent = original;
-      }
-    } catch (e) {
-      showErr("Erreur de connexion. Veuillez reessayer.");
-      btn.disabled = false;
-      btn.textContent = original;
-    }
-  });
+btn.addEventListener("click", async function () {
+if (errEl) errEl.style.display = "none";
+if (cgu && !cgu.checked) {
+showErr("Veuillez accepter les mentions legales pour continuer.");
+return;
+}
+btn.disabled = true;
+var original = btn.textContent;
+btn.textContent = "Redirection\u2026";
+try {
+var r = await fetch("/api/create-checkout-session", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({ priceId: PRICE_ID })
+});
+var data = await r.json();
+if (data && data.url) {
+window.location.href = data.url;
+} else {
+showErr("Erreur : " + ((data && data.error) || "impossible de demarrer le paiement."));
+btn.disabled = false;
+btn.textContent = original;
+}
+} catch (e) {
+showErr("Erreur de connexion. Veuillez reessayer.");
+btn.disabled = false;
+btn.textContent = original;
+}
+});
 })();
 </script>
 </body>
