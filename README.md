@@ -131,3 +131,16 @@ Push sur main → déploiement automatique Vercel en ~7 secondes.
 ---
 
 © 2026 Harmonia — Corps • Esprit • Équilibre
+
+
+---
+
+## 🗓️ Journal des modifications
+
+### 8 juin 2026 — Programme 30 jours & conformité légale
+- ✅ **Images du programme 30 jours complétées** : 30 images Tai-chi + 30 images Yoga (`images/taichi-jour-01..30.webp`, `images/yoga-jour-01..30.webp`)
+- ✅ **README-IMAGES.md** mis à jour (suivi des images à 60/60)
+- ✅ **legal.html** : mentions légales complétées (éditeur, SIRET 848 732 137 00015, adresse, TVA art. 293 B), droit de rétractation 14 jours, médiation de la consommation
+- ✅ **cgv.html** : nouvelles Conditions Générales de Vente (15 articles) — prix, souscription, rétractation 14 jours + formulaire type, résiliation, responsabilité, droit applicable
+- ✅ **signup.html** : case d'acceptation reliée aux mentions légales + CGV + mention rétractation 14 jours
+- ✅ **index.html** : lien CGV ajouté au footer
