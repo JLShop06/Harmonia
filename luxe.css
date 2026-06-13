@@ -184,3 +184,17 @@ input[type=text], input[type=email], input[type=date], textarea{
 .hamburger span, .nav-hamburger span{ background:var(--r-gold) !important; }
 /* Emojis / badges restent lisibles */
 .dash-page .law-badge, .card-label{ color:var(--r-gold) !important; }
+
+
+/* ---- Cartes pages Enseignements & Tai Chi ---- */
+.dash-page .intro-section, .dash-page .law-practice, .dash-page .law-card,
+.dash-page .lesson-card, .dash-page .move-card, .dash-page .teaching-card,
+.intro-section, .law-practice, .lesson-card, .move-card{
+  background:rgba(255,238,200,.05) !important;
+  border:1px solid rgba(201,162,75,.22) !important;
+  border-radius:18px !important;
+  box-shadow:0 18px 44px rgba(0,0,0,.32) !important;
+  color:#e7dcc4 !important; }
+.intro-section *, .law-practice *, .lesson-card *, .move-card *{ color:#cdbf9f; }
+.intro-section h2, .intro-section h3, .law-practice h3,
+.intro-section strong, .law-practice strong{ color:var(--r-gold) !important; }
