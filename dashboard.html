@@ -192,7 +192,14 @@
 <blockquote id="quoteText"></blockquote>
 <cite id="quoteAuthor"></cite>
 </div>
-<h2 class="section-title">Séances du jour</h2>
+        <section class="glass dash-program" id="dashProgramme" style="background:rgba(255,238,200,.05);border:1px solid rgba(201,162,75,.22);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.32);padding:28px 26px;margin-bottom:26px;position:relative;overflow:hidden;">
+          <div class="card-label" style="display:flex;align-items:center;gap:10px;letter-spacing:.18em;text-transform:uppercase;font-size:.74rem;font-weight:600;color:#C9A24B;margin-bottom:16px;"><span class="dot" style="width:7px;height:7px;border-radius:50%;background:#C9A24B;box-shadow:0 0 12px rgba(201,162,75,.8);"></span>Votre programme du jour<span id="dashProgJourBadge" style="margin-left:auto;font-size:.8em;opacity:.85;letter-spacing:.04em;"></span></div>
+          <div class="seances-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;">
+            <div class="seance-card" style="border:1px solid rgba(201,162,75,.22);border-radius:16px;overflow:hidden;background:rgba(255,238,200,.04);box-shadow:0 18px 44px rgba(0,0,0,.32);"><img id="taichiImg" alt="" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.05);"><div style="padding:16px 18px;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;"><strong id="taichiTitre" style="font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:#f3e7d0;font-weight:600;"></strong><span id="taichiMeta" style="font-size:.82rem;color:#C9A24B;letter-spacing:.02em;"></span></div><ol id="taichiEtapes" style="margin:8px 0 10px;padding-left:20px;line-height:1.55;color:#d8cbb0;font-size:.95rem;"></ol><div id="taichiIntention" style="font-style:italic;opacity:.85;color:#cdbf9f;font-size:.92rem;"></div></div></div>
+            <div class="seance-card" style="border:1px solid rgba(201,162,75,.22);border-radius:16px;overflow:hidden;background:rgba(255,238,200,.04);box-shadow:0 18px 44px rgba(0,0,0,.32);"><img id="yogaImg" alt="" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.05);"><div style="padding:16px 18px;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;"><strong id="yogaTitre" style="font-family:'Cormorant Garamond',serif;font-size:1.32rem;color:#f3e7d0;font-weight:600;"></strong><span id="yogaMeta" style="font-size:.82rem;color:#C9A24B;letter-spacing:.02em;"></span></div><ol id="yogaEtapes" style="margin:8px 0 10px;padding-left:20px;line-height:1.55;color:#d8cbb0;font-size:.95rem;"></ol><div id="yogaIntention" style="font-style:italic;opacity:.85;color:#cdbf9f;font-size:.92rem;"></div></div></div>
+          </div>
+        </section>
+        <h2 class="section-title">Séances du jour</h2>
 <div class="seance-grid">
 <div class="seance-card">
 <div class="seance-top"><div class="seance-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M5 18c2-4 5-5 7-5s5 1 7 5"/><path d="M8 18l4-3 4 3"/></svg></div><span class="seance-badge">Matin</span></div>
@@ -269,6 +276,7 @@
 </div>
 </div>
 </main>
+<script src="contenu-quotidien.js"></script>
 <script src="auth.js"></script>
 <script>
 
@@ -584,6 +592,54 @@ function saveSession(id,minutes){
   if(tt) tt.textContent=law.t;
   if(dd) dd.textContent=law.d;
   if(aa) aa.textContent='\u201C'+law.a+'\u201D';
+})();
+</script>
+
+<script>
+(function(){
+  function calcJourProgramme(createdAtISO){
+    var debut = createdAtISO ? new Date(createdAtISO) : new Date();
+    if(isNaN(debut.getTime())) debut = new Date();
+    var d0 = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
+    var now = new Date();
+    var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diffJours = Math.floor((d1 - d0) / 86400000);
+    if(diffJours < 0) diffJours = 0;
+    var jour = diffJours + 1;
+    if(jour > 30) jour = 30;
+    return jour;
+  }
+  function escapeHtmlProg(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+  function remplirSeanceProg(prefix, s){
+    if(!s) return;
+    var img = document.getElementById(prefix+"Img");
+    if(img){ img.src = s.image; img.alt = s.titre || ""; img.onerror = function(){ this.style.display="none"; }; }
+    var t = document.getElementById(prefix+"Titre"); if(t) t.textContent = s.titre || "";
+    var m = document.getElementById(prefix+"Meta"); if(m) m.textContent = "· " + (s.duree||"") + " · " + (s.niveau||"");
+    var ol = document.getElementById(prefix+"Etapes"); if(ol) ol.innerHTML = (s.etapes||[]).map(function(e){ return "<li>" + escapeHtmlProg(e) + "</li>"; }).join("");
+    var it = document.getElementById(prefix+"Intention"); if(it) it.textContent = s.intention ? ("\u2726 " + s.intention) : "";
+  }
+  function afficherProgramme(jour){
+    var data = window.HARMONIA_CONTENU; if(!data) return;
+    var badge = document.getElementById("dashProgJourBadge"); if(badge) badge.textContent = "Jour " + jour + " / 30";
+    var jourData = (data.jours || []).find(function(j){ return j.jour === jour; });
+    if(jourData){ remplirSeanceProg("taichi", jourData.taichi); remplirSeanceProg("yoga", jourData.yoga); }
+  }
+  function bootProgramme(){
+    if(!window.HARMONIA_CONTENU){ return setTimeout(bootProgramme, 120); }
+    function go(createdAt){ afficherProgramme(calcJourProgramme(createdAt)); }
+    try{
+      if(window.waitForSupabase){
+        window.waitForSupabase().then(function(){
+          window._supabase.auth.getUser().then(function(res){
+            var u = res && res.data ? res.data.user : null;
+            go(u ? u.created_at : null);
+          }).catch(function(){ go(null); });
+        }).catch(function(){ go(null); });
+      } else { go(null); }
+    } catch(e){ go(null); }
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", bootProgramme); else bootProgramme();
 })();
 </script>
 </body>
