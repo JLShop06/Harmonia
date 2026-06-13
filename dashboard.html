@@ -473,7 +473,7 @@ function toggleTimer(id,total){
         showDashToast('✅ Séance '+(names[id]||id)+' terminée ! Bravo !');
         if(id==='resp')stopBreath();
         if(id==='med'||id==='mob')stopGuide(id);
-        saveSession(id,Math.round(total/60));
+        saveSession(id,Math.round(total/60));playEndChime();if(id==='resp'){try{window.speechSynthesis&&window.speechSynthesis.cancel();}catch(e){}}
       }
     },1000);
   }
@@ -510,15 +510,20 @@ function stopGuide(id){
   if(el){el.textContent='';el.style.opacity='0';}
 }
 var _breathInterval=null,_breathPhase='exhale';
+function playEndChime(){try{var Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;var ctx=new Ctx();function tone(freq,start,dur){var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);var t=ctx.currentTime+start;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.25,t+0.04);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.start(t);o.stop(t+dur);}tone(880,0,1.6);tone(1318.5,0.18,1.8);tone(659.25,0.42,2.2);setTimeout(function(){try{ctx.close();}catch(e){}},3000);}catch(e){}}
+var _harmoniaVoice=null,_voicesReady=false;
+function pickFemaleVoice(){try{var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];if(!vs||!vs.length)return null;var fr=vs.filter(function(v){return /fr(-|_|$)/i.test(v.lang);});var pref=['Audrey','Amelie','Amélie','Marie','Virginie','Julie','Google français','Microsoft Hortense','Hortense','Céline','Celine','female','femme'];for(var p=0;p<pref.length;p++){for(var i=0;i<fr.length;i++){if(fr[i].name.toLowerCase().indexOf(pref[p].toLowerCase())>-1)return fr[i];}}return fr[0]||vs[0];}catch(e){return null;}}
+function speakBreath(text){try{if(!('speechSynthesis' in window))return;if(!_voicesReady){_harmoniaVoice=pickFemaleVoice();_voicesReady=!!_harmoniaVoice;}window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang='fr-FR';u.rate=0.82;u.pitch=1.15;u.volume=1;if(_harmoniaVoice)u.voice=_harmoniaVoice;window.speechSynthesis.speak(u);}catch(e){}}
+if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=function(){_harmoniaVoice=pickFemaleVoice();_voicesReady=!!_harmoniaVoice;};}
 function startBreath(){
   var circle=document.getElementById('breathCircle'),label=document.getElementById('breathLabel');
   if(!circle)return;
   _breathPhase='inhale';circle.className='breath-circle inhale';
-  if(label)label.textContent='Inspire…';
+  if(label)label.textContent='Inspire…';speakBreath('Inspire');
   _breathInterval=setInterval(function(){
     _breathPhase=_breathPhase==='inhale'?'exhale':'inhale';
     circle.className='breath-circle '+_breathPhase;
-    if(label)label.textContent=_breathPhase==='inhale'?'Inspire…':'Expire…';
+    if(label)label.textContent=_breathPhase==='inhale'?'Inspire…':'Expire…';speakBreath(_breathPhase==='inhale'?'Inspire':'Expire');
   },5000);
 }
 function stopBreath(){
