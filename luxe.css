@@ -160,3 +160,27 @@ input[type=text], input[type=email], input[type=date], textarea{
     grid-template-columns:1fr !important; }
   .navbar{ padding:10px 16px !important; }
 }
+
+
+/* ---- Refinements navbar & boutons (specificite .dash-page) ---- */
+.dash-page .navbar, .navbar.scrolled, .dash-page .navbar.scrolled{
+  background:rgba(21,16,10,.9) !important;
+  border-bottom:1px solid rgba(201,162,75,.18) !important; }
+.dash-page .navbar a, .dash-page .nav-links a{ color:#cdbf9f !important; }
+.dash-page .navbar a:hover, .dash-page .navbar a.active,
+.dash-page .nav-links a:hover, .dash-page .nav-links a.active{ color:var(--r-gold) !important; }
+.dash-page .nav-brand, .nav-brand{ color:var(--r-gold) !important; }
+/* Bouton deconnexion -> or */
+.nav-logout, .dash-page .nav-logout, .btn-logout, a.nav-logout{
+  background:linear-gradient(135deg,var(--r-gold),#8A6D2F) !important;
+  color:var(--r-ink) !important; border:1px solid rgba(201,162,75,.5) !important; }
+.nav-logout:hover, .dash-page .nav-logout:hover{ filter:brightness(1.08); }
+/* Boutons humeur / mobilite hover */
+.dash-page .mood-btn, .dash-page .mood-emoji{ filter:none; }
+/* Menu hamburger / panneau mobile sombre */
+.nav-mobile-panel, .mobile-menu, .nav-hamburger-panel{
+  background:#1d1610 !important; border:1px solid rgba(201,162,75,.2) !important; }
+.nav-mobile-panel a{ color:#cdbf9f !important; }
+.hamburger span, .nav-hamburger span{ background:var(--r-gold) !important; }
+/* Emojis / badges restent lisibles */
+.dash-page .law-badge, .card-label{ color:var(--r-gold) !important; }
